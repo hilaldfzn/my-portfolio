@@ -65,7 +65,7 @@ export default function About() {
             About <span className="gradient-text">Me</span>
           </h2>
           <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
-            I'm a passionate full-stack developer with over 5 years of experience building web applications.
+            I am passionate about uncovering actionable insights from data, building scalable software systems, and driving progress in industries through the integration of analytical thinking and technical expertise. With a strong foundation in data analysis, machine learning, and programming, I aspire to develop tools and applications that optimize processes, enhance decision-making, and improve lives.
           </p>
         </div>
 

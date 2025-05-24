@@ -71,7 +71,7 @@ export default function Hero() {
               </h1>
               <div className="relative">
                 <p className="text-xl md:text-2xl text-muted-foreground max-w-3xl mx-auto leading-relaxed">
-                  Full Stack Developer & AI/ML Engineer passionate about creating{" "}
+                  Full Stack Developer passionate about creating{" "}
                   <span className="text-cyan-400 font-semibold">intelligent</span>,{" "}
                   <span className="text-purple-400 font-semibold">scalable</span>, and{" "}
                   <span className="text-pink-400 font-semibold">innovative</span> digital solutions.
@@ -97,7 +97,7 @@ export default function Hero() {
                 asChild
               >
                 <Link href="/resume.pdf" target="_blank">
-                  Download Resume
+                  Download CV
                 </Link>
               </Button>
             </div>

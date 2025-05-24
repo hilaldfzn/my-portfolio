@@ -5,60 +5,151 @@ import { Card, CardContent, CardFooter } from "../ui/card"
 import { Button } from "../ui/button"
 import { Badge } from "../ui/badge"
 import { Input } from "../ui/input"
-import { Calendar, Clock, Search, Eye } from "lucide-react"
+import { Calendar, Clock, Search } from "lucide-react"
 import Image from "next/image"
 import Link from "next/link"
 
 export default function BlogList() {
   const [searchTerm, setSearchTerm] = useState("")
 
-  // Mock data - replace with actual API calls
+
   const blogPosts = [
     {
       id: 1,
-      title: "Building Modern Web Applications with Next.js and Django",
-      excerpt: "Learn how to create full-stack applications using Next.js for the frontend and Django for the backend.",
-      image: "/placeholder.svg?height=200&width=400",
-      category: { name: "Web Development", slug: "web-development" },
+      title: "Test-Driven Development: The Key to Building Reliable and Scalable Software",
+      excerpt:
+        "Discover how TDD methodology can help you build more reliable, maintainable, and scalable software applications.",
+      image: "/assets/TDD.png",
+      category: { name: "Development", slug: "development" },
       tags: [
-        { name: "Next.js", slug: "nextjs" },
-        { name: "Django", slug: "django" },
+        { name: "Test-Driven Development", slug: "tdd" },
+        { name: "Software Testing", slug: "software-testing" },
+        { name: "Unit Testing", slug: "unit-testing" },
       ],
-      readingTime: 8,
-      views: 1250,
-      publishedAt: "2024-01-15",
-      slug: "building-modern-web-applications-nextjs-django",
+      readingTime: 10,
+      publishedAt: "2025-05-18",
+      slug: "test-driven-development-reliable-software",
+      url: "https://medium.com/@hilalfauzan9/test-driven-development-the-key-to-building-reliable-and-scalable-software-f6f355901330",
     },
     {
       id: 2,
-      title: "The Future of Frontend Development",
-      excerpt: "Exploring upcoming trends and technologies that will shape the future of frontend development.",
-      image: "/placeholder.svg?height=200&width=400",
-      category: { name: "Technology", slug: "technology" },
+      title: "From Duplication to Elegance: How SOLID Principles Transformed Our Authentication System",
+      excerpt:
+        "Learn how applying SOLID principles can transform messy, duplicated code into elegant, maintainable authentication systems.",
+      image: "/assets/SOLID.png",
+      category: { name: "Best Practices", slug: "best-practices" },
       tags: [
-        { name: "Frontend", slug: "frontend" },
-        { name: "Trends", slug: "trends" },
+        { name: "SOLID", slug: "solid" },
+        { name: "Code Quality", slug: "code-quality" },
+        { name: "Clean Code", slug: "clean-code" },
       ],
-      readingTime: 7,
-      views: 890,
-      publishedAt: "2024-01-10",
-      slug: "future-of-frontend-development",
+      readingTime: 10,
+      publishedAt: "2025-05-17",
+      slug: "solid-principles-authentication-system",
+      url: "https://medium.com/@hilalfauzan9/from-duplication-to-elegance-how-solid-principles-transformed-our-authentication-system-f4411cc4675f",
     },
     {
       id: 3,
-      title: "Optimizing React Performance",
+      title: "OWASP Compliance and Beyond: Building Robust Security Through Secure Programming",
       excerpt:
-        "Best practices and techniques for optimizing React applications for better performance and user experience.",
-      image: "/placeholder.svg?height=200&width=400",
-      category: { name: "React", slug: "react" },
+        "Comprehensive guide to implementing OWASP security principles and building secure applications with robust programming practices.",
+      image:
+        "/assets/secure-programming.png",
+      category: { name: "Security", slug: "security" },
       tags: [
-        { name: "React", slug: "react" },
-        { name: "Performance", slug: "performance" },
+        { name: "OWASP", slug: "owasp" },
+        { name: "Security", slug: "security" },
+        { name: "Authentication", slug: "authentication" },
+        { name: "Authorization", slug: "authorization" },
+      ],
+      readingTime: 12,
+      publishedAt: "2025-04-03",
+      slug: "owasp-compliance-security-programming",
+      url: "https://medium.com/@hilalfauzan9/owasp-compliance-and-beyond-building-a-robust-security-through-secure-programming-aba4060f0280",
+    },
+    {
+      id: 4,
+      title: "Preventing Bugs Before They Bite: SonarCloud for Proactive Code Quality",
+      excerpt:
+        "Learn how to use SonarCloud to maintain high code quality and prevent bugs before they reach production.",
+      image: "/assets/QA.png",
+      category: { name: "Quality Assurance", slug: "quality-assurance" },
+      tags: [
+        { name: "SonarCloud", slug: "sonarcloud" },
+        { name: "Code Quality", slug: "code-quality" },
+        { name: "Static Code Analysis", slug: "static-code-analysis" },
+      ],
+      readingTime: 10,
+      publishedAt: "2025-03-06",
+      slug: "sonarcloud-proactive-code-quality",
+      url: "https://medium.com/@hilalfauzan9/preventing-bugs-before-they-bite-sonarcloud-for-proactive-code-quality-c7db5b5ccff4",
+    },
+    {
+      id: 5,
+      title: "Unlocking Scrum Team Synergy: Mastering Tools for Peak Collaborative Coding",
+      excerpt:
+        "Explore essential tools and practices for maximizing team collaboration and productivity in Scrum environments.",
+      image: "/assets/teamwork-tools.png",
+      category: { name: "Agile", slug: "agile" },
+      tags: [
+        { name: "Scrum", slug: "scrum" },
+        { name: "Team Collaboration", slug: "team-collaboration" },
+      ],
+      readingTime: 9,
+      publishedAt: "2025-03-04",
+      slug: "scrum-team-synergy-collaborative-coding",
+      url: "https://medium.com/@hilalfauzan9/unlocking-scrum-team-synergy-mastering-tools-for-peak-collaborative-coding-5504d572cbe3",
+    },
+    {
+      id: 6,
+      title: "Google Cloud Platform: Solusi Terbaik Layanan Cloud",
+      excerpt:
+        "Comprehensive overview of Google Cloud Platform services and why it's an excellent choice for cloud solutions.",
+      image: "/assets/google-cloud.png",
+      category: { name: "Cloud Computing", slug: "cloud-computing" },
+      tags: [
+        { name: "Google Cloud", slug: "google-cloud" },
+        { name: "Cloud Computing", slug: "cloud-computing" },
+        { name: "Infrastructure", slug: "infrastructure" },
+      ],
+      readingTime: 5,
+      publishedAt: "2023-12-03",
+      slug: "google-cloud-platform-solusi-cloud",
+      url: "https://medium.com/compfest/google-cloud-platform-solusi-terbaik-layanan-cloud-a298a3aa53f1",
+    },
+    {
+      id: 7,
+      title: "Software Engineering Academy Camp 3: Implementation of Career-Related Skills",
+      excerpt:
+        "Insights from Software Engineering Academy focusing on practical career skills and professional development.",
+      image: "/assets/academy-career.png",
+      category: { name: "Career Development", slug: "career-development" },
+      tags: [
+        { name: "Career", slug: "career" },
+        { name: "Software Engineering", slug: "software-engineering" },
+        { name: "Professional Development", slug: "professional-development" },
       ],
       readingTime: 6,
-      views: 1100,
-      publishedAt: "2024-01-05",
-      slug: "optimizing-react-performance",
+      publishedAt: "2023-11-05",
+      slug: "software-engineering-academy-career-skills",
+      url: "https://medium.com/compfest/software-engineering-academy-camp-3-implementation-of-career-related-skills-d1bd1280b488",
+    },
+    {
+      id: 8,
+      title: "Grand Launching COMPFEST 15: Welcoming a Series of Insightful Events",
+      excerpt:
+        "Coverage of COMPFEST 15 grand launching event and the exciting series of technology and innovation events.",
+      image: "/assets/compfest15.png",
+      category: { name: "Events", slug: "events" },
+      tags: [
+        { name: "COMPFEST", slug: "compfest" },
+        { name: "Technology Events", slug: "technology-events" },
+        { name: "Innovation", slug: "innovation" },
+      ],
+      readingTime: 5,
+      publishedAt: "2023-05-23",
+      slug: "compfest-15-grand-launching",
+      url: "https://medium.com/compfest/grand-launching-compfest-15-welcoming-a-series-of-insightful-events-f452fcb48b56",
     },
   ]
 
@@ -118,17 +209,15 @@ export default function BlogList() {
                         <Clock className="h-4 w-4 mr-1" />
                         {post.readingTime} min read
                       </div>
-                      <div className="flex items-center">
-                        <Eye className="h-4 w-4 mr-1" />
-                        {post.views} views
-                      </div>
                     </div>
                   </div>
                 </CardContent>
 
                 <CardFooter className="p-6 pt-0">
                   <Button asChild>
-                    <Link href={`/blog/${post.slug}`}>Read Full Article</Link>
+                    <Link href={post.url} target="_blank" rel="noopener noreferrer">
+                      Read on Medium
+                    </Link>
                   </Button>
                 </CardFooter>
               </div>

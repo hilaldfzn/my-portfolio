@@ -8,33 +8,35 @@ import Link from "next/link"
 export default function Blog() {
   const blogPosts = [
     {
-      title: "Building Modern Web Applications with Next.js",
+      title: "Test-Driven Development: The Key to Building Reliable and Scalable Software",
       excerpt:
-        "Learn how to create performant and scalable web applications using Next.js and modern development practices.",
-      image: "/placeholder.svg?height=200&width=400",
-      category: "Web Development",
-      readingTime: 5,
-      publishedAt: "2024-01-15",
-      slug: "building-modern-web-applications-nextjs",
+        "Discover how TDD methodology can help you build more reliable, maintainable, and scalable software applications.",
+      image: "/assets/TDD.png",
+      readingTime: 10,
+      publishedAt: "2025-05-18",
+      slug: "test-driven-development-reliable-software",
+      url: "https://medium.com/@hilalfauzan9/test-driven-development-the-key-to-building-reliable-and-scalable-software-f6f355901330",
     },
     {
-      title: "The Future of Frontend Development",
-      excerpt: "Exploring upcoming trends and technologies that will shape the future of frontend development.",
-      image: "/placeholder.svg?height=200&width=400",
-      category: "Technology",
-      readingTime: 7,
-      publishedAt: "2024-01-10",
-      slug: "future-of-frontend-development",
+      title: "From Duplication to Elegance: How SOLID Principles Transformed Our Authentication System",
+      excerpt:
+        "Learn how applying SOLID principles can transform messy, duplicated code into elegant, maintainable authentication systems.",
+      image: "/assets/SOLID.png",
+      readingTime: 10,
+      publishedAt: "2025-05-17",
+      slug: "solid-principles-authentication-system",
+      url: "https://medium.com/@hilalfauzan9/from-duplication-to-elegance-how-solid-principles-transformed-our-authentication-system-f4411cc4675f",
     },
     {
-      title: "Optimizing React Performance",
+      title: "OWASP Compliance and Beyond: Building Robust Security Through Secure Programming",
       excerpt:
-        "Best practices and techniques for optimizing React applications for better performance and user experience.",
-      image: "/placeholder.svg?height=200&width=400",
-      category: "React",
-      readingTime: 6,
-      publishedAt: "2024-01-05",
-      slug: "optimizing-react-performance",
+        "Comprehensive guide to implementing OWASP security principles and building secure applications with robust programming practices.",
+      image:
+        "/assets/secure-programming.png",
+      readingTime: 12,
+      publishedAt: "2025-04-03",
+      slug: "owasp-compliance-security-programming",
+      url: "https://medium.com/@hilalfauzan9/owasp-compliance-and-beyond-building-a-robust-security-through-secure-programming-aba4060f0280",
     },
   ]
 
@@ -59,9 +61,6 @@ export default function Blog() {
                   height={200}
                   className="w-full h-48 object-cover group-hover:scale-105 transition-transform duration-300"
                 />
-                <Badge className="absolute top-4 left-4" variant="secondary">
-                  {post.category}
-                </Badge>
               </div>
               <CardContent className="p-6">
                 <h3 className="text-xl font-semibold mb-2 line-clamp-2">{post.title}</h3>
@@ -79,8 +78,8 @@ export default function Blog() {
               </CardContent>
               <CardFooter className="p-6 pt-0">
                 <Button variant="ghost" asChild className="w-full">
-                  <Link href={`/blog/${post.slug}`}>
-                    Read More
+                  <Link href={post.url} target="_blank" rel="noopener noreferrer">
+                    Read on Medium
                     <ArrowRight className="h-4 w-4 ml-2" />
                   </Link>
                 </Button>

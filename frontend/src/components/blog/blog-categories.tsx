@@ -4,27 +4,29 @@ import Link from "next/link"
 
 export default function BlogCategories() {
   const categories = [
-    { name: "Web Development", slug: "web-development", count: 12 },
-    { name: "React", slug: "react", count: 8 },
-    { name: "Next.js", slug: "nextjs", count: 6 },
-    { name: "Django", slug: "django", count: 4 },
-    { name: "Technology", slug: "technology", count: 10 },
-    { name: "Tutorials", slug: "tutorials", count: 15 },
+    { name: "Security", slug: "security", count: 1 },
+    { name: "Software Engineering", slug: "software-engineering", count: 2 },
+    { name: "Development", slug: "development", count: 1 },
+    { name: "Code Quality", slug: "code-quality", count: 1 },
+    { name: "Agile", slug: "agile", count: 1 },
+    { name: "Cloud Computing", slug: "cloud-computing", count: 1 },
+    { name: "Career Development", slug: "career-development", count: 1 },
+    { name: "Events", slug: "events", count: 1 },
   ]
 
   const popularTags = [
-    "JavaScript",
-    "TypeScript",
-    "Python",
-    "React",
-    "Next.js",
-    "Django",
-    "Tailwind CSS",
-    "API",
-    "Database",
-    "Performance",
-    "SEO",
-    "Deployment",
+    "OWASP",
+    "Security",
+    "SOLID Principles",
+    "TDD",
+    "Testing",
+    "SonarCloud",
+    "Scrum",
+    "Google Cloud",
+    "COMPFEST",
+    "Clean Code",
+    "DevOps",
+    "Agile",
   ]
 
   return (
