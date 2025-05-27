@@ -16,9 +16,9 @@ export default function Projects() {
       id: 1,
       title: "MAAMS",
       description:
-        "AI-powered root cause analysis application utilizing DeepSeek R1 models to validate and confirm underlying causes of problems with advanced analysis algorithms and prompt systems.",
+        "AI-powered root cause analysis application utilizing DeepSeek R1 model for chat completions. Validates and confirms underlying causes of problems with advanced analysis algorithms and prompt systems.",
       image:
-        "/assets/MAAMS.png",
+        "https://sjc.microlink.io/1Rg9T6KiYs3gLguip-xhlrmCKlJ02Qjd1hXOV9hguR_pga0WhrHWczKIeLh1YlgKkuUnnpOn26Q4NLEXRgFhKw.jpeg",
       technologies: ["Django", "AI/ML", "DeepSeek", "Qwen", "Python"],
       githubUrl: "https://github.com/Kelompok-5-PPL-A/MAAMS-NG-BE",
       githubUrlFE: "https://github.com/Kelompok-5-PPL-A/MAAMS-NG-FE",
@@ -178,15 +178,15 @@ export default function Projects() {
       <div className="container mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
         <div className="text-center mb-16 opacity-0 animate-[fadeInUp_0.6s_ease-out_forwards]">
           <h2 className="text-3xl md:text-4xl font-bold mb-4">
-            Featured <span className="gradient-text">Projects</span>
+            Latest <span className="gradient-text">Projects</span>
           </h2>
           <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
-            A collection of innovative applications showcasing AI/ML, web development, and data science expertise.
+            Recent innovative applications showcasing web development, AI/ML, and data science expertise.
           </p>
         </div>
 
         <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
-          {projects.map((project, index) => {
+          {projects.slice(0, 3).map((project, index) => {
             const colors = getColorClasses(project.color)
             const isHovered = hoveredProject === project.id
             const IconComponent = project.icon
@@ -194,7 +194,7 @@ export default function Projects() {
             return (
               <Card
                 key={project.id}
-                className={`glass-effect border ${colors.border} hover:shadow-2xl ${colors.glow} transition-all duration-500 group overflow-hidden relative opacity-0 animate-[fadeInUp_0.6s_ease-out_forwards] stagger-${(index % 6) + 1}`}
+                className={`glass-effect border ${colors.border} hover:shadow-2xl ${colors.glow} transition-all duration-500 group overflow-hidden relative opacity-0 animate-[fadeInUp_0.6s_ease-out_forwards] stagger-${(index % 3) + 1}`}
                 onMouseEnter={() => setHoveredProject(project.id)}
                 onMouseLeave={() => setHoveredProject(null)}
                 style={{ animationDelay: `${index * 0.1}s` }}

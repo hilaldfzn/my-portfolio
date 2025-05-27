@@ -8,6 +8,36 @@ import Link from "next/link"
 export default function Blog() {
   const blogPosts = [
     {
+      title: "The Evolution of Deployment: From Manual Chaos to Automated Mastery with Docker & Cloud Run",
+      excerpt:
+        "Explore how modern deployment practices with Docker and Cloud Run have revolutionized the way we deploy applications.",
+      image: "/assets/deployment-evolution.png",
+      readingTime: 19,
+      publishedAt: "2025-05-27",
+      slug: "deployment-evolution-docker-cloud-run",
+      url: "https://medium.com/@hilalfauzan9/the-evolution-of-deployment-from-manual-chaos-to-automated-mastery-with-docker-cloud-run-d546565dc021",
+    },
+    {
+      title: "Mastering Database Management: A Complete Guide to Automatic Data Seeding and Migration",
+      excerpt:
+        "Learn how to effectively manage your database with automatic data seeding and migration techniques for better development workflow.",
+      image: "/assets/database-management.png",
+      readingTime: 10,
+      publishedAt: "2025-05-27",
+      slug: "database-management-seeding-migration",
+      url: "https://medium.com/@hilalfauzan9/mastering-database-management-a-complete-guide-to-automatic-data-seeding-and-migration-59fdff63a0c3",
+    },
+    {
+      title: "Mock Objects & Stubs: Your Key to Bulletproof Test Isolation",
+      excerpt:
+        "Discover how to use mock objects and stubs to create isolated, reliable, and maintainable tests for your applications.",
+      image: "/assets/mock-testing.png",
+      readingTime: 10,
+      publishedAt: "2025-05-27",
+      slug: "mock-objects-stubs-test-isolation",
+      url: "https://medium.com/@hilalfauzan9/mock-objects-stubs-your-key-to-bulletproof-test-isolation-9137ec062371",
+    },
+    {
       title: "Test-Driven Development: The Key to Building Reliable and Scalable Software",
       excerpt:
         "Discover how TDD methodology can help you build more reliable, maintainable, and scalable software applications.",
@@ -44,7 +74,9 @@ export default function Blog() {
     <section id="blog" className="py-20">
       <div className="container mx-auto px-4 sm:px-6 lg:px-8">
         <div className="text-center mb-16">
-          <h2 className="text-3xl md:text-4xl font-bold mb-4">Latest Blog Posts</h2>
+          <h2 className="text-3xl md:text-4xl font-bold mb-4">
+            Latest <span className="gradient-text">Blogs</span>
+          </h2>
           <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
             Insights, tutorials, and thoughts on web development and technology.
           </p>

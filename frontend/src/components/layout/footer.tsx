@@ -1,7 +1,7 @@
 "use client"
 
 import Link from "next/link"
-import { Github, Linkedin, Mail, Heart, Zap, Code, Cpu, Globe } from "lucide-react"
+import { Github, Linkedin, Mail, Heart, Code, Cpu, Globe } from "lucide-react"
 import { Button } from "../ui/button"
 import { Badge } from "../ui/badge"
 
@@ -10,19 +10,16 @@ export default function Footer() {
 
   const socialLinks = [
     { icon: Github, href: "https://github.com/hilaldfzn", label: "GitHub", color: "cyan" },
-    { icon: Linkedin, href: "https://linkedin.com", label: "LinkedIn", color: "purple" },
-    { icon: Mail, href: "mailto:john@cyberdomain.dev", label: "Email", color: "pink" },
-    { icon: Globe, href: "https://cyberdomain.dev", label: "Website", color: "cyan" },
+    { icon: Linkedin, href: "https://www.linkedin.com/in/muhammad-hilal-darul-fauzan-ba8971243/", label: "LinkedIn", color: "purple" },
+    { icon: Mail, href: "mailto:hilalfauzan9@gmail.com", label: "Email", color: "pink" },
   ]
 
   const quickLinks = [
     { name: "About", href: "#about" },
     { name: "Projects", href: "#projects" },
-    { name: "Experience", href: "#experience" },
+    { name: "Testimonials", href: "#testimonials" },
     { name: "Contact", href: "#contact" },
   ]
-
-  const technologies = ["React", "Next.js", "TypeScript", "Tailwind CSS", "Node.js", "Python"]
 
   const getColorClasses = (color: string) => {
     switch (color) {
@@ -61,25 +58,6 @@ export default function Footer() {
               Building the future of web development with cutting-edge technologies and innovative solutions.
               Transforming ideas into digital realities.
             </p>
-
-            {/* Tech Stack */}
-            <div>
-              <h4 className="font-semibold mb-3 flex items-center">
-                <Code className="w-4 h-4 mr-2 text-cyan-400" />
-                Built With
-              </h4>
-              <div className="flex flex-wrap gap-2">
-                {technologies.map((tech, index) => (
-                  <Badge
-                    key={index}
-                    variant="outline"
-                    className="bg-white/5 border-white/20 hover:border-cyan-400/50 transition-colors cursor-default"
-                  >
-                    {tech}
-                  </Badge>
-                ))}
-              </div>
-            </div>
 
             {/* Social Links */}
             <div className="flex space-x-4">
@@ -130,9 +108,8 @@ export default function Footer() {
               Connect
             </h4>
             <div className="space-y-3 text-muted-foreground">
-              <p className="hover:text-cyan-400 transition-colors cursor-pointer">john@cyberdomain.dev</p>
-              <p className="hover:text-purple-400 transition-colors cursor-pointer">+1 (555) CYBER-01</p>
-              <p className="hover:text-pink-400 transition-colors cursor-pointer">Neo San Francisco, CA</p>
+              <p className="hover:text-cyan-400 transition-colors cursor-pointer">hilalfauzan9@gmail.com</p>
+              <p className="hover:text-pink-400 transition-colors cursor-pointer">Jakarta Pusat, DKI Jakarta</p>
             </div>
           </div>
         </div>

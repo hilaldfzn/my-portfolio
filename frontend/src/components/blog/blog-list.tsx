@@ -16,6 +16,58 @@ export default function BlogList() {
   const blogPosts = [
     {
       id: 1,
+      title: "The Evolution of Deployment: From Manual Chaos to Automated Mastery with Docker & Cloud Run",
+      excerpt:
+        "Explore how modern deployment practices with Docker and Cloud Run have revolutionized the way we deploy applications.",
+      image: "/assets/deployment-evolution.png",
+      category: { name: "DevOps", slug: "devops" },
+      tags: [
+        { name: "Docker", slug: "docker" },
+        { name: "Cloud Run", slug: "cloud-run" },
+        { name: "Deployment", slug: "deployment" },
+        { name: "DevOps", slug: "devops" },
+      ],
+      readingTime: 19,
+      publishedAt: "2025-05-27",
+      slug: "deployment-evolution-docker-cloud-run",
+      url: "https://medium.com/@hilalfauzan9/the-evolution-of-deployment-from-manual-chaos-to-automated-mastery-with-docker-cloud-run-d546565dc021",
+    },
+    {
+      id: 2,
+      title: "Mock Objects & Stubs: Your Key to Bulletproof Test Isolation",
+      excerpt:
+        "Discover how to use mock objects and stubs to create isolated, reliable, and maintainable tests for your applications.",
+      image: "/assets/mock-testing.png",
+      category: { name: "Testing", slug: "testing" },
+      tags: [
+        { name: "Testing", slug: "testing" },
+        { name: "Mock Objects", slug: "mock-objects" },
+        { name: "Test Isolation", slug: "test-isolation" },
+      ],
+      readingTime: 10,
+      publishedAt: "2025-05-27",
+      slug: "mock-objects-stubs-test-isolation",
+      url: "https://medium.com/@hilalfauzan9/mock-objects-stubs-your-key-to-bulletproof-test-isolation-9137ec062371",
+    },
+    {
+      id: 3,
+      title: "Mastering Database Management: A Complete Guide to Automatic Data Seeding and Migration",
+      excerpt:
+        "Learn how to effectively manage your database with automatic data seeding and migration techniques for better development workflow.",
+      image: "/assets/database-management.png",
+      category: { name: "Database", slug: "database" },
+      tags: [
+        { name: "Database", slug: "database" },
+        { name: "Migration", slug: "migration" },
+        { name: "Seeding", slug: "seeding" },
+      ],
+      readingTime: 10,
+      publishedAt: "2025-05-27",
+      slug: "database-management-seeding-migration",
+      url: "https://medium.com/@hilalfauzan9/mastering-database-management-a-complete-guide-to-automatic-data-seeding-and-migration-59fdff63a0c3",
+    },
+    {
+      id: 4,
       title: "Test-Driven Development: The Key to Building Reliable and Scalable Software",
       excerpt:
         "Discover how TDD methodology can help you build more reliable, maintainable, and scalable software applications.",
@@ -32,7 +84,7 @@ export default function BlogList() {
       url: "https://medium.com/@hilalfauzan9/test-driven-development-the-key-to-building-reliable-and-scalable-software-f6f355901330",
     },
     {
-      id: 2,
+      id: 5,
       title: "From Duplication to Elegance: How SOLID Principles Transformed Our Authentication System",
       excerpt:
         "Learn how applying SOLID principles can transform messy, duplicated code into elegant, maintainable authentication systems.",
@@ -49,7 +101,7 @@ export default function BlogList() {
       url: "https://medium.com/@hilalfauzan9/from-duplication-to-elegance-how-solid-principles-transformed-our-authentication-system-f4411cc4675f",
     },
     {
-      id: 3,
+      id: 6,
       title: "OWASP Compliance and Beyond: Building Robust Security Through Secure Programming",
       excerpt:
         "Comprehensive guide to implementing OWASP security principles and building secure applications with robust programming practices.",
@@ -68,7 +120,7 @@ export default function BlogList() {
       url: "https://medium.com/@hilalfauzan9/owasp-compliance-and-beyond-building-a-robust-security-through-secure-programming-aba4060f0280",
     },
     {
-      id: 4,
+      id: 7,
       title: "Preventing Bugs Before They Bite: SonarCloud for Proactive Code Quality",
       excerpt:
         "Learn how to use SonarCloud to maintain high code quality and prevent bugs before they reach production.",
@@ -85,7 +137,7 @@ export default function BlogList() {
       url: "https://medium.com/@hilalfauzan9/preventing-bugs-before-they-bite-sonarcloud-for-proactive-code-quality-c7db5b5ccff4",
     },
     {
-      id: 5,
+      id: 8,
       title: "Unlocking Scrum Team Synergy: Mastering Tools for Peak Collaborative Coding",
       excerpt:
         "Explore essential tools and practices for maximizing team collaboration and productivity in Scrum environments.",
@@ -101,7 +153,7 @@ export default function BlogList() {
       url: "https://medium.com/@hilalfauzan9/unlocking-scrum-team-synergy-mastering-tools-for-peak-collaborative-coding-5504d572cbe3",
     },
     {
-      id: 6,
+      id: 9,
       title: "Google Cloud Platform: Solusi Terbaik Layanan Cloud",
       excerpt:
         "Comprehensive overview of Google Cloud Platform services and why it's an excellent choice for cloud solutions.",
@@ -118,7 +170,7 @@ export default function BlogList() {
       url: "https://medium.com/compfest/google-cloud-platform-solusi-terbaik-layanan-cloud-a298a3aa53f1",
     },
     {
-      id: 7,
+      id: 10,
       title: "Software Engineering Academy Camp 3: Implementation of Career-Related Skills",
       excerpt:
         "Insights from Software Engineering Academy focusing on practical career skills and professional development.",
@@ -135,11 +187,11 @@ export default function BlogList() {
       url: "https://medium.com/compfest/software-engineering-academy-camp-3-implementation-of-career-related-skills-d1bd1280b488",
     },
     {
-      id: 8,
+      id: 11,
       title: "Grand Launching COMPFEST 15: Welcoming a Series of Insightful Events",
       excerpt:
         "Coverage of COMPFEST 15 grand launching event and the exciting series of technology and innovation events.",
-      image: "/assets/compfest15.png",
+      image: "/assets/compfest-15.png",
       category: { name: "Events", slug: "events" },
       tags: [
         { name: "COMPFEST", slug: "compfest" },
