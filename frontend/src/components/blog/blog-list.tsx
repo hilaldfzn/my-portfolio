@@ -9,6 +9,15 @@ import { Calendar, Clock, Search } from "lucide-react"
 import Image from "next/image"
 import Link from "next/link"
 
+const formatDate = (dateString: string) => {
+  const date = new Date(dateString)
+  return date.toLocaleDateString('en-GB', {
+    day: 'numeric',
+    month: 'long',
+    year: 'numeric'
+  })
+}
+
 export default function BlogList() {
   const [searchTerm, setSearchTerm] = useState("")
 
@@ -27,7 +36,7 @@ export default function BlogList() {
         { name: "Deployment", slug: "deployment" },
         { name: "DevOps", slug: "devops" },
       ],
-      readingTime: 19,
+      readingTime: 20,
       publishedAt: "2025-05-27",
       slug: "deployment-evolution-docker-cloud-run",
       url: "https://medium.com/@hilalfauzan9/the-evolution-of-deployment-from-manual-chaos-to-automated-mastery-with-docker-cloud-run-d546565dc021",
@@ -255,7 +264,7 @@ export default function BlogList() {
                     <div className="flex items-center space-x-4">
                       <div className="flex items-center">
                         <Calendar className="h-4 w-4 mr-1" />
-                        {new Date(post.publishedAt).toLocaleDateString()}
+                        {formatDate(post.publishedAt)}
                       </div>
                       <div className="flex items-center">
                         <Clock className="h-4 w-4 mr-1" />

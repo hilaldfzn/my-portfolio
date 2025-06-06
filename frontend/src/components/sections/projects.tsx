@@ -18,7 +18,7 @@ export default function Projects() {
       description:
         "AI-powered root cause analysis application utilizing DeepSeek R1 model for chat completions. Validates and confirms underlying causes of problems with advanced analysis algorithms and prompt systems.",
       image:
-        "https://sjc.microlink.io/1Rg9T6KiYs3gLguip-xhlrmCKlJ02Qjd1hXOV9hguR_pga0WhrHWczKIeLh1YlgKkuUnnpOn26Q4NLEXRgFhKw.jpeg",
+        "/assets/MAAMS.png",
       technologies: ["Django", "AI/ML", "DeepSeek", "Qwen", "Python"],
       githubUrl: "https://github.com/Kelompok-5-PPL-A/MAAMS-NG-BE",
       githubUrlFE: "https://github.com/Kelompok-5-PPL-A/MAAMS-NG-FE",

@@ -1,9 +1,17 @@
 import { Card, CardContent, CardFooter } from "../ui/card"
 import { Button } from "../ui/button"
-import { Badge } from "../ui/badge"
 import { Calendar, Clock, ArrowRight } from "lucide-react"
 import Image from "next/image"
 import Link from "next/link"
+
+const formatDate = (dateString: string) => {
+  const date = new Date(dateString)
+  return date.toLocaleDateString('en-US', {
+    day: 'numeric',
+    month: 'long',
+    year: 'numeric'
+  })
+}
 
 export default function Blog() {
   const blogPosts = [
@@ -12,7 +20,7 @@ export default function Blog() {
       excerpt:
         "Explore how modern deployment practices with Docker and Cloud Run have revolutionized the way we deploy applications.",
       image: "/assets/deployment-evolution.png",
-      readingTime: 19,
+      readingTime: 20,
       publishedAt: "2025-05-27",
       slug: "deployment-evolution-docker-cloud-run",
       url: "https://medium.com/@hilalfauzan9/the-evolution-of-deployment-from-manual-chaos-to-automated-mastery-with-docker-cloud-run-d546565dc021",
@@ -100,7 +108,7 @@ export default function Blog() {
                 <div className="flex items-center text-sm text-muted-foreground space-x-4">
                   <div className="flex items-center">
                     <Calendar className="h-4 w-4 mr-1" />
-                    {new Date(post.publishedAt).toLocaleDateString()}
+                    {formatDate(post.publishedAt)}
                   </div>
                   <div className="flex items-center">
                     <Clock className="h-4 w-4 mr-1" />
