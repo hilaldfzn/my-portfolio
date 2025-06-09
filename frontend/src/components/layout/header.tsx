@@ -76,19 +76,19 @@ export default function Header() {
                 variant="ghost"
                 size="icon"
                 onClick={toggleTheme}
-                className="relative ml-4 cyber-button border-cyan-400/50 hover:border-cyan-400"
+                className="relative ml-4 cyber-button border-purple-400/50 hover:border-purple-400 hover:bg-purple-400/10 hover:shadow-purple-400/25"
               >
-                <Sun className="h-5 w-5 rotate-0 scale-100 transition-all dark:-rotate-90 dark:scale-0" />
-                <Moon className="absolute h-5 w-5 rotate-90 scale-0 transition-all dark:rotate-0 dark:scale-100" />
+                <Sun className="h-5 w-5 rotate-0 scale-100 transition-all dark:-rotate-90 dark:scale-0 text-purple-400" />
+                <Moon className="absolute h-5 w-5 rotate-90 scale-0 transition-all dark:rotate-0 dark:scale-100 text-purple-400" />
                 <span className="sr-only">Toggle theme</span>
               </Button>
             </div>
 
             {/* Mobile menu button */}
             <div className="md:hidden flex items-center space-x-2">
-              <Button variant="ghost" size="icon" onClick={toggleTheme} className="cyber-button border-cyan-400/50">
-                <Sun className="h-5 w-5 rotate-0 scale-100 transition-all dark:-rotate-90 dark:scale-0" />
-                <Moon className="absolute h-5 w-5 rotate-90 scale-0 transition-all dark:rotate-0 dark:scale-100" />
+              <Button variant="ghost" size="icon" onClick={toggleTheme} className="cyber-button border-purple-400/50 hover:bg-purple-400/10">
+                <Sun className="h-5 w-5 rotate-0 scale-100 transition-all dark:-rotate-90 dark:scale-0 text-purple-400" />
+                <Moon className="absolute h-5 w-5 rotate-90 scale-0 transition-all dark:rotate-0 dark:scale-100 text-purple-400" />
               </Button>
               <Button
                 variant="ghost"
