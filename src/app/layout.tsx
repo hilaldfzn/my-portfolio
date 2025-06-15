@@ -2,13 +2,15 @@ import type React from "react"
 import type { Metadata } from "next"
 import { Inter } from "next/font/google"
 import "./globals.css"
-import { ThemeProvider } from "../components/theme-provider"
+import { ThemeProvider } from "../components/ui/theme-provider"
+import { Toaster } from "../components/ui/toaster"
 
 const inter = Inter({ subsets: ["latin"] })
 
 export const metadata: Metadata = {
-  title: "Portfolio - Full Stack Developer",
-  description: "Modern portfolio showcasing projects and skills",
+  title: "Portfolio",
+  description:
+    "Full Stack Developer passionate about creating intelligent, scalable, and innovative digital solutions.",
 }
 
 export default function RootLayout({
@@ -21,6 +23,7 @@ export default function RootLayout({
       <body className={inter.className}>
         <ThemeProvider attribute="class" defaultTheme="dark" enableSystem disableTransitionOnChange>
           {children}
+          <Toaster />
         </ThemeProvider>
       </body>
     </html>

@@ -1,8 +1,10 @@
 "use client"
 
 import Image from "next/image"
+import { motion } from "framer-motion"
+import { SectionHeading } from "../section-heading"
 
-export default function Skills() {
+export function SkillsSection() {
   const technologies = [
     { name: "Python", logo: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/python/python-original.svg" },
     { name: "Django", logo: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/django/django-plain.svg" },
@@ -10,18 +12,33 @@ export default function Skills() {
     { name: "Spring Boot", logo: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/spring/spring-original.svg" },
     { name: "React", logo: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/react/react-original.svg" },
     { name: "Next.js", logo: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/nextjs/nextjs-original.svg" },
-    { name: "TypeScript", logo: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/typescript/typescript-original.svg", },
-    { name: "Tailwind CSS", logo: "https://upload.wikimedia.org/wikipedia/commons/d/d5/Tailwind_CSS_Logo.svg", },
-    { name: "JavaScript", logo: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/javascript/javascript-original.svg",},
+    {
+      name: "TypeScript",
+      logo: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/typescript/typescript-original.svg",
+    },
+    { name: "Tailwind CSS", logo: "https://upload.wikimedia.org/wikipedia/commons/d/d5/Tailwind_CSS_Logo.svg" },
+    {
+      name: "JavaScript",
+      logo: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/javascript/javascript-original.svg",
+    },
     { name: "HTML5", logo: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/html5/html5-original.svg" },
     { name: "CSS3", logo: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/css3/css3-original.svg" },
     { name: "Vue.js", logo: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/vuejs/vuejs-original.svg" },
     { name: "Flutter", logo: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/flutter/flutter-original.svg" },
     { name: "Node.js", logo: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/nodejs/nodejs-original.svg" },
-    { name: "PostgreSQL", logo: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/postgresql/postgresql-original.svg",},
+    {
+      name: "PostgreSQL",
+      logo: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/postgresql/postgresql-original.svg",
+    },
     { name: "PyTorch", logo: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/pytorch/pytorch-original.svg" },
-    { name: "TensorFlow", logo: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/tensorflow/tensorflow-original.svg", },
-    { name: "Google Cloud", logo: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/googlecloud/googlecloud-original.svg" },
+    {
+      name: "TensorFlow",
+      logo: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/tensorflow/tensorflow-original.svg",
+    },
+    {
+      name: "Google Cloud",
+      logo: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/googlecloud/googlecloud-original.svg",
+    },
     { name: "Git", logo: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/git/git-original.svg" },
     { name: "Docker", logo: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/docker/docker-original.svg" },
     { name: "Figma", logo: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/figma/figma-original.svg" },
@@ -36,23 +53,27 @@ export default function Skills() {
       </div>
 
       <div className="container mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
-        <div className="text-center mb-16 opacity-0 animate-[fadeInUp_0.6s_ease-out_forwards]">
-          <h2 className="text-3xl md:text-4xl font-bold mb-4">
-            Tech Stacks & <span className="gradient-text">Tools</span>
-          </h2>
-          <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
-            Technologies and tools I work with to bring ideas to life.
-          </p>
-        </div>
+        <motion.div
+          className="text-center mb-16"
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.6 }}
+          viewport={{ once: true }}
+        >
+          <SectionHeading title="Tech Stacks & Tools" subtitle="Technologies I work with" />
+        </motion.div>
 
         {/* Horizontal scrolling tech stack */}
         <div className="relative">
           <div className="flex space-x-8 animate-scroll-left">
             {[...technologies, ...technologies].map((tech, index) => (
-              <div
+              <motion.div
                 key={`${tech.name}-${index}`}
-                className="flex-shrink-0 group cursor-pointer opacity-0 animate-[fadeInUp_0.6s_ease-out_forwards]"
-                style={{ animationDelay: `${(index % technologies.length) * 0.1}s` }}
+                className="flex-shrink-0 group cursor-pointer"
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.6, delay: (index % technologies.length) * 0.1 }}
+                viewport={{ once: true }}
               >
                 <div className="flex flex-col items-center space-y-3 p-4 rounded-xl glass-effect border border-white/10 hover:border-cyan-400/50 transition-all duration-300 hover:scale-110 hover:shadow-lg hover:shadow-cyan-400/25">
                   <div className="relative w-12 h-12 flex-shrink-0">
@@ -70,7 +91,7 @@ export default function Skills() {
                     {tech.name}
                   </span>
                 </div>
-              </div>
+              </motion.div>
             ))}
           </div>
         </div>
@@ -79,10 +100,13 @@ export default function Skills() {
         <div className="relative mt-8">
           <div className="flex space-x-8 animate-scroll-right">
             {[...technologies.slice().reverse(), ...technologies.slice().reverse()].map((tech, index) => (
-              <div
+              <motion.div
                 key={`reverse-${tech.name}-${index}`}
-                className="flex-shrink-0 group cursor-pointer opacity-0 animate-[fadeInUp_0.6s_ease-out_forwards]"
-                style={{ animationDelay: `${(index % technologies.length) * 0.1 + 0.3}s` }}
+                className="flex-shrink-0 group cursor-pointer"
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.6, delay: (index % technologies.length) * 0.1 + 0.3 }}
+                viewport={{ once: true }}
               >
                 <div className="flex flex-col items-center space-y-3 p-4 rounded-xl glass-effect border border-white/10 hover:border-purple-400/50 transition-all duration-300 hover:scale-110 hover:shadow-lg hover:shadow-purple-400/25">
                   <div className="relative w-12 h-12 flex-shrink-0">
@@ -100,7 +124,7 @@ export default function Skills() {
                     {tech.name}
                   </span>
                 </div>
-              </div>
+              </motion.div>
             ))}
           </div>
         </div>

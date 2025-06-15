@@ -1,300 +1,163 @@
-import { Card, CardContent } from "../ui/card"
-import { Badge } from "../ui/badge"
-import { Code, Palette, Zap, Rocket, Brain, Shield, GraduationCap, Building, Calendar, MapPin, Award } from "lucide-react"
+"use client"
 
-export default function About() {
-  const highlights = [
-    {
-      icon: Code,
-      title: "Clean Code",
-      description: "Writing maintainable, scalable, and efficient code following best practices.",
-      color: "cyan",
-    },
-    {
-      icon: Palette,
-      title: "UI/UX Design",
-      description: "Creating intuitive and beautiful user interfaces with attention to detail.",
-      color: "purple",
-    },
-    {
-      icon: Zap,
-      title: "Performance",
-      description: "Optimizing applications for speed, accessibility, and user experience.",
-      color: "pink",
-    },
-    {
-      icon: Rocket,
-      title: "Innovation",
-      description: "Embracing cutting-edge technologies and modern development practices.",
-      color: "cyan",
-    },
-    {
-      icon: Brain,
-      title: "Problem Solving",
-      description: "Analytical thinking and creative solutions for complex challenges.",
-      color: "purple",
-    },
-    {
-      icon: Shield,
-      title: "Security",
-      description: "Implementing robust security measures and best practices.",
-      color: "pink",
-    },
-  ]
+import { motion } from "framer-motion"
+import { GraduationCap, Calendar, MapPin } from "lucide-react"
+import { SectionHeading } from "../section-heading"
+import { GlassmorphicCard } from "../glassmorphic-card"
 
+export function AboutSection() {
   const education = [
     {
-      degree: "Computer Science",
-      institution: "Universitas Indonesia",
-      period: "2021 - 2025",
-      location: "Depok, Indonesia",
-      description: "Specialized in Software Engineering and Data Science with focus on web development, machine learning, and database systems.",
+      degree: "Bachelor of Computer Science",
+      institution: "University of Technology",
+      location: "Jakarta, Indonesia",
+      period: "2018 - 2022",
+      type: "Bachelor's Degree",
+      description:
+        "Specialized in Software Engineering and Web Development with focus on modern programming languages and frameworks.",
       achievements: [
-        "Relevant coursework: Data Structures, Algorithms, Database Systems, Software Engineering",
-        "Active in programming competitions and hackathons",
-        "Member of Computer Science Student Association"
+        "Graduated Magna Cum Laude with GPA 3.8/4.0",
+        "Led final year project on AI-powered web applications",
+        "Active member of Computer Science Student Association",
       ],
-      color: "cyan"
-    }
-  ]
-
-  const experience = [
-    {
-      title: "Frontend Developer",
-      company: "OKK UI 2024",
-      period: "June - August 2024",
-      location: "Remote",
-      type: "Part-time",
-      description: "Developing web applications using modern technologies including Django, React, and Next.js for various clients.",
-      achievements: [
-        "Built 8+ full-stack web applications with modern frameworks",
-        "Implemented AI-powered features using machine learning models",
-        "Collaborated with cross-functional teams in agile environments",
-        "Maintained 99% client satisfaction rate"
-      ],
-      technologies: ["Django", "React", "Next.js", "Python", "TypeScript"],
-      color: "purple"
     },
     {
-      title: "Editorial Marketing",
-      company: "COMPFEST 15",
-      period: "May 2023 - August 2023",
+      degree: "Full Stack Web Development Bootcamp",
+      institution: "Tech Academy",
       location: "Jakarta, Indonesia",
-      type: "Internship",
-      description: "Contributed to large-scale event management systems and gained experience in team collaboration and project management.",
+      period: "2022",
+      type: "Certification",
+      description:
+        "Intensive 6-month program covering modern web technologies including React, Node.js, and cloud deployment.",
       achievements: [
-        "Developed features for event registration system",
-        "Optimized database queries improving performance by 40%",
-        "Mentored junior developers in coding best practices",
-        "Led a team of 5 developers in academy program"
+        "Completed 500+ hours of hands-on coding projects",
+        "Built 5 full-stack applications from scratch",
+        "Received 'Outstanding Student' award for project excellence",
       ],
-      technologies: ["Django", "PostgreSQL", "JavaScript", "Bootstrap"],
-      color: "pink"
-    }
+    },
   ]
 
-  const getColorClasses = (color: string) => {
-    switch (color) {
-      case "cyan":
-        return "text-cyan-400 bg-cyan-400/10 border-cyan-400/30"
-      case "purple":
-        return "text-purple-400 bg-purple-400/10 border-purple-400/30"
-      case "pink":
-        return "text-pink-400 bg-pink-400/10 border-pink-400/30"
-      default:
-        return "text-cyan-400 bg-cyan-400/10 border-cyan-400/30"
-    }
-  }
-
   return (
-    <section id="about" className="py-20 relative">
-      {/* Background elements */}
-      <div className="absolute inset-0 cyber-grid opacity-20" />
+    <section id="about" className="py-32 relative">
+      <div className="absolute inset-0 z-0">
+        <div className="absolute top-1/4 right-1/4 w-64 h-64 bg-cyan-500 rounded-full mix-blend-multiply filter blur-3xl opacity-10"></div>
+        <div className="absolute bottom-1/3 left-1/3 w-64 h-64 bg-purple-500 rounded-full mix-blend-multiply filter blur-3xl opacity-10"></div>
+      </div>
 
       <div className="container mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
-        <div className="text-center mb-16 opacity-0 animate-[fadeInUp_0.6s_ease-out_forwards]">
-          <h2 className="text-3xl md:text-4xl font-bold mb-4">
-            About <span className="gradient-text">Me</span>
-          </h2>
-          <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
-            I am passionate about uncovering actionable insights from data, building scalable software systems, and driving progress in industries through the integration of analytical thinking and technical expertise.
-          </p>
-        </div>
+        <SectionHeading title="About Me" subtitle="Get to know me better" />
 
-        {/* Personal Introduction */}
-        <div className="mb-16 opacity-0 animate-[fadeInUp_0.6s_ease-out_0.2s_forwards]">
-          <div className="glass-effect p-8 rounded-2xl border border-white/10 max-w-4xl mx-auto">
-            <p className="text-lg leading-relaxed mb-6">
-              I specialize in creating modern, responsive web applications using cutting-edge technologies. My journey
-              in web development started with a curiosity about how things work on the internet, and it has evolved
-              into a passion for crafting digital experiences that make a difference.
-            </p>
-            <p className="text-lg leading-relaxed">
-              When I'm not coding, you can find me exploring new technologies, contributing to open-source projects,
-              or sharing knowledge with the developer community. I believe in continuous learning and staying
-              up-to-date with the latest industry trends.
-            </p>
-          </div>
+        <div className="grid grid-cols-1 lg:grid-cols-5 gap-8 items-start mt-16">
+          {/* Photo */}
+          <motion.div
+            className="lg:col-span-2"
+            initial={{ opacity: 0, x: -50 }}
+            whileInView={{ opacity: 1, x: 0 }}
+            transition={{ duration: 0.8 }}
+            viewport={{ once: true }}
+          >
+            <div className="relative">
+              <div className="absolute -inset-4 rounded-xl bg-gradient-to-r from-cyan-500/20 to-purple-500/20 blur-xl opacity-70"></div>
+              <div className="relative aspect-square rounded-xl overflow-hidden border border-zinc-800">
+                <img src="/placeholder.svg?height=600&width=600" alt="Hilal" className="w-full h-full object-cover" />
+                <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent"></div>
+                <div className="absolute bottom-0 left-0 w-full p-6">
+                  <div className="flex items-center gap-2">
+                    <div className="w-3 h-3 rounded-full bg-green-500 animate-pulse"></div>
+                    <span className="text-sm font-medium text-white">Available for work</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </motion.div>
+
+          {/* My Story */}
+          <motion.div
+            className="lg:col-span-3"
+            initial={{ opacity: 0, x: 50 }}
+            whileInView={{ opacity: 1, x: 0 }}
+            transition={{ duration: 0.8 }}
+            viewport={{ once: true }}
+          >
+            <GlassmorphicCard>
+              <h3 className="text-2xl font-bold mb-4 gradient-text">My Story</h3>
+              <p className="text-lg text-zinc-300 mb-4">
+                I'm a passionate Full Stack Developer with a strong foundation in modern web technologies. I love
+                creating digital solutions that make a real impact and solve complex problems.
+              </p>
+              <p className="text-lg text-zinc-300 mb-4">
+                My journey in tech started with curiosity about how websites work, and it has evolved into a deep
+                passion for building scalable, user-friendly applications that enhance people's lives.
+              </p>
+              <p className="text-lg text-zinc-300">
+                When I'm not coding, you can find me exploring new technologies, contributing to open-source projects,
+                and staying up-to-date with the latest industry trends.
+              </p>
+            </GlassmorphicCard>
+          </motion.div>
         </div>
 
         {/* Education Section */}
-        <div className="mb-16 opacity-0 animate-[fadeInLeft_0.8s_ease-out_0.4s_forwards]">
-          <h3 className="text-2xl font-bold mb-8 flex items-center">
-            <GraduationCap className="mr-3 h-6 w-6 text-cyan-400" />
-            Education
-          </h3>
-          <div className="space-y-6">
-            {education.map((edu, index) => {
-              const colors = getColorClasses(edu.color)
-              return (
-                <Card key={index} className="glass-effect border border-white/10 hover:border-white/20 transition-all duration-300">
-                  <CardContent className="p-6">
-                    <div className="flex flex-col md:flex-row md:items-start md:justify-between mb-4">
-                      <div className="flex-1">
-                        <h4 className="text-xl font-semibold mb-2">{edu.degree}</h4>
-                        <div className="flex items-center space-x-2 mb-2">
-                          <Building className={`w-5 h-5 text-cyan-400`} />
-                          <span className="text-lg font-medium text-cyan-400">{edu.institution}</span>
-                        </div>
-                        <div className="flex flex-wrap items-center gap-4 text-sm text-muted-foreground mb-4">
-                          <div className="flex items-center">
-                            <Calendar className="w-4 h-4 mr-1" />
-                            {edu.period}
-                          </div>
-                          <div className="flex items-center">
-                            <MapPin className="w-4 h-4 mr-1" />
-                            {edu.location}
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-                    
-                    <p className="text-muted-foreground mb-4 leading-relaxed">{edu.description}</p>
-                    
-                    <div className="space-y-2">
-                      <h5 className="font-semibold flex items-center">
-                        <Award className="w-4 h-4 mr-2 text-cyan-400" />
-                        Key Highlights
-                      </h5>
-                      <ul className="space-y-2">
-                        {edu.achievements.map((achievement, achievementIndex) => (
-                          <li key={achievementIndex} className="flex items-start space-x-3">
-                            <div className="w-2 h-2 rounded-full bg-cyan-400 mt-2 flex-shrink-0" />
-                            <span className="text-muted-foreground leading-relaxed">{achievement}</span>
-                          </li>
-                        ))}
-                      </ul>
-                    </div>
-                  </CardContent>
-                </Card>
-              )
-            })}
-          </div>
-        </div>
+        <div className="mt-16">
+          <motion.div
+            className="text-center mb-12"
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.6 }}
+            viewport={{ once: true }}
+          >
+            <div className="flex items-center justify-center gap-3 mb-4">
+              <GraduationCap className="h-8 w-8 text-cyan-400" />
+              <h3 className="text-3xl font-bold gradient-text">Education</h3>
+            </div>
+          </motion.div>
 
-        {/* Experience Section */}
-        <div className="mb-16 opacity-0 animate-[fadeInRight_0.8s_ease-out_0.6s_forwards]">
-          <h3 className="text-2xl font-bold mb-8 flex items-center">
-            <Building className="mr-3 h-6 w-6 text-purple-400" />
-            Experience
-          </h3>
-          <div className="space-y-6">
-            {experience.map((exp, index) => {
-              const colors = getColorClasses(exp.color)
-              return (
-                <Card key={index} className="glass-effect border border-white/10 hover:border-white/20 transition-all duration-300">
-                  <CardContent className="p-6">
-                    <div className="flex flex-col md:flex-row md:items-start md:justify-between mb-4">
-                      <div className="flex-1">
-                        <div className="flex flex-wrap items-center gap-2 mb-2">
-                          <Badge className={`${exp.color === 'purple' ? 'bg-purple-400/10 text-purple-400 border-purple-400/30' : exp.color === 'pink' ? 'bg-pink-400/10 text-pink-400 border-pink-400/30' : 'bg-cyan-400/10 text-cyan-400 border-cyan-400/30'} border`}>
-                            {exp.type}
-                          </Badge>
-                          <Badge variant="outline" className="border-white/20">
-                            <Calendar className="w-3 h-3 mr-1" />
-                            {exp.period}
-                          </Badge>
-                          <Badge variant="outline" className="border-white/20">
-                            <MapPin className="w-3 h-3 mr-1" />
-                            {exp.location}
-                          </Badge>
-                        </div>
-                        <h4 className="text-xl font-semibold mb-2">{exp.title}</h4>
-                        <div className="flex items-center space-x-2 mb-4">
-                          <Building className={`w-5 h-5 ${exp.color === 'purple' ? 'text-purple-400' : exp.color === 'pink' ? 'text-pink-400' : 'text-cyan-400'}`} />
-                          <span className={`text-lg font-medium ${exp.color === 'purple' ? 'text-purple-400' : exp.color === 'pink' ? 'text-pink-400' : 'text-cyan-400'}`}>{exp.company}</span>
-                        </div>
-                      </div>
-                    </div>
-                    
-                    <p className="text-muted-foreground mb-4 leading-relaxed">{exp.description}</p>
-                    
-                    <div className="space-y-4">
-                      <div>
-                        <h5 className="font-semibold mb-3 flex items-center">
-                          <Award className={`w-4 h-4 mr-2 ${exp.color === 'purple' ? 'text-purple-400' : exp.color === 'pink' ? 'text-pink-400' : 'text-cyan-400'}`} />
-                          Key Achievements
-                        </h5>
-                        <ul className="space-y-2">
-                          {exp.achievements.map((achievement, achievementIndex) => (
-                            <li key={achievementIndex} className="flex items-start space-x-3">
-                              <div className={`w-2 h-2 rounded-full mt-2 flex-shrink-0 ${exp.color === 'purple' ? 'bg-purple-400' : exp.color === 'pink' ? 'bg-pink-400' : 'bg-cyan-400'}`} />
-                              <span className="text-muted-foreground leading-relaxed">{achievement}</span>
-                            </li>
-                          ))}
-                        </ul>
-                      </div>
-                      
-                      <div>
-                        <h5 className="font-semibold mb-3">Technologies Used</h5>
-                        <div className="flex flex-wrap gap-2">
-                          {exp.technologies.map((tech, techIndex) => (
-                            <Badge
-                              key={techIndex}
-                              variant="outline"
-                              className={`${exp.color === 'purple' ? 'bg-purple-400/10 text-purple-400 border-purple-400/30' : exp.color === 'pink' ? 'bg-pink-400/10 text-pink-400 border-pink-400/30' : 'bg-cyan-400/10 text-cyan-400 border-cyan-400/30'} hover:scale-105 transition-transform`}
-                            >
-                              {tech}
-                            </Badge>
-                          ))}
-                        </div>
-                      </div>
-                    </div>
-                  </CardContent>
-                </Card>
-              )
-            })}
-          </div>
-        </div>
-
-        {/* Highlights Grid */}
-        <div className="opacity-0 animate-[fadeInUp_0.8s_ease-out_0.8s_forwards]">
-          <h3 className="text-2xl font-bold mb-8 flex items-center">
-            <Zap className="mr-3 h-6 w-6 text-pink-400" />
-            Core Strengths
-          </h3>
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-            {highlights.map((item, index) => (
-              <Card
+          <div className="space-y-8">
+            {education.map((edu, index) => (
+              <motion.div
                 key={index}
-                className="glass-effect border border-white/10 hover:border-white/20 transition-all duration-300 group hover:scale-105"
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.6, delay: index * 0.1 }}
+                viewport={{ once: true }}
               >
-                <CardContent className="p-6">
-                  <div className="flex items-start space-x-4">
-                    <div
-                      className={`p-3 rounded-xl border ${getColorClasses(item.color)} group-hover:scale-110 transition-transform duration-300`}
-                    >
-                      <item.icon className="h-6 w-6" />
-                    </div>
+                <GlassmorphicCard>
+                  <div className="flex flex-col md:flex-row md:items-start md:justify-between mb-4">
                     <div className="flex-1">
-                      <h3 className="font-semibold mb-2 text-foreground group-hover:text-white transition-colors">
-                        {item.title}
-                      </h3>
-                      <p className="text-muted-foreground text-sm leading-relaxed">{item.description}</p>
+                      <div className="flex items-center gap-3 mb-2">
+                        <GraduationCap className="h-5 w-5 text-cyan-400" />
+                        <h4 className="text-xl font-bold text-white">{edu.degree}</h4>
+                      </div>
+                      <p className="font-medium text-cyan-400">{edu.institution}</p>
+                      <div className="flex items-center gap-4 text-sm text-zinc-400 mt-1">
+                        <div className="flex items-center gap-1">
+                          <Calendar className="h-4 w-4" />
+                          {edu.period}
+                        </div>
+                        <div className="flex items-center gap-1">
+                          <MapPin className="h-4 w-4" />
+                          {edu.location}
+                        </div>
+                        <span className="px-2 py-1 rounded-full text-xs bg-cyan-500/20 text-cyan-300">{edu.type}</span>
+                      </div>
                     </div>
                   </div>
-                </CardContent>
-              </Card>
+
+                  <p className="text-zinc-300 mb-4">{edu.description}</p>
+
+                  <div>
+                    <h5 className="font-semibold text-white mb-2">Key Achievements:</h5>
+                    <ul className="space-y-1">
+                      {edu.achievements.map((achievement, achIndex) => (
+                        <li key={achIndex} className="text-zinc-300 text-sm flex items-start gap-2">
+                          <span className="mt-1 text-cyan-400">•</span>
+                          {achievement}
+                        </li>
+                      ))}
+                    </ul>
+                  </div>
+                </GlassmorphicCard>
+              </motion.div>
             ))}
           </div>
         </div>

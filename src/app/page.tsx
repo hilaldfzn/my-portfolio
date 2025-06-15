@@ -1,25 +1,32 @@
-import Header from "../components/layout/header"
-import Hero from "../components/sections/hero"
-import About from "../components/sections/about"
-import Skills from "../components/sections/skills"
-import Projects from "../components/sections/projects"
-import Blog from "../components/sections/blog"
-import Testimonials from "../components/sections/testimonials"
-import Contact from "../components/sections/contact"
-import Footer from "../components/layout/footer"
+import { Navbar } from "../components/layout/header"
+import { HeroSection } from "../components/sections/hero"
+import { AboutSection } from "../components/sections/about"
+import { SkillsSection } from "../components/sections/skills"
+import { ExperienceSection } from "../components/sections/experience"
+import { ProjectsSection } from "../components/sections/projects"
+import { BlogSection } from "../components/sections/blog"
+import { TestimonialsSection } from "../components/sections/testimonials"
+import { ContactSection } from "../components/sections/contact"
+import { Footer } from "../components/layout/footer"
+import { MouseFollower } from "../components/mouse-follower"
+import { ScrollProgress } from "../components/scroll-progress"
 
-export default function Home() {
+export default function Portfolio() {
   return (
-    <main className="min-h-screen bg-background">
-      <Header />
-      <Hero />
-      <About />
-      <Skills />
-      <Projects />
-      <Blog />
-      <Testimonials />
-      <Contact />
+    <div className="min-h-screen bg-background text-foreground overflow-hidden dark">
+      <MouseFollower />
+      <ScrollProgress />
+      <Navbar />
+
+      <HeroSection />
+      <AboutSection />
+      <SkillsSection />
+      <ExperienceSection />
+      <ProjectsSection />
+      <BlogSection />
+      <TestimonialsSection />
+      <ContactSection />
       <Footer />
-    </main>
+    </div>
   )
 }
