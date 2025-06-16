@@ -14,7 +14,6 @@ export function TestimonialsSection() {
       image: "/assets/testimonials/rafli.jpeg",
       content:
         "Hilal is an exceptional developer who consistently delivers high-quality work. His attention to detail and problem-solving skills are outstanding.",
-      rating: 5,
     },
     {
       name: "I Made Surya Anahata Putra",
@@ -23,7 +22,6 @@ export function TestimonialsSection() {
       image: "/assets/testimonials/surya.jpeg",
       content:
         "Working with Hilal has been a pleasure. He brings innovative solutions to complex problems and is always willing to help team members.",
-      rating: 5,
     },
     {
       name: "Emily Rodriguez",
@@ -32,7 +30,6 @@ export function TestimonialsSection() {
       image: "/placeholder.svg?height=100&width=100",
       content:
         "Hilal's ability to translate design concepts into functional, beautiful interfaces is remarkable. He's a true professional.",
-      rating: 5,
     },
     {
       name: "David Thompson",
@@ -41,7 +38,6 @@ export function TestimonialsSection() {
       image: "/placeholder.svg?height=100&width=100",
       content:
         "Hilal's technical expertise and leadership skills make him an invaluable team member. He consistently exceeds expectations.",
-      rating: 5,
     },
     {
       name: "Lisa Wang",
@@ -50,7 +46,6 @@ export function TestimonialsSection() {
       image: "/placeholder.svg?height=100&width=100",
       content:
         "Hilal is reliable, communicative, and delivers projects on time. His code quality is excellent and well-documented.",
-      rating: 5,
     },
     {
       name: "Alex Kumar",
@@ -59,7 +54,6 @@ export function TestimonialsSection() {
       image: "/placeholder.svg?height=100&width=100",
       content:
         "Hilal is a mentor and friend. His knowledge sharing and collaborative approach make him a great colleague to work with.",
-      rating: 5,
     },
   ]
 
@@ -86,12 +80,6 @@ export function TestimonialsSection() {
                 <div className="relative">
                   <Quote className="absolute top-0 right-0 h-8 w-8 text-cyan-400/30 translate-x-2 -translate-y-2" />
 
-                  <div className="flex items-center gap-1 mb-4">
-                    {[...Array(testimonial.rating)].map((_, i) => (
-                      <Star key={i} className="h-4 w-4 fill-yellow-400 text-yellow-400" />
-                    ))}
-                  </div>
-
                   <p className="text-muted-foreground mb-6 relative z-10">"{testimonial.content}"</p>
 
                   <div className="flex items-center gap-4">
@@ -103,7 +91,6 @@ export function TestimonialsSection() {
                           className="w-full h-full rounded-full object-cover"
                         />
                       </div>
-                      <div className="absolute -bottom-1 -right-1 w-4 h-4 bg-green-500 rounded-full border-2 border-background"></div>
                     </div>
                     <div>
                       <h4 className="font-semibold">{testimonial.name}</h4>
