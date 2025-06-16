@@ -4,31 +4,31 @@
 
 @layer base {
   :root {
-    --background: 0 0% 100%;
-    --foreground: 222.2 84% 4.9%;
-    --card: 0 0% 100%;
-    --card-foreground: 222.2 84% 4.9%;
-    --popover: 0 0% 100%;
-    --popover-foreground: 222.2 84% 4.9%;
+    --background: 224 71% 4%;
+    --foreground: 213 31% 91%;
+    --card: 224 71% 4%;
+    --card-foreground: 213 31% 91%;
+    --popover: 224 71% 4%;
+    --popover-foreground: 213 31% 91%;
     --primary: 263 70% 50%;
-    --primary-foreground: 210 40% 98%;
-    --secondary: 210 40% 96%;
-    --secondary-foreground: 222.2 47.4% 11.2%;
-    --muted: 210 40% 96%;
-    --muted-foreground: 215.4 16.3% 46.9%;
-    --accent: 210 40% 96%;
-    --accent-foreground: 222.2 47.4% 11.2%;
-    --destructive: 0 84.2% 60.2%;
-    --destructive-foreground: 210 40% 98%;
-    --border: 214.3 31.8% 91.4%;
-    --input: 214.3 31.8% 91.4%;
+    --primary-foreground: 224 71% 4%;
+    --secondary: 215 27% 17%;
+    --secondary-foreground: 213 31% 91%;
+    --muted: 215 27% 17%;
+    --muted-foreground: 217.9 10.6% 64.9%;
+    --accent: 215 27% 17%;
+    --accent-foreground: 213 31% 91%;
+    --destructive: 0 63% 31%;
+    --destructive-foreground: 213 31% 91%;
+    --border: 215 27% 17%;
+    --input: 215 27% 17%;
     --ring: 263 70% 50%;
-    --radius: 0.75rem;
     --neon-cyan: 180 100% 50%;
     --neon-purple: 263 70% 50%;
     --neon-pink: 330 100% 70%;
-    --glass-bg: 255 255 255 / 0.1;
-    --glass-border: 255 255 255 / 0.2;
+    --glass-bg: 0 0 0 / 0.2;
+    --glass-border: 255 255 255 / 0.1;
+    --radius: 1rem;
   }
 
   .dark {
@@ -56,6 +56,7 @@
     --neon-pink: 330 100% 70%;
     --glass-bg: 0 0 0 / 0.2;
     --glass-border: 255 255 255 / 0.1;
+    --radius: 1rem;
   }
 }
 
@@ -104,6 +105,7 @@
   color: hsl(var(--neon-cyan));
   transition: all 0.3s ease;
   overflow: hidden;
+  border-radius: 1rem;
 }
 
 .cyber-button::before {
@@ -301,4 +303,19 @@
 }
 .stagger-6 {
   animation-delay: 0.6s;
+}
+
+/* Line clamp utilities */
+.line-clamp-2 {
+  overflow: hidden;
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 2;
+}
+
+.line-clamp-3 {
+  overflow: hidden;
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 3;
 }
