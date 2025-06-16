@@ -1,30 +1,58 @@
 "use client"
 
-import { useState, useEffect } from "react"
+import { useState, useEffect, useCallback, useRef } from "react"
 import { motion } from "framer-motion"
 
 export function MouseFollower() {
   const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 })
   const [isVisible, setIsVisible] = useState(false)
+  const rafRef = useRef<number>()
+  const mouseRef = useRef({ x: 0, y: 0 })
+
+  const updateMousePosition = useCallback(() => {
+    setMousePosition({ x: mouseRef.current.x, y: mouseRef.current.y })
+  }, [])
 
   useEffect(() => {
     const handleMouseMove = (e: MouseEvent) => {
-      setMousePosition({ x: e.clientX, y: e.clientY })
+      mouseRef.current = { x: e.clientX, y: e.clientY }
       setIsVisible(true)
+
+      if (rafRef.current) {
+        cancelAnimationFrame(rafRef.current)
+      }
+
+      rafRef.current = requestAnimationFrame(updateMousePosition)
     }
 
     const handleMouseLeave = () => {
       setIsVisible(false)
+      if (rafRef.current) {
+        cancelAnimationFrame(rafRef.current)
+      }
     }
 
-    window.addEventListener("mousemove", handleMouseMove)
-    document.body.addEventListener("mouseleave", handleMouseLeave)
+    // Check if device supports hover (not touch device)
+    const supportsHover = window.matchMedia("(hover: hover)").matches
+
+    if (supportsHover) {
+      window.addEventListener("mousemove", handleMouseMove, { passive: true })
+      document.body.addEventListener("mouseleave", handleMouseLeave, { passive: true })
+    }
 
     return () => {
+      if (rafRef.current) {
+        cancelAnimationFrame(rafRef.current)
+      }
       window.removeEventListener("mousemove", handleMouseMove)
       document.body.removeEventListener("mouseleave", handleMouseLeave)
     }
-  }, [])
+  }, [updateMousePosition])
+
+  // Don't render on touch devices
+  if (!window.matchMedia("(hover: hover)").matches) {
+    return null
+  }
 
   return (
     <>
@@ -36,6 +64,7 @@ export function MouseFollower() {
           opacity: isVisible ? 1 : 0,
         }}
         transition={{ type: "spring", damping: 20, stiffness: 300, mass: 0.5 }}
+        style={{ willChange: "transform, opacity" }}
       >
         <div className="w-full h-full rounded-full bg-white opacity-50"></div>
       </motion.div>
@@ -47,6 +76,7 @@ export function MouseFollower() {
           y: mousePosition.y - 1,
           opacity: isVisible ? 1 : 0,
         }}
+        style={{ willChange: "transform, opacity" }}
       />
     </>
   )

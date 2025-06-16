@@ -1,30 +1,34 @@
 "use client"
 
-import { useState, useEffect } from "react"
+import { useState, useEffect, useCallback } from "react"
 import { motion, useScroll, useSpring } from "framer-motion"
 
 export function ScrollProgress() {
   const [isVisible, setIsVisible] = useState(false)
   const { scrollYProgress } = useScroll()
-  const scaleX = useSpring(scrollYProgress, { stiffness: 100, damping: 30 })
+  const scaleX = useSpring(scrollYProgress, { stiffness: 100, damping: 30, restDelta: 0.001 })
+
+  const handleScroll = useCallback(() => {
+    setIsVisible(window.scrollY > 100)
+  }, [])
 
   useEffect(() => {
-    const handleScroll = () => {
-      if (window.scrollY > 100) {
-        setIsVisible(true)
-      } else {
-        setIsVisible(false)
-      }
+    const throttledHandleScroll = () => {
+      requestAnimationFrame(handleScroll)
     }
 
-    window.addEventListener("scroll", handleScroll)
-    return () => window.removeEventListener("scroll", handleScroll)
-  }, [])
+    window.addEventListener("scroll", throttledHandleScroll, { passive: true })
+    return () => window.removeEventListener("scroll", throttledHandleScroll)
+  }, [handleScroll])
 
   return (
     <motion.div
       className="fixed top-0 left-0 right-0 h-1 bg-gradient-to-r from-purple-500 to-pink-500 origin-left z-50"
-      style={{ scaleX, opacity: isVisible ? 1 : 0 }}
+      style={{
+        scaleX,
+        opacity: isVisible ? 1 : 0,
+        willChange: "transform, opacity",
+      }}
       transition={{ opacity: { duration: 0.3 } }}
     />
   )
