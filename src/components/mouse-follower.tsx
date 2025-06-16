@@ -6,6 +6,7 @@ import { motion } from "framer-motion"
 export function MouseFollower() {
   const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 })
   const [isVisible, setIsVisible] = useState(false)
+  const [supportsHover, setSupportsHover] = useState(false)
   const rafRef = useRef<number>()
   const mouseRef = useRef({ x: 0, y: 0 })
 
@@ -14,6 +15,14 @@ export function MouseFollower() {
   }, [])
 
   useEffect(() => {
+    if (typeof window === "undefined") return
+
+    const checkSupportsHover = () => {
+      setSupportsHover(window.matchMedia("(hover: hover)").matches)
+    }
+
+    checkSupportsHover()
+
     const handleMouseMove = (e: MouseEvent) => {
       mouseRef.current = { x: e.clientX, y: e.clientY }
       setIsVisible(true)
@@ -32,9 +41,6 @@ export function MouseFollower() {
       }
     }
 
-    // Check if device supports hover (not touch device)
-    const supportsHover = window.matchMedia("(hover: hover)").matches
-
     if (supportsHover) {
       window.addEventListener("mousemove", handleMouseMove, { passive: true })
       document.body.addEventListener("mouseleave", handleMouseLeave, { passive: true })
@@ -44,13 +50,15 @@ export function MouseFollower() {
       if (rafRef.current) {
         cancelAnimationFrame(rafRef.current)
       }
-      window.removeEventListener("mousemove", handleMouseMove)
-      document.body.removeEventListener("mouseleave", handleMouseLeave)
+      if (typeof window !== "undefined") {
+        window.removeEventListener("mousemove", handleMouseMove)
+        document.body.removeEventListener("mouseleave", handleMouseLeave)
+      }
     }
-  }, [updateMousePosition])
+  }, [updateMousePosition, supportsHover])
 
-  // Don't render on touch devices
-  if (!window.matchMedia("(hover: hover)").matches) {
+  // Don't render on touch devices or during SSR
+  if (typeof window === "undefined" || !supportsHover) {
     return null
   }
 

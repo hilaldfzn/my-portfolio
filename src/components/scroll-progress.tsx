@@ -9,10 +9,13 @@ export function ScrollProgress() {
   const scaleX = useSpring(scrollYProgress, { stiffness: 100, damping: 30, restDelta: 0.001 })
 
   const handleScroll = useCallback(() => {
+    if (typeof window === "undefined") return
     setIsVisible(window.scrollY > 100)
   }, [])
 
   useEffect(() => {
+    if (typeof window === "undefined") return
+
     const throttledHandleScroll = () => {
       requestAnimationFrame(handleScroll)
     }

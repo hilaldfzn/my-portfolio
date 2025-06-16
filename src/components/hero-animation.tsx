@@ -21,6 +21,8 @@ export function HeroAnimation() {
   const particlesArrayRef = useRef<Particle[]>([])
 
   const setCanvasDimensions = useCallback(() => {
+    if (typeof window === "undefined") return
+
     const canvas = canvasRef.current
     if (!canvas) return
 
@@ -39,6 +41,8 @@ export function HeroAnimation() {
   }, [])
 
   useEffect(() => {
+    if (typeof window === "undefined") return
+
     const canvas = canvasRef.current
     if (!canvas) return
 
@@ -47,7 +51,6 @@ export function HeroAnimation() {
 
     const { ctx, devicePixelRatio } = result
 
-    // Particle class with optimized properties
     class ParticleClass implements Particle {
       x: number
       y: number
@@ -156,7 +159,7 @@ export function HeroAnimation() {
     animationIdRef.current = requestAnimationFrame(animate)
 
     const handleResize = () => {
-      if (!canvas) return
+      if (!canvas || typeof window === "undefined") return
 
       setCanvasDimensions()
       // Reinitialize particles on resize
@@ -172,7 +175,9 @@ export function HeroAnimation() {
       if (animationIdRef.current) {
         cancelAnimationFrame(animationIdRef.current)
       }
-      window.removeEventListener("resize", handleResize)
+      if (typeof window !== "undefined") {
+        window.removeEventListener("resize", handleResize)
+      }
       particlesArrayRef.current = []
     }
   }, [setCanvasDimensions])

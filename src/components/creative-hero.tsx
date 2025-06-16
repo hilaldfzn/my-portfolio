@@ -46,6 +46,8 @@ export function CreativeHero() {
   }, [])
 
   useEffect(() => {
+    if (typeof window === "undefined") return
+
     const canvas = canvasRef.current
     if (!canvas) return
 
@@ -226,8 +228,10 @@ export function CreativeHero() {
         cancelAnimationFrame(animationIdRef.current)
       }
       observer.disconnect()
-      window.removeEventListener("mousemove", handleMouseMove)
-      window.removeEventListener("resize", handleResize)
+      if (typeof window !== "undefined") {
+        window.removeEventListener("mousemove", handleMouseMove)
+        window.removeEventListener("resize", handleResize)
+      }
       particlesArrayRef.current = []
     }
   }, [throttle])
