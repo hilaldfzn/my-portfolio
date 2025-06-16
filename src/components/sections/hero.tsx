@@ -39,7 +39,7 @@ export function HeroSection() {
               transition={{ duration: 0.8, delay: 0.2, ease: "easeOut" }}
             >
               <span className="block">Hi, I am</span>
-              <span className="gradient-text">Hilal</span>
+              <span className="gradient-text">Muhammad Hilal</span>
             </motion.h1>
 
             <motion.p
