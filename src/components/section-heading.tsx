@@ -4,10 +4,9 @@ import { motion } from "framer-motion"
 
 interface SectionHeadingProps {
   title: string
-  subtitle: string
 }
 
-export function SectionHeading({ title, subtitle }: SectionHeadingProps) {
+export function SectionHeading({ title }: SectionHeadingProps) {
   return (
     <div className="text-center space-y-4">
       <motion.div
@@ -16,12 +15,6 @@ export function SectionHeading({ title, subtitle }: SectionHeadingProps) {
         transition={{ duration: 0.5 }}
         viewport={{ once: true }}
       >
-        <div className="inline-block">
-          <div className="relative px-3 py-1 text-sm font-medium rounded-full glass-effect border border-white/20 mb-2">
-            <span className="relative z-10">{subtitle}</span>
-            <span className="absolute inset-0 rounded-full bg-gradient-to-r from-cyan-500/20 to-purple-500/20 animate-pulse"></span>
-          </div>
-        </div>
       </motion.div>
 
       <motion.h2

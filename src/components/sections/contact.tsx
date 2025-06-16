@@ -20,7 +20,6 @@ export function ContactSection() {
     e.preventDefault()
     setIsSubmitting(true)
 
-    // Simulate form submission
     await new Promise((resolve) => setTimeout(resolve, 1500))
 
     toast({
@@ -40,7 +39,7 @@ export function ContactSection() {
       </div>
 
       <div className="container mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
-        <SectionHeading title="Get In Touch" subtitle="Let's work together" />
+        <SectionHeading title="Get In Touch" />
 
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-start mt-16">
           {/* Contact Information */}
@@ -60,7 +59,7 @@ export function ContactSection() {
                   </div>
                   <div>
                     <div className="text-sm text-muted-foreground">Email</div>
-                    <div className="font-medium">hilal@example.com</div>
+                    <div className="font-medium">hilalfauzan9@gmail.com</div>
                   </div>
                 </div>
                 <div className="flex items-center gap-4">
@@ -69,7 +68,7 @@ export function ContactSection() {
                   </div>
                   <div>
                     <div className="text-sm text-muted-foreground">LinkedIn</div>
-                    <div className="font-medium">linkedin.com/in/hilal</div>
+                    <div className="font-medium">Muhammad Hilal Darul Fauzan</div>
                   </div>
                 </div>
                 <div className="flex items-center gap-4">
@@ -87,7 +86,7 @@ export function ContactSection() {
                 <h4 className="text-lg font-medium mb-4">Current Status</h4>
                 <div className="flex items-center gap-2">
                   <div className="w-3 h-3 rounded-full bg-green-500 animate-pulse"></div>
-                  <span>Available for freelance work and full-time opportunities</span>
+                  <span>Available for internship and full-time opportunities</span>
                 </div>
               </div>
             </GlassmorphicCard>

@@ -60,7 +60,7 @@ export function SkillsSection() {
           transition={{ duration: 0.6 }}
           viewport={{ once: true }}
         >
-          <SectionHeading title="Tech Stacks & Tools" subtitle="Technologies I work with" />
+          <SectionHeading title="Tech Stacks & Tools" />
         </motion.div>
 
         {/* Horizontal scrolling tech stack */}

@@ -123,7 +123,7 @@ export function BlogSection() {
       </div>
 
       <div className="container mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
-        <SectionHeading title="Latest Blog Posts" subtitle="Thoughts and insights" />
+        <SectionHeading title="Latest Blog Posts" />
 
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 mt-16">
           {blogPosts.map((blog, index) => (
@@ -149,7 +149,7 @@ export function BlogSection() {
                 <div className="flex items-center gap-4 text-sm text-muted-foreground mb-3">
                   <div className="flex items-center gap-1">
                     <Calendar className="h-4 w-4" />
-                    {new Date(blog.publishedAt).toLocaleDateString()}
+                    {new Date(blog.publishedAt).toLocaleDateString("en-ID")}
                   </div>
                   <div className="flex items-center gap-1">
                     <Clock className="h-4 w-4" />

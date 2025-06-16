@@ -8,19 +8,19 @@ import { GlassmorphicCard } from "../glassmorphic-card"
 export function TestimonialsSection() {
   const testimonials = [
     {
-      name: "Sarah Johnson",
-      role: "Product Manager",
-      company: "Tech Innovations Inc.",
-      image: "/placeholder.svg?height=100&width=100",
+      name: "Muhammad Rafli Mahesa",
+      role: "Teaching Assistant of Advanced Programming",
+      company: "Faculty of Computer Science, Universitas Indonesia",
+      image: "/assets/testimonials/rafli.jpeg",
       content:
         "Hilal is an exceptional developer who consistently delivers high-quality work. His attention to detail and problem-solving skills are outstanding.",
       rating: 5,
     },
     {
-      name: "Michael Chen",
-      role: "Senior Developer",
-      company: "Digital Solutions Co.",
-      image: "/placeholder.svg?height=100&width=100",
+      name: "I Made Surya Anahata Putra",
+      role: "Teaching Assistant of Advanced Programming",
+      company: "Faculty of Computer Science, Universitas Indonesia",
+      image: "/assets/testimonials/surya.jpeg",
       content:
         "Working with Hilal has been a pleasure. He brings innovative solutions to complex problems and is always willing to help team members.",
       rating: 5,
@@ -71,7 +71,7 @@ export function TestimonialsSection() {
       </div>
 
       <div className="container mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
-        <SectionHeading title="What People Say" subtitle="Testimonials from colleagues and clients" />
+        <SectionHeading title="What People Say" />
 
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 mt-16">
           {testimonials.map((testimonial, index) => (
@@ -96,11 +96,13 @@ export function TestimonialsSection() {
 
                   <div className="flex items-center gap-4">
                     <div className="relative">
-                      <img
-                        src={testimonial.image || "/placeholder.svg"}
-                        alt={testimonial.name}
-                        className="w-12 h-12 rounded-full object-cover border-2 border-cyan-400/30"
-                      />
+                      <div className="w-16 h-16 rounded-full border-2 border-cyan-400/30 p-0.5">
+                        <img
+                          src={testimonial.image || "/placeholder.svg"}
+                          alt={testimonial.name}
+                          className="w-full h-full rounded-full object-cover"
+                        />
+                      </div>
                       <div className="absolute -bottom-1 -right-1 w-4 h-4 bg-green-500 rounded-full border-2 border-background"></div>
                     </div>
                     <div>

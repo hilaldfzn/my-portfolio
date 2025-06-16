@@ -28,6 +28,7 @@
     --neon-pink: 330 100% 70%;
     --glass-bg: 0 0 0 / 0.2;
     --glass-border: 255 255 255 / 0.1;
+    --radius: 1rem;
   }
 
   .dark {
@@ -55,6 +56,7 @@
     --neon-pink: 330 100% 70%;
     --glass-bg: 0 0 0 / 0.2;
     --glass-border: 255 255 255 / 0.1;
+    --radius: 1rem;
   }
 }
 
@@ -103,6 +105,7 @@
   color: hsl(var(--neon-cyan));
   transition: all 0.3s ease;
   overflow: hidden;
+  border-radius: 1rem;
 }
 
 .cyber-button::before {

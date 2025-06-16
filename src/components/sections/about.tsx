@@ -8,31 +8,31 @@ import { GlassmorphicCard } from "../glassmorphic-card"
 export function AboutSection() {
   const education = [
     {
-      degree: "Bachelor of Computer Science",
-      institution: "University of Technology",
-      location: "Jakarta, Indonesia",
-      period: "2018 - 2022",
+      degree: "Computer Science",
+      institution: "Universitas Indonesia",
+      location: "Depok, Jawa Barat",
+      period: "2022 - Present",
       type: "Bachelor's Degree",
       description:
-        "Specialized in Software Engineering and Web Development with focus on modern programming languages and frameworks.",
-      achievements: [
-        "Graduated Magna Cum Laude with GPA 3.8/4.0",
-        "Led final year project on AI-powered web applications",
-        "Active member of Computer Science Student Association",
+        "Specialized in software engineering and web development with focus on modern programming languages and frameworks.",
+      highlights: [
+        "Joined several organizations and became a teaching assistant",
+        "Created multiple web applications, data science, and AI/ML projects",
+        "Acquired strong skills in software development, problem-solving, and teamwork",
       ],
     },
     {
-      degree: "Full Stack Web Development Bootcamp",
-      institution: "Tech Academy",
-      location: "Jakarta, Indonesia",
-      period: "2022",
-      type: "Certification",
+      degree: "Mathematics and Natural Sciences",
+      institution: "SMA Negeri 1 Jakarta",
+      location: "Jakarta Pusat",
+      period: "2019 - 2022",
+      type: "Senior High School",
       description:
-        "Intensive 6-month program covering modern web technologies including React, Node.js, and cloud deployment.",
-      achievements: [
-        "Completed 500+ hours of hands-on coding projects",
-        "Built 5 full-stack applications from scratch",
-        "Received 'Outstanding Student' award for project excellence",
+        "Focused on mathematics and natural sciences with strong foundation in analytical thinking and problem-solving skills.",
+      highlights: [
+        "Participated in the national science olympiad in astronomy",
+        "Became a top 10 outstanding student in the school",
+        "Developed strong analytical and scientific research skills",
       ],
     },
   ]
@@ -45,7 +45,7 @@ export function AboutSection() {
       </div>
 
       <div className="container mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
-        <SectionHeading title="About Me" subtitle="Get to know me better" />
+        <SectionHeading title="About Me" />
 
         <div className="grid grid-cols-1 lg:grid-cols-5 gap-8 items-start mt-16">
           {/* Photo */}
@@ -59,7 +59,7 @@ export function AboutSection() {
             <div className="relative">
               <div className="absolute -inset-4 rounded-xl bg-gradient-to-r from-cyan-500/20 to-purple-500/20 blur-xl opacity-70"></div>
               <div className="relative aspect-square rounded-xl overflow-hidden border border-zinc-800">
-                <img src="/placeholder.svg?height=600&width=600" alt="Hilal" className="w-full h-full object-cover" />
+                <img src="/assets/me.png" alt="Hilal" className="w-full h-full object-cover" />
                 <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent"></div>
                 <div className="absolute bottom-0 left-0 w-full p-6">
                   <div className="flex items-center gap-2">
@@ -71,7 +71,6 @@ export function AboutSection() {
             </div>
           </motion.div>
 
-          {/* My Story */}
           <motion.div
             className="lg:col-span-3"
             initial={{ opacity: 0, x: 50 }}
@@ -80,18 +79,18 @@ export function AboutSection() {
             viewport={{ once: true }}
           >
             <GlassmorphicCard>
-              <h3 className="text-2xl font-bold mb-4 gradient-text">My Story</h3>
+              <h3 className="text-2xl font-bold mb-4 gradient-text">Get to Know Me</h3>
               <p className="text-lg text-zinc-300 mb-4">
-                I'm a passionate Full Stack Developer with a strong foundation in modern web technologies. I love
-                creating digital solutions that make a real impact and solve complex problems.
+                I'm an undergraduate Computer Science student at Universitas Indonesia with a strong passion for building meaningful and impactful technology. 
+                I’m especially interested in software engineering, web development, and data science, and I enjoy exploring how these areas intersect to solve real-world problems.
               </p>
               <p className="text-lg text-zinc-300 mb-4">
-                My journey in tech started with curiosity about how websites work, and it has evolved into a deep
-                passion for building scalable, user-friendly applications that enhance people's lives.
+                I love working on projects that challenge me to learn new tools and think critically, whether it's developing intuitive web applications, designing efficient software systems, or analyzing data to uncover insights. 
+                I have hands-on experience with several programming languages and frameworks, and I’m always excited to grow and collaborate in a team environment.
               </p>
               <p className="text-lg text-zinc-300">
-                When I'm not coding, you can find me exploring new technologies, contributing to open-source projects,
-                and staying up-to-date with the latest industry trends.
+                Currently, I’m looking for opportunities to apply and expand my skills through internships, projects, or research collaborations. 
+                I’m a fast learner, a team player, and always eager to explore new challenges in tech.
               </p>
             </GlassmorphicCard>
           </motion.div>
@@ -146,12 +145,12 @@ export function AboutSection() {
                   <p className="text-zinc-300 mb-4">{edu.description}</p>
 
                   <div>
-                    <h5 className="font-semibold text-white mb-2">Key Achievements:</h5>
+                    <h5 className="font-semibold text-white mb-2">Key Highlights:</h5>
                     <ul className="space-y-1">
-                      {edu.achievements.map((achievement, achIndex) => (
-                        <li key={achIndex} className="text-zinc-300 text-sm flex items-start gap-2">
-                          <span className="mt-1 text-cyan-400">•</span>
-                          {achievement}
+                      {edu.highlights.map((highlight, highlightIndex) => (
+                        <li key={highlightIndex} className="text-zinc-300 text-sm flex items-start gap-2">
+                          <span className="text-cyan-400">•</span>
+                          {highlight}
                         </li>
                       ))}
                     </ul>

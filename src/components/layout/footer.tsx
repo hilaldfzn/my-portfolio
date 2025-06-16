@@ -21,7 +21,7 @@ export function Footer() {
           </div>
 
           <div className="flex gap-4">
-            <Link href="https://github.com" target="_blank" rel="noopener noreferrer">
+            <Link href="https://github.com/hilaldfzn" target="_blank" rel="noopener noreferrer">
               <Button
                 variant="ghost"
                 size="icon"
@@ -31,7 +31,7 @@ export function Footer() {
                 <span className="sr-only">GitHub</span>
               </Button>
             </Link>
-            <Link href="https://linkedin.com/in/hilal" target="_blank" rel="noopener noreferrer">
+            <Link href="https://www.linkedin.com/in/muhammad-hilal-darul-fauzan/" target="_blank" rel="noopener noreferrer">
               <Button
                 variant="ghost"
                 size="icon"
@@ -41,7 +41,7 @@ export function Footer() {
                 <span className="sr-only">LinkedIn</span>
               </Button>
             </Link>
-            <Link href="mailto:hilal@example.com">
+            <Link href="mailto:hilalfauzan9@gmail.com">
               <Button
                 variant="ghost"
                 size="icon"

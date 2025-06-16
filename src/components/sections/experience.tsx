@@ -1,45 +1,43 @@
 "use client"
 
 import { motion } from "framer-motion"
-import { Briefcase, Calendar, MapPin } from "lucide-react"
+import { Briefcase, Calendar, MapPin, ExternalLink } from "lucide-react"
 import { SectionHeading } from "../section-heading"
 import { GlassmorphicCard } from "../glassmorphic-card"
+import { Button } from "../ui/button"
 
 export function ExperienceSection() {
   const experience = [
     {
-      title: "Frontend Developer",
-      company: "OKK UI 2024",
+      title: "IT & Broadcast",
+      company: "OKK UI",
       period: "June - August 2024",
-      location: "Remote",
-      type: "Part-time",
+      location: "Depok, Jawa Barat",
+      type: "Organization",
       description:
-        "Developing web applications using modern technologies including Django, React, and Next.js for various clients.",
-      achievements: [
-        "Built 8+ full-stack web applications with modern frameworks",
-        "Implemented AI-powered features using machine learning models",
-        "Collaborated with cross-functional teams in agile environments",
-        "Maintained 99% client satisfaction rate",
+        "Contributed to the development of the OKK UI 2024 website's frontend, leveraging React for dynamic user interfaces and Tailwind CSS for efficient and responsive styling. Focused on creating an engaging, user-friendly design that aligns with the project's goals and ensures a seamless browsing experience.",
+      highlights: [
+        "Developed responsive frontend components using React and Tailwind CSS",
+        "Created engaging and user-friendly design interfaces",
+        "Ensured seamless browsing experience across different devices",
+        "Collaborated with design team to align with project goals",
       ],
-      technologies: ["Django", "React", "Next.js", "Python", "TypeScript"],
-      color: "purple",
+      liveDemo: "https://okk-ui-2024.up.railway.app",
     },
     {
       title: "Editorial Marketing",
-      company: "COMPFEST 15",
+      company: "COMPFEST",
       period: "May 2023 - August 2023",
-      location: "Jakarta, Indonesia",
-      type: "Internship",
+      location: "Depok, Jawa Barat",
+      type: "Organization",
       description:
-        "Contributed to large-scale event management systems and gained experience in team collaboration and project management.",
-      achievements: [
-        "Developed features for event registration system",
-        "Optimized database queries improving performance by 40%",
-        "Mentored junior developers in coding best practices",
-        "Led a team of 5 developers in academy program",
+        "Contributed to editorial marketing activities for COMPFEST 15, focusing on content creation, media relations, and publication management to enhance the event's visibility and engagement across multiple platforms.",
+      highlights: [
+        "Created and published press releases for the Grand Launching of COMPFEST 15",
+        "Conducted interviews with speakers at the Grand Launching event",
+        "Provided captioning, proofreading, translating, and copywriting services",
+        "Generated thousands of insights across various social media platforms",
       ],
-      technologies: ["Django", "PostgreSQL", "JavaScript", "Bootstrap"],
-      color: "pink",
     },
   ]
 
@@ -53,7 +51,6 @@ export function ExperienceSection() {
       <div className="container mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
         <SectionHeading
           title="Work & Organizational Experiences"
-          subtitle="My professional journey and contributions"
         />
 
         <div className="space-y-8 mt-16">
@@ -90,16 +87,32 @@ export function ExperienceSection() {
                 <p className="text-zinc-300 mb-4">{exp.description}</p>
 
                 <div>
-                  <h5 className="font-semibold text-white mb-2">Key Achievements:</h5>
+                  <h5 className="font-semibold text-white mb-2">Key Highlights:</h5>
                   <ul className="space-y-1">
-                    {exp.achievements.map((achievement, achIndex) => (
-                      <li key={achIndex} className="text-zinc-300 text-sm flex items-start gap-2">
-                        <span className="mt-1 text-cyan-400">•</span>
-                        {achievement}
+                    {exp.highlights.map((highlight, highlightIndex) => (
+                      <li key={highlightIndex} className="text-zinc-300 text-sm flex items-start gap-2">
+                        <span className="text-cyan-400">•</span>
+                        {highlight}
                       </li>
                     ))}
                   </ul>
                 </div>
+
+                {exp.liveDemo && (
+                  <div className="mt-4 pt-4 border-t border-zinc-700/50">
+                    <Button
+                      variant="outline"
+                      size="sm"
+                      className="border-cyan-400/50 text-cyan-400 hover:bg-cyan-400 hover:text-black rounded-2xl"
+                      asChild
+                    >
+                      <a href={exp.liveDemo} target="_blank" rel="noopener noreferrer">
+                        <ExternalLink className="mr-2 h-4 w-4" />
+                        View Live Demo
+                      </a>
+                    </Button>
+                  </div>
+                )}
               </GlassmorphicCard>
             </motion.div>
           ))}

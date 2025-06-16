@@ -37,7 +37,7 @@ export function HeroSection() {
               transition={{ duration: 0.8, delay: 0.2 }}
             >
               <span className="block">Hi, I am</span>
-              <span className="gradient-text">Hilal</span>
+              <span className="gradient-text">Muhammad Hilal</span>
             </motion.h1>
 
             <motion.p
@@ -55,17 +55,19 @@ export function HeroSection() {
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.8, delay: 0.6 }}
             >
-              <Button onClick={scrollToContact} className="cyber-button group">
+              <Button onClick={scrollToContact} className="cyber-button group rounded-2xl">
                 <span className="relative z-10 flex items-center">
                   Get In Touch <ArrowRight className="ml-2 h-4 w-4 transition-transform group-hover:translate-x-1" />
                 </span>
               </Button>
               <Button
                 variant="outline"
-                className="border-purple-500 text-purple-400 hover:bg-purple-500 hover:text-white"
+                className="border-purple-500 text-purple-400 hover:bg-purple-500 hover:text-white rounded-2xl"
               >
-                <Download className="mr-2 h-4 w-4" />
-                Download Resume/CV
+                <a href="/assets/CV.pdf" className="mr-2 h-4 w-4" download>
+                  <Download className="h-4 w-4" />
+                </a>
+                Download CV
               </Button>
             </motion.div>
           </motion.div>
@@ -80,18 +82,6 @@ export function HeroSection() {
           </motion.div>
         </div>
       </div>
-
-      {/* Scroll indicator */}
-      <motion.div
-        className="absolute bottom-10 left-1/2 -translate-x-1/2"
-        initial={{ opacity: 0 }}
-        animate={{ opacity: 1 }}
-        transition={{ duration: 1, delay: 1 }}
-      >
-        <div className="w-6 h-10 rounded-full border-2 border-white/20 flex justify-center items-start p-1 animate-bounce">
-          <div className="w-1.5 h-1.5 rounded-full bg-white/60 animate-pulse"></div>
-        </div>
-      </motion.div>
     </section>
   )
 }
