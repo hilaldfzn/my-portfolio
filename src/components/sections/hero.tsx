@@ -48,7 +48,7 @@ export function HeroSection() {
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.8, delay: 0.4, ease: "easeOut" }}
             >
-              Full Stack Developer passionate about creating intelligent, scalable, and innovative digital solutions.
+              Full stack developer passionate about creating intelligent, scalable, and innovative digital solutions.
             </motion.p>
 
             <motion.div
