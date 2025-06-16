@@ -17,8 +17,8 @@ export function TestimonialsSection() {
     },
     {
       name: "I Made Surya Anahata Putra",
-      role: "Teaching Assistant of Advanced Programming",
-      company: "Faculty of Computer Science, Universitas Indonesia",
+      role: "Vice Director of Mobile Development",
+      company: "RISTEK Fasilkom UI",
       image: "/assets/testimonials/surya.jpeg",
       content:
         "Working with Hilal has been a pleasure. He brings innovative solutions to complex problems and is always willing to help team members.",
