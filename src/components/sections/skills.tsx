@@ -3,60 +3,11 @@
 import Image from "next/image"
 import { motion } from "framer-motion"
 import { SectionHeading } from "../section-heading"
-import { memo, useState, useCallback } from "react"
+import { useIntersectionObserver } from "../../hooks/use-intersection-observer"
 
-const TechIcon = memo(({ tech, index }: { tech: { name: string; logo: string }; index: number }) => {
-  const [imageError, setImageError] = useState(false)
-  const [imageLoaded, setImageLoaded] = useState(false)
+export function SkillsSection() {
+  const { elementRef, isIntersecting } = useIntersectionObserver()
 
-  const handleImageError = useCallback(() => {
-    setImageError(true)
-  }, [])
-
-  const handleImageLoad = useCallback(() => {
-    setImageLoaded(true)
-  }, [])
-
-  return (
-    <motion.div
-      className="flex-shrink-0 group cursor-pointer"
-      initial={{ opacity: 0, y: 20 }}
-      whileInView={{ opacity: 1, y: 0 }}
-      transition={{ duration: 0.4, delay: (index % 21) * 0.05 }}
-      viewport={{ once: true, margin: "-50px" }}
-    >
-      <div className="flex flex-col items-center space-y-3 p-4 rounded-xl glass-effect border border-white/10 hover:border-cyan-400/50 transition-all duration-300 hover:scale-105 hover:shadow-lg hover:shadow-cyan-400/25">
-        <div className="relative w-12 h-12 flex-shrink-0">
-          {!imageError ? (
-            <Image
-              src={tech.logo || "/placeholder.svg"}
-              alt={tech.name}
-              fill
-              className={`object-contain group-hover:scale-110 transition-transform duration-300 ${
-                imageLoaded ? "opacity-100" : "opacity-0"
-              }`}
-              onError={handleImageError}
-              onLoad={handleImageLoad}
-              loading="lazy"
-              sizes="48px"
-            />
-          ) : (
-            <div className="w-full h-full rounded bg-gradient-to-br from-cyan-500/20 to-purple-500/20 flex items-center justify-center text-xs font-bold text-cyan-400">
-              {tech.name.charAt(0)}
-            </div>
-          )}
-        </div>
-        <span className="text-sm font-medium text-center whitespace-nowrap group-hover:text-cyan-400 transition-colors">
-          {tech.name}
-        </span>
-      </div>
-    </motion.div>
-  )
-})
-
-TechIcon.displayName = "TechIcon"
-
-export const SkillsSection = memo(() => {
   const technologies = [
     { name: "Python", logo: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/python/python-original.svg" },
     { name: "Django", logo: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/django/django-plain.svg" },
@@ -97,7 +48,7 @@ export const SkillsSection = memo(() => {
   ]
 
   return (
-    <section id="skills" className="py-20 relative overflow-hidden">
+    <section ref={elementRef} id="skills" className="py-20 relative overflow-hidden">
       {/* Background pattern */}
       <div className="absolute inset-0">
         <div className="absolute top-1/4 left-1/4 w-72 h-72 bg-gradient-to-r from-cyan-500/10 to-purple-500/10 rounded-full blur-3xl" />
@@ -108,33 +59,90 @@ export const SkillsSection = memo(() => {
         <motion.div
           className="text-center mb-16"
           initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
+          animate={isIntersecting ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
           transition={{ duration: 0.6 }}
-          viewport={{ once: true }}
         >
           <SectionHeading title="Tech Stacks & Tools" />
         </motion.div>
 
-        {/* Horizontal scrolling tech stack */}
+        {/* Optimized horizontal scrolling tech stack */}
         <div className="relative">
-          <div className="flex space-x-8 animate-scroll-left">
+          <motion.div
+            className="flex space-x-8 animate-scroll-left"
+            initial={{ opacity: 0 }}
+            animate={isIntersecting ? { opacity: 1 } : { opacity: 0 }}
+            transition={{ duration: 0.8, delay: 0.2 }}
+          >
             {[...technologies, ...technologies].map((tech, index) => (
-              <TechIcon key={`${tech.name}-${index}`} tech={tech} index={index} />
+              <motion.div
+                key={`${tech.name}-${index}`}
+                className="flex-shrink-0 group cursor-pointer"
+                initial={{ opacity: 0, y: 20 }}
+                animate={isIntersecting ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
+                transition={{ duration: 0.6, delay: Math.min((index % technologies.length) * 0.05, 1) }}
+              >
+                <div className="flex flex-col items-center space-y-3 p-4 rounded-xl glass-effect border border-white/10 hover:border-cyan-400/50 transition-all duration-300 hover:scale-110 hover:shadow-lg hover:shadow-cyan-400/25">
+                  <div className="relative w-12 h-12 flex-shrink-0">
+                    <Image
+                      src={tech.logo || "/placeholder.svg"}
+                      alt={tech.name}
+                      fill
+                      className="object-contain group-hover:scale-110 transition-transform duration-300"
+                      loading="lazy"
+                      sizes="48px"
+                      onError={(e) => {
+                        e.currentTarget.style.display = "none"
+                      }}
+                    />
+                  </div>
+                  <span className="text-sm font-medium text-center whitespace-nowrap group-hover:text-cyan-400 transition-colors">
+                    {tech.name}
+                  </span>
+                </div>
+              </motion.div>
             ))}
-          </div>
+          </motion.div>
         </div>
 
         {/* Second row with reverse animation */}
         <div className="relative mt-8">
-          <div className="flex space-x-8 animate-scroll-right">
+          <motion.div
+            className="flex space-x-8 animate-scroll-right"
+            initial={{ opacity: 0 }}
+            animate={isIntersecting ? { opacity: 1 } : { opacity: 0 }}
+            transition={{ duration: 0.8, delay: 0.4 }}
+          >
             {[...technologies.slice().reverse(), ...technologies.slice().reverse()].map((tech, index) => (
-              <TechIcon key={`reverse-${tech.name}-${index}`} tech={tech} index={index} />
+              <motion.div
+                key={`reverse-${tech.name}-${index}`}
+                className="flex-shrink-0 group cursor-pointer"
+                initial={{ opacity: 0, y: 20 }}
+                animate={isIntersecting ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
+                transition={{ duration: 0.6, delay: Math.min((index % technologies.length) * 0.05 + 0.3, 1.3) }}
+              >
+                <div className="flex flex-col items-center space-y-3 p-4 rounded-xl glass-effect border border-white/10 hover:border-purple-400/50 transition-all duration-300 hover:scale-110 hover:shadow-lg hover:shadow-purple-400/25">
+                  <div className="relative w-12 h-12 flex-shrink-0">
+                    <Image
+                      src={tech.logo || "/placeholder.svg"}
+                      alt={tech.name}
+                      fill
+                      className="object-contain group-hover:scale-110 transition-transform duration-300"
+                      loading="lazy"
+                      sizes="48px"
+                      onError={(e) => {
+                        e.currentTarget.style.display = "none"
+                      }}
+                    />
+                  </div>
+                  <span className="text-sm font-medium text-center whitespace-nowrap group-hover:text-purple-400 transition-colors">
+                    {tech.name}
+                  </span>
+                </div>
+              </motion.div>
             ))}
-          </div>
+          </motion.div>
         </div>
       </div>
     </section>
   )
-})
-
-SkillsSection.displayName = "SkillsSection"
+}
