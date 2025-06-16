@@ -3,8 +3,60 @@
 import Image from "next/image"
 import { motion } from "framer-motion"
 import { SectionHeading } from "../section-heading"
+import { memo, useState, useCallback } from "react"
 
-export function SkillsSection() {
+const TechIcon = memo(({ tech, index }: { tech: { name: string; logo: string }; index: number }) => {
+  const [imageError, setImageError] = useState(false)
+  const [imageLoaded, setImageLoaded] = useState(false)
+
+  const handleImageError = useCallback(() => {
+    setImageError(true)
+  }, [])
+
+  const handleImageLoad = useCallback(() => {
+    setImageLoaded(true)
+  }, [])
+
+  return (
+    <motion.div
+      className="flex-shrink-0 group cursor-pointer"
+      initial={{ opacity: 0, y: 20 }}
+      whileInView={{ opacity: 1, y: 0 }}
+      transition={{ duration: 0.4, delay: (index % 21) * 0.05 }}
+      viewport={{ once: true, margin: "-50px" }}
+    >
+      <div className="flex flex-col items-center space-y-3 p-4 rounded-xl glass-effect border border-white/10 hover:border-cyan-400/50 transition-all duration-300 hover:scale-105 hover:shadow-lg hover:shadow-cyan-400/25">
+        <div className="relative w-12 h-12 flex-shrink-0">
+          {!imageError ? (
+            <Image
+              src={tech.logo || "/placeholder.svg"}
+              alt={tech.name}
+              fill
+              className={`object-contain group-hover:scale-110 transition-transform duration-300 ${
+                imageLoaded ? "opacity-100" : "opacity-0"
+              }`}
+              onError={handleImageError}
+              onLoad={handleImageLoad}
+              loading="lazy"
+              sizes="48px"
+            />
+          ) : (
+            <div className="w-full h-full rounded bg-gradient-to-br from-cyan-500/20 to-purple-500/20 flex items-center justify-center text-xs font-bold text-cyan-400">
+              {tech.name.charAt(0)}
+            </div>
+          )}
+        </div>
+        <span className="text-sm font-medium text-center whitespace-nowrap group-hover:text-cyan-400 transition-colors">
+          {tech.name}
+        </span>
+      </div>
+    </motion.div>
+  )
+})
+
+TechIcon.displayName = "TechIcon"
+
+export const SkillsSection = memo(() => {
   const technologies = [
     { name: "Python", logo: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/python/python-original.svg" },
     { name: "Django", logo: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/django/django-plain.svg" },
@@ -67,31 +119,7 @@ export function SkillsSection() {
         <div className="relative">
           <div className="flex space-x-8 animate-scroll-left">
             {[...technologies, ...technologies].map((tech, index) => (
-              <motion.div
-                key={`${tech.name}-${index}`}
-                className="flex-shrink-0 group cursor-pointer"
-                initial={{ opacity: 0, y: 20 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.6, delay: (index % technologies.length) * 0.1 }}
-                viewport={{ once: true }}
-              >
-                <div className="flex flex-col items-center space-y-3 p-4 rounded-xl glass-effect border border-white/10 hover:border-cyan-400/50 transition-all duration-300 hover:scale-110 hover:shadow-lg hover:shadow-cyan-400/25">
-                  <div className="relative w-12 h-12 flex-shrink-0">
-                    <Image
-                      src={tech.logo || "/placeholder.svg"}
-                      alt={tech.name}
-                      fill
-                      className="object-contain group-hover:scale-110 transition-transform duration-300"
-                      onError={(e) => {
-                        e.currentTarget.style.display = "none"
-                      }}
-                    />
-                  </div>
-                  <span className="text-sm font-medium text-center whitespace-nowrap group-hover:text-cyan-400 transition-colors">
-                    {tech.name}
-                  </span>
-                </div>
-              </motion.div>
+              <TechIcon key={`${tech.name}-${index}`} tech={tech} index={index} />
             ))}
           </div>
         </div>
@@ -100,35 +128,13 @@ export function SkillsSection() {
         <div className="relative mt-8">
           <div className="flex space-x-8 animate-scroll-right">
             {[...technologies.slice().reverse(), ...technologies.slice().reverse()].map((tech, index) => (
-              <motion.div
-                key={`reverse-${tech.name}-${index}`}
-                className="flex-shrink-0 group cursor-pointer"
-                initial={{ opacity: 0, y: 20 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.6, delay: (index % technologies.length) * 0.1 + 0.3 }}
-                viewport={{ once: true }}
-              >
-                <div className="flex flex-col items-center space-y-3 p-4 rounded-xl glass-effect border border-white/10 hover:border-purple-400/50 transition-all duration-300 hover:scale-110 hover:shadow-lg hover:shadow-purple-400/25">
-                  <div className="relative w-12 h-12 flex-shrink-0">
-                    <Image
-                      src={tech.logo || "/placeholder.svg"}
-                      alt={tech.name}
-                      fill
-                      className="object-contain group-hover:scale-110 transition-transform duration-300"
-                      onError={(e) => {
-                        e.currentTarget.style.display = "none"
-                      }}
-                    />
-                  </div>
-                  <span className="text-sm font-medium text-center whitespace-nowrap group-hover:text-purple-400 transition-colors">
-                    {tech.name}
-                  </span>
-                </div>
-              </motion.div>
+              <TechIcon key={`reverse-${tech.name}-${index}`} tech={tech} index={index} />
             ))}
           </div>
         </div>
       </div>
     </section>
   )
-}
+})
+
+SkillsSection.displayName = "SkillsSection"

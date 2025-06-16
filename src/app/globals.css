@@ -64,6 +64,7 @@
   * {
     @apply border-border;
   }
+
   body {
     @apply bg-background text-foreground;
     background-image: radial-gradient(circle at 20% 80%, hsl(var(--neon-purple)) 0%, transparent 50%),
@@ -71,33 +72,47 @@
       radial-gradient(circle at 40% 40%, hsl(var(--neon-pink)) 0%, transparent 50%);
     background-attachment: fixed;
   }
+
+  /* Performance optimizations */
+  .glass-effect,
+  .cyber-button,
+  .gradient-text {
+    will-change: transform;
+  }
+
+  /* Reduce motion for users who prefer it */
+  @media (prefers-reduced-motion: reduce) {
+    *,
+    *::before,
+    *::after {
+      animation-duration: 0.01ms !important;
+      animation-iteration-count: 1 !important;
+      transition-duration: 0.01ms !important;
+    }
+  }
 }
 
-/* Futuristic gradient text */
+/* Optimized gradient text with GPU acceleration */
 .gradient-text {
   background: linear-gradient(135deg, hsl(var(--neon-cyan)), hsl(var(--neon-purple)), hsl(var(--neon-pink)));
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-clip: text;
   animation: gradient-shift 3s ease-in-out infinite;
+  transform: translateZ(0); /* Force GPU acceleration */
 }
 
-/* Enhanced glass effect */
+/* Enhanced glass effect with better performance */
 .glass-effect {
   background: rgba(var(--glass-bg));
   backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
   border: 1px solid rgba(var(--glass-border));
   box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.37), inset 0 1px 0 0 rgba(255, 255, 255, 0.1);
+  transform: translateZ(0); /* Force GPU acceleration */
 }
 
-/* Cyber grid background */
-.cyber-grid {
-  background-image: linear-gradient(rgba(var(--glass-border)) 1px, transparent 1px),
-    linear-gradient(90deg, rgba(var(--glass-border)) 1px, transparent 1px);
-  background-size: 50px 50px;
-}
-
-/* Futuristic button styles */
+/* Optimized cyber button with better performance */
 .cyber-button {
   position: relative;
   background: transparent;
@@ -106,6 +121,7 @@
   transition: all 0.3s ease;
   overflow: hidden;
   border-radius: 1rem;
+  transform: translateZ(0); /* Force GPU acceleration */
 }
 
 .cyber-button::before {
@@ -116,11 +132,12 @@
   width: 100%;
   height: 100%;
   background: linear-gradient(90deg, transparent, hsl(var(--neon-cyan) / 0.2), transparent);
-  transition: left 0.5s ease;
+  transition: transform 0.5s ease;
+  will-change: transform;
 }
 
 .cyber-button:hover::before {
-  left: 100%;
+  transform: translateX(200%);
 }
 
 .cyber-button:hover {
@@ -129,36 +146,7 @@
   box-shadow: 0 0 20px hsl(var(--neon-cyan) / 0.5);
 }
 
-/* Floating animations */
-@keyframes float {
-  0%,
-  100% {
-    transform: translateY(0px);
-  }
-  50% {
-    transform: translateY(-20px);
-  }
-}
-
-@keyframes float-reverse {
-  0%,
-  100% {
-    transform: translateY(0px);
-  }
-  50% {
-    transform: translateY(20px);
-  }
-}
-
-.float-animation {
-  animation: float 6s ease-in-out infinite;
-}
-
-.float-reverse {
-  animation: float-reverse 8s ease-in-out infinite;
-}
-
-/* Gradient animations */
+/* Optimized animations with better performance */
 @keyframes gradient-shift {
   0%,
   100% {
@@ -169,148 +157,58 @@
   }
 }
 
-@keyframes holographic-shift {
-  0%,
-  100% {
-    background-position: 0% 50%;
-  }
-  50% {
-    background-position: 100% 50%;
-  }
-}
-
-/* Holographic effect */
-.holographic {
-  background: linear-gradient(
-    45deg,
-    hsl(var(--neon-cyan) / 0.1),
-    hsl(var(--neon-purple) / 0.1),
-    hsl(var(--neon-pink) / 0.1),
-    hsl(var(--neon-cyan) / 0.1)
-  );
-  background-size: 400% 400%;
-  animation: holographic-shift 4s ease-in-out infinite;
-}
-
-/* Fade in animations */
-@keyframes fadeInUp {
-  from {
-    opacity: 0;
-    transform: translateY(30px);
-  }
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
-}
-
-@keyframes fadeInLeft {
-  from {
-    opacity: 0;
-    transform: translateX(-30px);
-  }
-  to {
-    opacity: 1;
-    transform: translateX(0);
-  }
-}
-
-@keyframes fadeInRight {
-  from {
-    opacity: 0;
-    transform: translateX(30px);
-  }
-  to {
-    opacity: 1;
-    transform: translateX(0);
-  }
-}
-
-.fade-in-up {
-  animation: fadeInUp 0.6s ease-out forwards;
-}
-.fade-in-left {
-  animation: fadeInLeft 0.6s ease-out forwards;
-}
-.fade-in-right {
-  animation: fadeInRight 0.6s ease-out forwards;
-}
-
-/* Responsive design improvements */
-@media (max-width: 768px) {
-  .glass-effect {
-    backdrop-filter: blur(10px);
-  }
-  .gradient-text {
-    background-size: 200% 200%;
-  }
-}
-
-/* Scroll animations for tech stack */
+/* Optimized scroll animations */
 @keyframes scroll-left {
   0% {
-    transform: translateX(0);
+    transform: translate3d(0, 0, 0);
   }
   100% {
-    transform: translateX(-50%);
+    transform: translate3d(-50%, 0, 0);
   }
 }
 
 @keyframes scroll-right {
   0% {
-    transform: translateX(-50%);
+    transform: translate3d(-50%, 0, 0);
   }
   100% {
-    transform: translateX(0);
+    transform: translate3d(0, 0, 0);
   }
 }
 
 .animate-scroll-left {
   animation: scroll-left 30s linear infinite;
+  will-change: transform;
 }
 
 .animate-scroll-right {
   animation: scroll-right 30s linear infinite;
+  will-change: transform;
 }
 
-/* Scroll-triggered animations */
-.scroll-animate {
-  opacity: 0;
-  transform: translateY(30px);
-  transition: all 0.6s ease-out;
+/* Optimized floating animations */
+@keyframes float {
+  0%,
+  100% {
+    transform: translate3d(0, 0, 0);
+  }
+  50% {
+    transform: translate3d(0, -20px, 0);
+  }
 }
 
-.scroll-animate.animate {
-  opacity: 1;
-  transform: translateY(0);
+.float-animation {
+  animation: float 6s ease-in-out infinite;
+  will-change: transform;
 }
 
-/* Staggered animations */
-.stagger-1 {
-  animation-delay: 0.1s;
-}
-.stagger-2 {
-  animation-delay: 0.2s;
-}
-.stagger-3 {
-  animation-delay: 0.3s;
-}
-.stagger-4 {
-  animation-delay: 0.4s;
-}
-.stagger-5 {
-  animation-delay: 0.5s;
-}
-.stagger-6 {
-  animation-delay: 0.6s;
-}
-
-/* Line clamp utilities */
+/* Line clamp utilities with better performance */
 .line-clamp-2 {
   overflow: hidden;
   display: -webkit-box;
   -webkit-box-orient: vertical;
   -webkit-line-clamp: 2;
+  line-clamp: 2;
 }
 
 .line-clamp-3 {
@@ -318,4 +216,15 @@
   display: -webkit-box;
   -webkit-box-orient: vertical;
   -webkit-line-clamp: 3;
+  line-clamp: 3;
+}
+
+/* Optimize images */
+img {
+  content-visibility: auto;
+}
+
+/* Optimize canvas elements */
+canvas {
+  will-change: contents;
 }

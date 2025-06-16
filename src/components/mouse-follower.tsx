@@ -1,30 +1,66 @@
 "use client"
 
-import { useState, useEffect } from "react"
+import { useState, useEffect, useCallback, useRef } from "react"
 import { motion } from "framer-motion"
 
 export function MouseFollower() {
   const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 })
   const [isVisible, setIsVisible] = useState(false)
+  const [supportsHover, setSupportsHover] = useState(false)
+  const rafRef = useRef<number>()
+  const mouseRef = useRef({ x: 0, y: 0 })
+
+  const updateMousePosition = useCallback(() => {
+    setMousePosition({ x: mouseRef.current.x, y: mouseRef.current.y })
+  }, [])
 
   useEffect(() => {
+    if (typeof window === "undefined") return
+
+    const checkSupportsHover = () => {
+      setSupportsHover(window.matchMedia("(hover: hover)").matches)
+    }
+
+    checkSupportsHover()
+
     const handleMouseMove = (e: MouseEvent) => {
-      setMousePosition({ x: e.clientX, y: e.clientY })
+      mouseRef.current = { x: e.clientX, y: e.clientY }
       setIsVisible(true)
+
+      if (rafRef.current) {
+        cancelAnimationFrame(rafRef.current)
+      }
+
+      rafRef.current = requestAnimationFrame(updateMousePosition)
     }
 
     const handleMouseLeave = () => {
       setIsVisible(false)
+      if (rafRef.current) {
+        cancelAnimationFrame(rafRef.current)
+      }
     }
 
-    window.addEventListener("mousemove", handleMouseMove)
-    document.body.addEventListener("mouseleave", handleMouseLeave)
+    if (supportsHover) {
+      window.addEventListener("mousemove", handleMouseMove, { passive: true })
+      document.body.addEventListener("mouseleave", handleMouseLeave, { passive: true })
+    }
 
     return () => {
-      window.removeEventListener("mousemove", handleMouseMove)
-      document.body.removeEventListener("mouseleave", handleMouseLeave)
+      if (rafRef.current) {
+        cancelAnimationFrame(rafRef.current)
+      }
+      if (typeof window !== "undefined") {
+        window.removeEventListener("mousemove", handleMouseMove)
+        document.body.removeEventListener("mouseleave", handleMouseLeave)
+      }
     }
-  }, [])
+  }, [updateMousePosition, supportsHover])
+
+  // Don't render on touch devices or during SSR
+  if (typeof window === "undefined" || !supportsHover) {
+    return null
+  }
 
   return (
     <>
@@ -36,6 +72,7 @@ export function MouseFollower() {
           opacity: isVisible ? 1 : 0,
         }}
         transition={{ type: "spring", damping: 20, stiffness: 300, mass: 0.5 }}
+        style={{ willChange: "transform, opacity" }}
       >
         <div className="w-full h-full rounded-full bg-white opacity-50"></div>
       </motion.div>
@@ -47,6 +84,7 @@ export function MouseFollower() {
           y: mousePosition.y - 1,
           opacity: isVisible ? 1 : 0,
         }}
+        style={{ willChange: "transform, opacity" }}
       />
     </>
   )
