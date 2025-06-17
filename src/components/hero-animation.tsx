@@ -21,8 +21,6 @@ export function HeroAnimation() {
   const particlesArrayRef = useRef<Particle[]>([])
 
   const setCanvasDimensions = useCallback(() => {
-    if (typeof window === "undefined") return
-
     const canvas = canvasRef.current
     if (!canvas) return
 
@@ -41,8 +39,6 @@ export function HeroAnimation() {
   }, [])
 
   useEffect(() => {
-    if (typeof window === "undefined") return
-
     const canvas = canvasRef.current
     if (!canvas) return
 

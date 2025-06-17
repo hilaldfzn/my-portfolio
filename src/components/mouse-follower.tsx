@@ -15,8 +15,6 @@ export function MouseFollower() {
   }, [])
 
   useEffect(() => {
-    if (typeof window === "undefined") return
-
     const checkSupportsHover = () => {
       setSupportsHover(window.matchMedia("(hover: hover)").matches)
     }
