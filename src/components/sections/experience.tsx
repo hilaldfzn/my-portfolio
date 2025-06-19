@@ -108,7 +108,7 @@ export function ExperienceSection() {
                     >
                       <a href={exp.liveDemo} target="_blank" rel="noopener noreferrer">
                         <ExternalLink className="mr-2 h-4 w-4" />
-                        View Live Demo
+                        Live Demo
                       </a>
                     </Button>
                   </div>

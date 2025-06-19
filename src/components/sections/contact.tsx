@@ -1,7 +1,6 @@
 "use client"
 
 import type React from "react"
-
 import { motion } from "framer-motion"
 import { Mail, MapPin, Linkedin, Send } from "lucide-react"
 import { Button } from "../../components/ui/button"
@@ -11,6 +10,7 @@ import { SectionHeading } from "../section-heading"
 import { GlassmorphicCard } from "../glassmorphic-card"
 import { useToast } from "../../hooks/use-toast"
 import { useState } from "react"
+import { sendEmail } from "../../app/actions"
 
 export function ContactSection() {
   const { toast } = useToast()
@@ -20,15 +20,33 @@ export function ContactSection() {
     e.preventDefault()
     setIsSubmitting(true)
 
-    await new Promise((resolve) => setTimeout(resolve, 1500))
+    const formData = new FormData(e.currentTarget)
 
-    toast({
-      title: "Message sent!",
-      description: "Thanks for reaching out. I'll get back to you soon.",
-    })
+    try {
+      const result = await sendEmail(formData)
 
-    setIsSubmitting(false)
-    e.currentTarget.reset()
+      if (result.success) {
+        toast({
+          title: "Message sent!",
+          description: "Thanks for reaching out. I'll get back to you soon.",
+        })
+        e.currentTarget.reset()
+      } else {
+        toast({
+          title: "Failed to send message",
+          description: result.error || "Please try again later.",
+          variant: "destructive",
+        })
+      }
+    } catch (error) {
+      toast({
+        title: "Error",
+        description: "Something went wrong. Please try again.",
+        variant: "destructive",
+      })
+    } finally {
+      setIsSubmitting(false)
+    }
   }
 
   return (
@@ -106,6 +124,7 @@ export function ContactSection() {
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                   <div className="space-y-2">
                     <Input
+                      name="name"
                       placeholder="Your Name"
                       required
                       className="bg-background/50 border-white/10 focus:border-cyan-400 focus:ring-cyan-400/20"
@@ -113,6 +132,7 @@ export function ContactSection() {
                   </div>
                   <div className="space-y-2">
                     <Input
+                      name="email"
                       type="email"
                       placeholder="Your Email"
                       required
@@ -122,6 +142,7 @@ export function ContactSection() {
                 </div>
                 <div className="space-y-2">
                   <Input
+                    name="subject"
                     placeholder="Subject"
                     required
                     className="bg-background/50 border-white/10 focus:border-cyan-400 focus:ring-cyan-400/20"
@@ -129,6 +150,7 @@ export function ContactSection() {
                 </div>
                 <div className="space-y-2">
                   <Textarea
+                    name="message"
                     placeholder="Your Message"
                     rows={5}
                     required
@@ -137,7 +159,10 @@ export function ContactSection() {
                 </div>
                 <Button type="submit" className="w-full cyber-button" disabled={isSubmitting}>
                   {isSubmitting ? (
-                    <>Sending...</>
+                    <>
+                      <div className="w-4 h-4 border-2 border-white border-t-transparent rounded-full animate-spin mr-2" />
+                      Sending...
+                    </>
                   ) : (
                     <>
                       Send Message <Send className="ml-2 h-4 w-4" />

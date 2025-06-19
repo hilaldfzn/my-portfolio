@@ -17,7 +17,9 @@ const ExperienceSection = lazy(() =>
 const ProjectsSection = lazy(() =>
   import("../components/sections/projects").then((module) => ({ default: module.ProjectsSection })),
 )
-const BlogSection = lazy(() => import("../components/sections/blog").then((module) => ({ default: module.BlogSection })))
+const BlogSection = lazy(() =>
+  import("../components/sections/blog").then((module) => ({ default: module.BlogSection })),
+)
 const TestimonialsSection = lazy(() =>
   import("../components/sections/testimonials").then((module) => ({ default: module.TestimonialsSection })),
 )
