@@ -59,8 +59,8 @@ export function BlogSection() {
       excerpt:
         "Discover how TDD methodology can help you build more reliable, maintainable, and scalable software applications.",
       image: "/assets/TDD.png",
-      categories: ["Development", "Best Practices"],
-      tags: ["Test-Driven Development", "Software Testing", "Unit Testing"],
+      categories: ["Development", "Testing"],
+      tags: ["Software Testing", "Unit Testing"],
       readingTime: 10,
       publishedAt: "2025-05-18",
       url: "https://medium.com/@hilalfauzan9/test-driven-development-the-key-to-building-reliable-and-scalable-software-f6f355901330",
@@ -117,13 +117,6 @@ export function BlogSection() {
                     alt={blog.title}
                     className="w-full h-48 object-cover transition-transform duration-300 hover:scale-110"
                   />
-                  <div className="absolute top-4 left-4 flex flex-wrap gap-1">
-                    {blog.categories.map((category, catIndex) => (
-                      <Badge key={catIndex} className="bg-cyan-400/20 text-cyan-400 border-cyan-400/30 text-xs">
-                        {category}
-                      </Badge>
-                    ))}
-                  </div>
                 </div>
 
                 <div className="flex items-center gap-4 text-sm text-muted-foreground mb-3">
@@ -155,8 +148,8 @@ export function BlogSection() {
                 </div>
 
                 <Button
-                  variant="outline"
-                  className="w-full justify-between group border-cyan-400/50 text-cyan-400 hover:bg-cyan-400 hover:text-black rounded-2xl transition-all duration-300"
+                  variant="ghost"
+                  className="w-full justify-between group hover:bg-gradient-to-r hover:from-cyan-500/10 hover:to-purple-500/10"
                   asChild
                 >
                   <a href={blog.url} target="_blank" rel="noopener noreferrer">

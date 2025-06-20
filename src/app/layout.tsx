@@ -12,7 +12,7 @@ const inter = Inter({
 })
 
 export const metadata: Metadata = {
-  title: "Portfolio | Muhammad Hilal Darul Fauzan",
+  title: "Hilal | Portfolio",
   description:
     "Full Stack Developer passionate about creating intelligent, scalable, and innovative digital solutions. Specializing in AI/ML, web development, and modern technologies.",
   keywords: "Full Stack Developer, AI/ML, Web Development, React, Next.js, Python, Django, Portfolio",
@@ -22,16 +22,10 @@ export const metadata: Metadata = {
     type: "website",
     locale: "en_US",
     url: "https://hilaldfzn.vercel.app",
-    title: "Muhammad Hilal | Full Stack Developer",
+    title: "Full Stack Developer | Muhammad Hilal Darul Fauzan",
     description:
       "Full Stack Developer passionate about creating intelligent, scalable, and innovative digital solutions.",
-    siteName: "Muhammad Hilal Portfolio",
-  },
-  twitter: {
-    card: "summary_large_image",
-    title: "Muhammad Hilal | Full Stack Developer",
-    description:
-      "Full Stack Developer passionate about creating intelligent, scalable, and innovative digital solutions.",
+    siteName: "Portfolio | Muhammad Hilal Darul Fauzan",
   },
   robots: {
     index: true,

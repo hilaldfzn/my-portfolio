@@ -19,17 +19,17 @@ const allProjects = [
     technologies: ["Django", "AI/ML", "DeepSeek", "Qwen", "Python"],
     categories: ["AI/ML", "Web Development"],
     githubUrl: "https://github.com/Kelompok-5-PPL-A/MAAMS-NG-BE",
-    githubUrlFE: "https://github.com/Kelompok-5-PPL-A/MAAMS-NG-FE",
+    liveDemo: "https://maams-ng.netlify.app",
     featured: true,
   },
   {
     id: 2,
     title: "Natural Language Inference",
     description:
-      "Deep learning model for predicting logical relationships between sentences using pre-trained DeBERTa V3 and XLM RoBERTa models. Built entirely from scratch with PyTorch for Indonesian and English datasets.",
-    image: "/placeholder.svg?height=300&width=500",
-    technologies: ["PyTorch", "DeBERTa", "XLM RoBERTa", "Python", "NLP"],
-    categories: ["AI/ML", "Data Science"],
+      "Deep learning model for predicting logical relationships between sentences using pre-trained DeBERTa V3 model. Built entirely from scratch with PyTorch for Indonesian and English datasets.",
+    image: "/assets/NLI.png",
+    technologies: ["Python", "PyTorch", "DeBERTa", "NLP"],
+    categories: ["AI/ML"],
     githubUrl: "https://github.com/hilaldfzn/natural-language-inference",
     featured: true,
   },
@@ -38,24 +38,25 @@ const allProjects = [
     title: "Lembarpena Web App",
     description:
       "Award-winning literacy community web application connecting readers and authors. Features book purchasing, discussion forums, and wishlist functionality. Winner of The Best Web Application Award.",
-    image: "/placeholder.svg?height=300&width=500",
+    image: "/assets/LembarPena.png",
     technologies: ["Django", "Python", "HTML", "CSS", "JavaScript"],
     categories: ["Web Development"],
     githubUrl: "https://github.com/PBPC09/tugaskelompok1",
+    liveDemo: "https://lembarpena.vercel.app",
     featured: true,
     award: "Best Web Application Award",
   },
   {
     id: 4,
-    title: "Food Recipes Knowledge Graph",
+    title: "Food Recipes",
     description:
       "Recipe search application with Knowledge Graph implementation covering Indonesian and international cuisines. Built using RDF graphs with OpenRefine and ontology with Protégé.",
     image: "/placeholder.svg?height=300&width=500",
     technologies: ["Knowledge Graph", "RDF", "OpenRefine", "Protégé", "Python"],
     categories: ["Data Science", "AI/ML"],
-    liveUrl: "https://food-recipe.up.railway.app/",
     githubUrl: "https://github.com/hilaldfzn/knowledge-graph-food-recipes",
-    featured: false,
+    liveDemo: "https://food-recipe.up.railway.app",
+    featured: true,
   },
   {
     id: 5,
@@ -66,18 +67,19 @@ const allProjects = [
     technologies: ["Java", "Spring Boot", "TypeScript", "React", "PostgreSQL"],
     categories: ["Web Development", "E-commerce"],
     githubUrl: "https://github.com/orgs/Adpro-C5/repositories",
-    featured: false,
+    liveDemo: "s",
+    featured: true,
   },
   {
     id: 6,
     title: "Mario Object Detection",
     description:
       "YOLO v11-based object detection system for accurately detecting Mario characters in video datasets. Addresses real-world challenges like lighting variability and complex backgrounds.",
-    image: "/placeholder.svg?height=300&width=500",
+    image: "/assets/mario.png",
     technologies: ["YOLO v11", "Computer Vision", "Python", "OpenCV", "PyTorch"],
     categories: ["AI/ML", "Computer Vision"],
     githubUrl: "https://github.com/hilaldfzn/mario-object-detection",
-    featured: false,
+    featured: true,
   },
   {
     id: 7,
@@ -88,7 +90,8 @@ const allProjects = [
     technologies: ["Django", "Python", "PostgreSQL", "HTML", "CSS"],
     categories: ["Web Development", "Entertainment"],
     githubUrl: "https://github.com/basdat-d1/marmut",
-    featured: false,
+    liveDemo: "s",
+    featured: true,
   },
   {
     id: 8,
@@ -99,7 +102,7 @@ const allProjects = [
     technologies: ["Python", "Scikit-learn", "Pandas", "Machine Learning", "Healthcare"],
     categories: ["AI/ML", "Healthcare"],
     githubUrl: "https://github.com/hilaldfzn/OkeGas-health-admission",
-    featured: false,
+    featured: true,
   },
 ]
 
@@ -230,13 +233,6 @@ export default function ProjectsPage() {
                       </Badge>
                     </div>
                   )}
-                  <div className="absolute top-4 right-4 flex flex-wrap gap-1">
-                    {project.categories.map((category, catIndex) => (
-                      <Badge key={catIndex} variant="secondary" className="bg-purple-400/20 text-purple-400">
-                        {category}
-                      </Badge>
-                    ))}
-                  </div>
                 </div>
 
                 <h3 className="text-xl font-bold mb-2">{project.title}</h3>
@@ -264,28 +260,16 @@ export default function ProjectsPage() {
                       </a>
                     </Button>
                   )}
-                  {project.githubUrlFE && (
+                  {project.liveDemo && (
                     <Button
-                      variant="outline"
-                      size="sm"
-                      className="flex-1 border-purple-400/50 text-purple-400 hover:bg-purple-400 hover:text-black rounded-2xl"
-                      asChild
+                        variant="outline"
+                        size="sm"
+                        className="flex-1 border-cyan-400/50 text-cyan-400 hover:bg-cyan-400 hover:text-black rounded-2xl"
+                        asChild
                     >
-                      <a href={project.githubUrlFE} target="_blank" rel="noopener noreferrer">
-                        <Github className="h-4 w-4 mr-2" />
-                        Frontend
-                      </a>
-                    </Button>
-                  )}
-                  {project.liveUrl && (
-                    <Button
-                      size="sm"
-                      className="flex-1 bg-gradient-to-r from-cyan-500 to-purple-500 hover:from-purple-500 hover:to-cyan-500 rounded-2xl"
-                      asChild
-                    >
-                      <a href={project.liveUrl} target="_blank" rel="noopener noreferrer">
+                      <a href={project.liveDemo} target="_blank" rel="noopener noreferrer">
                         <ExternalLink className="h-4 w-4 mr-2" />
-                        Demo
+                        Live Demo
                       </a>
                     </Button>
                   )}

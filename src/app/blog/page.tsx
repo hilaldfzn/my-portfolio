@@ -59,8 +59,8 @@ const allBlogPosts = [
     excerpt:
       "Discover how TDD methodology can help you build more reliable, maintainable, and scalable software applications.",
     image: "/assets/TDD.png",
-    categories: ["Development", "Best Practices"],
-    tags: ["Test-Driven Development", "Software Testing", "Unit Testing"],
+    categories: ["Development", "Testing"],
+    tags: ["Software Testing", "Unit Testing"],
     readingTime: 10,
     publishedAt: "2025-05-18",
     url: "https://medium.com/@hilalfauzan9/test-driven-development-the-key-to-building-reliable-and-scalable-software-f6f355901330",
@@ -131,7 +131,7 @@ const allBlogPosts = [
       "Insights from Software Engineering Academy focusing on practical career skills and professional development.",
     image: "/assets/academy-career.png",
     categories: ["Career Development", "Education"],
-    tags: ["Career", "Software Engineering", "Professional Development"],
+    tags: ["Career Development", "Software Engineering"],
     readingTime: 6,
     publishedAt: "2023-11-05",
     url: "https://medium.com/compfest/software-engineering-academy-camp-3-implementation-of-career-related-skills-d1bd1280b488",
@@ -278,13 +278,6 @@ export default function BlogPage() {
                     alt={post.title}
                     className="w-full h-48 object-cover transition-transform duration-300 hover:scale-110"
                   />
-                  <div className="absolute top-4 left-4 flex flex-wrap gap-1">
-                    {post.categories.map((category, index) => (
-                      <Badge key={index} className="bg-cyan-400/20 text-cyan-400 border-cyan-400/30 text-xs">
-                        {category}
-                      </Badge>
-                    ))}
-                  </div>
                 </div>
 
                 <div className="flex items-center gap-4 text-sm text-muted-foreground mb-3">
@@ -304,7 +297,7 @@ export default function BlogPage() {
                 <div className="flex flex-wrap gap-2 mb-4">
                   {post.tags.slice(0, 3).map((tag, tagIndex) => (
                     <Badge key={tagIndex} variant="secondary" className="bg-purple-400/20 text-purple-400 text-xs">
-                      #{tag}
+                      {tag}
                     </Badge>
                   ))}
                   {post.tags.length > 3 && (
@@ -315,8 +308,8 @@ export default function BlogPage() {
                 </div>
 
                 <Button
-                  variant="outline"
-                  className="w-full justify-between group border-cyan-400/50 text-cyan-400 hover:bg-cyan-400 hover:text-black rounded-2xl transition-all duration-300"
+                  variant="ghost"
+                  className="w-full justify-between group hover:bg-gradient-to-r hover:from-cyan-500/10 hover:to-purple-500/10"
                   asChild
                 >
                   <a href={post.url} target="_blank" rel="noopener noreferrer">
