@@ -4,10 +4,14 @@ import { motion } from "framer-motion"
 import { ArrowRight, Download } from "lucide-react"
 import { Button } from "../../components/ui/button"
 import { lazy, Suspense } from "react"
+import { downloadCV } from "../../app/actions"
+import { useToast } from "../../hooks/use-toast"
 
-const CreativeHero = lazy(() => import("../creative-hero").then((module) => ({ default: module.CreativeHero })))
+const HeroAnimation = lazy(() => import("../hero-animation").then((module) => ({ default: module.HeroAnimation })))
 
 export function HeroSection() {
+  const { toast } = useToast()
+
   const scrollToContact = () => {
     const element = document.querySelector("#contact")
     if (element) {
@@ -15,13 +19,38 @@ export function HeroSection() {
     }
   }
 
+  const handleDownloadCV = async () => {
+    try {
+      const result = await downloadCV()
+      if (result.success) {
+        const link = document.createElement("a")
+        link.href = result.url
+        link.download = "Muhammad Hilal Darul Fauzan_CV.pdf"
+        document.body.appendChild(link)
+        link.click()
+        document.body.removeChild(link)
+
+        toast({
+          title: "CV Downloaded!",
+          description: "Thank you for your interest in my profile.",
+        })
+      }
+    } catch (error) {
+      toast({
+        title: "Download Failed",
+        description: "Please try again later.",
+        variant: "destructive",
+      })
+    }
+  }
+
   return (
     <section id="home" className="min-h-screen flex items-center justify-center pt-16 relative overflow-hidden">
-      {/* Background effects - optimized */}
+      {/* Background effects */}
       <div className="absolute inset-0 z-0 will-change-transform">
-        <div className="absolute top-20 left-10 w-72 h-72 bg-cyan-500 rounded-full mix-blend-multiply filter blur-3xl opacity-20 animate-blob"></div>
-        <div className="absolute top-40 right-10 w-72 h-72 bg-purple-500 rounded-full mix-blend-multiply filter blur-3xl opacity-20 animate-blob animation-delay-2000"></div>
-        <div className="absolute bottom-20 left-1/3 w-72 h-72 bg-pink-500 rounded-full mix-blend-multiply filter blur-3xl opacity-20 animate-blob animation-delay-4000"></div>
+        <div className="absolute top-20 left-10 w-96 h-96 bg-cyan-500 rounded-full mix-blend-multiply filter blur-3xl opacity-20 animate-blob"></div>
+        <div className="absolute top-40 right-10 w-96 h-96 bg-purple-500 rounded-full mix-blend-multiply filter blur-3xl opacity-20 animate-blob animation-delay-2000"></div>
+        <div className="absolute bottom-20 left-1/3 w-96 h-96 bg-pink-500 rounded-full mix-blend-multiply filter blur-3xl opacity-20 animate-blob animation-delay-4000"></div>
       </div>
 
       <div className="container mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
@@ -63,8 +92,9 @@ export function HeroSection() {
                 </span>
               </Button>
               <Button
+                onClick={handleDownloadCV}
                 variant="outline"
-                className="border-purple-500 text-purple-400 hover:bg-purple-500 hover:text-white rounded-2xl"
+                className="border-purple-500 text-purple-400 hover:bg-purple-500 hover:text-white rounded-2xl transition-all duration-300 hover:scale-105"
               >
                 <Download className="mr-2 h-4 w-4" />
                 Download CV
@@ -83,7 +113,7 @@ export function HeroSection() {
                 <div className="w-full h-[400px] md:h-[500px] bg-gradient-to-r from-cyan-500/10 to-purple-500/10 rounded-xl animate-pulse" />
               }
             >
-              <CreativeHero />
+              <HeroAnimation />
             </Suspense>
           </motion.div>
         </div>

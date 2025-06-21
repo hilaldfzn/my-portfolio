@@ -82,7 +82,7 @@
   animation: gradient-shift 3s ease-in-out infinite;
 }
 
-/* Enhanced glass effect */
+/* Glass effect */
 .glass-effect {
   background: rgba(var(--glass-bg));
   backdrop-filter: blur(20px);
