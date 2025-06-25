@@ -9,6 +9,20 @@ import { Button } from "../ui/button"
 export function ExperienceSection() {
   const experience = [
     {
+      title: "Teaching Assistant of Calculus 2",
+      company: "Faculty of Computer Science, Universitas Indonesia",
+      period: "August - December 2024",
+      location: "Depok, Jawa Barat",
+      type: "Part Time",
+      description:
+        "Assisted in teaching Calculus 2, providing support to students through tutoring sessions, grading assignments, and facilitating discussions to enhance understanding of complex mathematical concepts.",
+      highlights: [
+        "Provided one-on-one tutoring for over 40 undergraduate students, helping them understand complex calculus concepts",
+        "Assisted in grading and providing feedback on homework assignments, ensuring clarity and consistency in assessment	",
+        "Helped in preparing course materials, including practice problems for exam preparation",
+      ],
+    },
+    {
       title: "IT & Broadcast",
       company: "OKK UI",
       period: "June - August 2024",
@@ -19,8 +33,7 @@ export function ExperienceSection() {
       highlights: [
         "Developed responsive frontend components using React and Tailwind CSS",
         "Created engaging and user-friendly design interfaces",
-        "Ensured seamless browsing experience across different devices",
-        "Collaborated with design team to align with project goals",
+        "Contributed to the development of a website used by thousands of new students at Universitas Indonesia in 2024 for orientation and university-related information",
       ],
       liveDemo: "https://okk-ui-2024.up.railway.app",
     },
