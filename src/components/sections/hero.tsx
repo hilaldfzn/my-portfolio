@@ -4,7 +4,6 @@ import { motion } from "framer-motion"
 import { ArrowRight, Download } from "lucide-react"
 import { Button } from "../../components/ui/button"
 import { lazy, Suspense } from "react"
-import { downloadCV } from "../../app/actions"
 import { useToast } from "../../hooks/use-toast"
 
 const HeroAnimation = lazy(() => import("../hero-animation").then((module) => ({ default: module.HeroAnimation })))
@@ -21,26 +20,76 @@ export function HeroSection() {
 
   const handleDownloadCV = async () => {
     try {
-      const result = await downloadCV()
-      if (result.success) {
-        const link = document.createElement("a")
-        link.href = result.url
-        link.download = "Muhammad Hilal Darul Fauzan_CV.pdf"
-        document.body.appendChild(link)
-        link.click()
-        document.body.removeChild(link)
+      const cvUrl = "/assets/CV/CV_Muhammad Hilal Darul Fauzan.pdf"
+      
+      try {
+        const response = await fetch(cvUrl, { method: 'HEAD' })
+        if (!response.ok) {
+          throw new Error(`File not found (${response.status})`)
+        }
+      } catch (fetchError) {
+        console.warn("HEAD request failed, trying direct download:", fetchError)
+      }
+
+      const isMobile = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent)
+      
+      if (isMobile) {
+        const newWindow = window.open(cvUrl, '_blank')
+        if (newWindow) {
+          toast({
+            title: "CV Opened!",
+            description: "CV opened in new tab. You can download it from there.",
+          })
+          return
+        }
+      }
+
+      const link = document.createElement("a")
+      link.href = cvUrl
+      link.download = "CV_Muhammad Hilal Darul Fauzan.pdf"
+      link.target = "_blank"
+      link.rel = "noopener noreferrer"
+      
+      document.body.appendChild(link)
+      link.click()
+      
+      setTimeout(() => {
+        if (document.body.contains(link)) {
+          document.body.removeChild(link)
+        }
+      }, 100)
+
+      toast({
+        title: "CV Downloaded!",
+        description: "Thank you for your interest in my profile.",
+      })
+
+    } catch (error) {
+      console.error("Download error:", error)
+      
+      try {
+        window.open("/assets/CV/CV_Muhammad Hilal Darul Fauzan.pdf", '_blank', 'noopener,noreferrer')
+        toast({
+          title: "CV Opened!",
+          description: "CV opened in new tab. Please download it manually if needed.",
+        })
+      } catch (fallbackError) {
+        let errorMessage = "Unable to download CV automatically."
+        
+        if (error instanceof Error) {
+          if (error.message.includes("File not found") || error.message.includes("404")) {
+            errorMessage = "CV file not found. Please contact me directly for the latest version."
+          } else if (error.message.includes("network") || error.message.includes("fetch")) {
+            errorMessage = "Network error. Please check your connection and try again."
+          }
+        }
 
         toast({
-          title: "CV Downloaded!",
-          description: "Thank you for your interest in my profile.",
+          title: "Download Failed",
+          description: errorMessage + " You can contact me directly for the CV.",
+          variant: "destructive",
         })
       }
-    } catch (error) {
-      toast({
-        title: "Download Failed",
-        description: "Please try again later.",
-        variant: "destructive",
-      })
     }
   }
 

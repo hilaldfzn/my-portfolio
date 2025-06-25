@@ -68,9 +68,9 @@ const allProjects = [
   },
   {
     id: 6,
-    title: "Lembarpena Web App",
+    title: "Lembarpena",
     description:
-      "Award-winning literacy community web application connecting readers and authors. Features book purchasing, discussion forums, and wishlist functionality. Winner of The Best Web Application Award.",
+      "Award-winning literacy community web and mobile application connecting readers and authors. Features book purchasing, discussion forums, and wishlist functionality. Winner of The Best Web Application Award.",
     image: "/assets/lembar-pena.png",
     technologies: ["Python", "Django", "HTML", "CSS", "JavaScript"],
     categories: ["Web Development"],
