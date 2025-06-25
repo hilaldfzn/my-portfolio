@@ -71,7 +71,7 @@ export function ProjectsSection() {
       title: "Lembarpena Web App",
       description:
         "Award-winning literacy community web application connecting readers and authors. Features book purchasing, discussion forums, and wishlist functionality. Winner of The Best Web Application Award.",
-      image: "/assets/LembarPena.png",
+      image: "/assets/lembar-pena.png",
       technologies: ["Python", "Django", "HTML", "CSS", "JavaScript"],
       categories: ["Web Development"],
       githubUrl: "https://github.com/PBPC09/tugaskelompok1",

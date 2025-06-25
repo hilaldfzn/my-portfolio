@@ -30,7 +30,7 @@ export function AboutSection() {
       description:
         "Focused on mathematics and natural sciences with strong foundation in analytical thinking and problem-solving skills.",
       highlights: [
-        "Participated in the National Science Olympiad in Astronomy at the provincial-level (Jakarta) and ranked in 6th Place",
+        "Participated in the National Science Olympiad in Astronomy at the provincial-level (Jakarta) and ranked in 6th place",
         "Became a top 10 outstanding student in the school",
         "Developed strong analytical and scientific research skills",
       ],
