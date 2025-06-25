@@ -24,37 +24,37 @@ export function TestimonialsSection() {
         "Working with Hilal has been a pleasure. He brings innovative solutions to complex problems and is always willing to help team members.",
     },
     {
-      name: "Emily Rodriguez",
-      role: "UI/UX Designer",
-      company: "Creative Agency",
-      image: "/placeholder.svg?height=100&width=100",
+      name: "Ghaisan Luqyana Aqila",
+      role: "System Development Intern",
+      company: "Central Bank of Indonesia",
+      image: "/assets/testimonials/ghaisan.jpeg",
       content:
         "Hilal's ability to translate design concepts into functional, beautiful interfaces is remarkable. He's a true professional.",
     },
     {
-      name: "David Thompson",
-      role: "CTO",
-      company: "Startup Hub",
-      image: "/placeholder.svg?height=100&width=100",
+      name: "Naufal Mahdy Hanif",
+      role: "Software Engineer Intern",
+      company: "Sokratech",
+      image: "/assets/testimonials/mahdy.jpeg",
       content:
         "Hilal's technical expertise and leadership skills make him an invaluable team member. He consistently exceeds expectations.",
     },
-    {
-      name: "Lisa Wang",
-      role: "Project Manager",
-      company: "Global Tech",
-      image: "/placeholder.svg?height=100&width=100",
-      content:
-        "Hilal is reliable, communicative, and delivers projects on time. His code quality is excellent and well-documented.",
-    },
-    {
-      name: "Alex Kumar",
-      role: "Full Stack Developer",
-      company: "Innovation Labs",
-      image: "/placeholder.svg?height=100&width=100",
-      content:
-        "Hilal is a mentor and friend. His knowledge sharing and collaborative approach make him a great colleague to work with.",
-    },
+    // {
+    //   name: "Lisa Wang",
+    //   role: "Project Manager",
+    //   company: "Global Tech",
+    //   image: "/placeholder.svg?height=100&width=100",
+    //   content:
+    //     "Hilal is reliable, communicative, and delivers projects on time. His code quality is excellent and well-documented.",
+    // },
+    // {
+    //   name: "Alex Kumar",
+    //   role: "Full Stack Developer",
+    //   company: "Innovation Labs",
+    //   image: "/placeholder.svg?height=100&width=100",
+    //   content:
+    //     "Hilal is a mentor and friend. His knowledge sharing and collaborative approach make him a great colleague to work with.",
+    // },
   ]
 
   return (

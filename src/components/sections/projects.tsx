@@ -16,70 +16,68 @@ export function ProjectsSection() {
       description:
         "AI-powered root cause analysis application utilizing DeepSeek R1 model for chat completions. Validates and confirms underlying causes of problems with advanced analysis algorithms and prompt systems.",
       image: "/assets/MAAMS.png",
-      technologies: ["Django", "AI/ML", "DeepSeek", "Qwen", "Python"],
-      categories: ["AI/ML", "Web Development"],
-      githubUrl: "https://github.com/Kelompok-5-PPL-A/MAAMS-NG-BE",
+      technologies: ["Python", "Django", "Next.js", "Tailwind CSS", "DeepSeek"],
+      categories: ["Web Development", "AI/ML"],
+      githubUrl: "https://github.com/orgs/Kelompok-5-PPL-A/repositories",
       liveDemo: "https://maams-ng.netlify.app",
       featured: true,
     },
     {
       id: 2,
+      title: "Apap Medika",
+      description:
+        "Hospital management system using a 6-microservice architecture for all core hospital functions. I took full ownership of the end-to-end product design, creating the UI/UX and design system from the ground up. The system features complex business logic and robust security with JWT-based authentication, OAuth, and role-based access control for five distinct user types.",
+      image: "/assets/apap-medika.png",
+      technologies: ["Python", "Django", "Next.js", "Tailwind CSS", "PostgreSQL"],
+      categories: ["Web Development", "Healthcare"],
+      githubUrl: "https://github.com/orgs/ApapMedika/repositories",
+      featured: false,
+    },
+    {
+      id: 3,
+      title: "Database Backup Utility",
+      description:
+        "Built a versatile Command-Line Interface (CLI) tool in Go to fully automate backup and restore operations for MySQL, PostgreSQL, MongoDB, and SQLite. It securely integrates with multi-cloud storage providers like AWS S3, GCS, and Azure, implementing compression, encryption, and custom retention policies. The tool features a modular architecture containerized with Docker, complete with Slack notifications and scheduled workflows for reliable, unattended operation.",
+      image: "/assets/db-backup-utility.png",
+      technologies: ["Go", "PostgreSQL", "MySQL", "MongoDB", "AWS", "Azure", "GCS"],
+      categories: ["Back End Development", "DevOps"],
+      githubUrl: "https://github.com/hilaldfzn/database-backup-utility",
+      featured: false,
+    },
+    {
+      id: 4,
+      title: "CrawlKit API",
+      description:
+        "REST API for intelligent and ethical web scraping, featuring concurrent crawling and a real-time analytics dashboard. The system ensures responsible data collection by enforcing robots.txt compliance, automatic delays, and rate limiting. It uses BeautifulSoup for advanced HTML parsing and includes data quality monitoring reports to guarantee reliable data extraction.",
+      image: "/assets/crawlkit-api.png",
+      technologies: ["Python", "Fast API"],
+      categories: ["Back End Development", "Web Scraping"],
+      githubUrl: "https://github.com/hilaldfzn/crawlkit-api",
+      featured: false,
+    },
+    {
+      id: 5,
       title: "Natural Language Inference",
       description:
         "Deep learning model for predicting logical relationships between sentences using pre-trained DeBERTa V3 model. Built entirely from scratch with PyTorch for Indonesian and English datasets.",
       image: "/assets/NLI.png",
-      technologies: ["Python", "PyTorch", "DeBERTa", "NLP"],
+      technologies: ["Python", "PyTorch", "Transformers", "DeBERTa"],
       categories: ["AI/ML"],
       githubUrl: "https://github.com/hilaldfzn/natural-language-inference",
       featured: true,
     },
     {
-      id: 3,
+      id: 6,
       title: "Lembarpena Web App",
       description:
         "Award-winning literacy community web application connecting readers and authors. Features book purchasing, discussion forums, and wishlist functionality. Winner of The Best Web Application Award.",
       image: "/assets/LembarPena.png",
-      technologies: ["Django", "Python", "HTML", "CSS", "JavaScript"],
+      technologies: ["Python", "Django", "HTML", "CSS", "JavaScript"],
       categories: ["Web Development"],
       githubUrl: "https://github.com/PBPC09/tugaskelompok1",
       liveDemo: "https://lembarpena.vercel.app",
       featured: true,
       award: "Best Web Application Award",
-    },
-    {
-      id: 4,
-      title: "Food Recipes",
-      description:
-        "Recipe search application with Knowledge Graph implementation covering Indonesian and international cuisines. Built using RDF graphs with OpenRefine and ontology with Protégé.",
-      image: "/placeholder.svg?height=300&width=500",
-      technologies: ["Knowledge Graph", "RDF", "OpenRefine", "Protégé", "Python"],
-      categories: ["Data Science", "AI/ML"],
-      liveDemo: "https://food-recipe.up.railway.app/",
-      githubUrl: "https://github.com/hilaldfzn/knowledge-graph-food-recipes",
-      featured: true,
-    },
-    {
-      id: 5,
-      title: "HoomGroom Web App",
-      description:
-        "IKEA-inspired furniture e-commerce platform with catalog browsing, cart management, balance top-up, and shipping tracking. Built with Java Spring Boot backend and TypeScript frontend.",
-      image: "/placeholder.svg?height=300&width=500",
-      technologies: ["Java", "Spring Boot", "TypeScript", "React", "PostgreSQL"],
-      categories: ["Web Development", "E-commerce"],
-      githubUrl: "https://github.com/orgs/Adpro-C5/repositories",
-      liveDemo: "s",
-      featured: true,
-    },
-    {
-      id: 6,
-      title: "Mario Object Detection",
-      description:
-        "YOLO v11-based object detection system for accurately detecting Mario characters in video datasets. Addresses real-world challenges like lighting variability and complex backgrounds.",
-      image: "/assets/mario.png",
-      technologies: ["YOLO v11", "Computer Vision", "Python", "OpenCV", "PyTorch"],
-      categories: ["AI/ML", "Computer Vision"],
-      githubUrl: "https://github.com/hilaldfzn/mario-object-detection",
-      featured: true,
     },
   ]
 
@@ -120,7 +118,7 @@ export function ProjectsSection() {
                 </div>
 
                 <h3 className="text-xl font-bold mb-2">{project.title}</h3>
-                <p className="text-muted-foreground mb-4">{project.description}</p>
+                <p className="text-muted-foreground mb-4 line-clamp-5">{project.description}</p>
 
                 <div className="flex flex-wrap gap-2 mb-6">
                   {project.technologies.map((tech, techIndex) => (
