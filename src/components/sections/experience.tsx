@@ -40,7 +40,7 @@ export function ExperienceSection() {
     {
       title: "Editorial Marketing",
       company: "COMPFEST",
-      period: "May 2023 - August 2023",
+      period: "April - November 2023",
       location: "Depok, Jawa Barat",
       type: "Organization",
       description:
