@@ -78,6 +78,7 @@ export function ProjectsSection() {
       liveDemo: "https://lembarpena.vercel.app",
       featured: true,
       award: "Best Web Application Award",
+      awardUrl: "https://pbp-fasilkom-ui.github.io/ganjil-2024/awards#aplikasi-web-terbaik",
     },
   ]
 
@@ -103,17 +104,19 @@ export function ProjectsSection() {
               <GlassmorphicCard>
                 <div className="relative overflow-hidden rounded-lg mb-4">
                   <img
-                    src={project.image || "/placeholder.svg"}
+                    src={project.image}
                     alt={project.title}
                     className="w-full h-48 object-cover transition-transform duration-300 hover:scale-110"
                   />
                   {project.award && (
-                    <div className="absolute top-4 left-4">
-                      <Badge className="bg-yellow-400/20 text-yellow-400 border-yellow-400/30">
-                        <Award className="h-3 w-3 mr-1" />
-                        Award Winner
-                      </Badge>
-                    </div>
+                    <a href={project.awardUrl} target="_blank" rel="noopener noreferrer">
+                      <div className="absolute top-4 left-4">
+                        <Badge className="bg-yellow-400/20 text-yellow-400 border-yellow-400/30">
+                          <Award className="h-3 w-3 mr-1" />
+                          Award Winner
+                        </Badge>
+                      </div>
+                    </a>
                   )}
                 </div>
 

@@ -2,7 +2,7 @@
 
 import { useState, useMemo } from "react"
 import { motion } from "framer-motion"
-import { Search, Github, ExternalLink, Award } from "lucide-react"
+import { Search, Github, ExternalLink, Award, Link } from "lucide-react"
 import { Input } from "../../components/ui/input"
 import { Button } from "../../components/ui/button"
 import { Badge } from "../../components/ui/badge"
@@ -78,6 +78,7 @@ const allProjects = [
     liveDemo: "https://lembarpena.vercel.app",
     featured: true,
     award: "Best Web Application Award",
+    awardUrl: "https://pbp-fasilkom-ui.github.io/ganjil-2024/awards#aplikasi-web-terbaik",
   },
   {
     id: 7,
@@ -93,25 +94,24 @@ const allProjects = [
   },
   {
     id: 8,
-    title: "HoomGroom",
-    description:
-      "IKEA-inspired furniture e-commerce platform with catalog browsing, cart management, balance top-up, and shipping tracking. Built with Java Spring Boot backend and TypeScript frontend.",
-    image: "/placeholder.svg?height=300&width=500",
-    technologies: ["Java", "Spring Boot", "TypeScript", "React", "PostgreSQL"],
-    categories: ["Web Development", "E-commerce"],
-    githubUrl: "https://github.com/orgs/Adpro-C5/repositories",
-    liveDemo: "https://hoomgroom.vercel.app",
-    featured: true,
-  },
-  {
-    id: 9,
     title: "Mario Object Detection",
     description:
       "YOLO v11-based object detection system for accurately detecting Mario characters in video datasets. Addresses real-world challenges like lighting variability and complex backgrounds.",
     image: "/assets/mario.png",
-    technologies: ["Python", "YOLO v11", "OpenCV", "PyTorch", "Roboflow"],
+    technologies: ["Python", "YOLO v11", "OpenCV", "Roboflow"],
     categories: ["Computer Vision", "AI/ML"],
     githubUrl: "https://github.com/hilaldfzn/mario-object-detection",
+    featured: true,
+  },
+  {
+    id: 9,
+    title: "Health Admission Prediction",
+    description:
+      "Healthcare analytics project predicting patient outcomes and ICU stay duration. Includes classification, regression, and clustering models for medical decision-making support.",
+    image: "/assets/health-admission.png",
+    technologies: ["Python", "Scikit-learn", "Pandas", "Healthcare"],
+    categories: ["Data Science", "Healthcare"],
+    githubUrl: "https://github.com/hilaldfzn/OkeGas-health-admission",
     featured: true,
   },
   {
@@ -119,7 +119,7 @@ const allProjects = [
     title: "Marmut Music",
     description:
       "Spotify-like streaming platform offering music and podcasts with premium subscriptions, playlists, charts, and royalty tracking for artists, songwriters, and labels.",
-    image: "/placeholder.svg?height=300&width=500",
+    image: "/assets/maintenance.png",
     technologies: ["Python", "Django", "Tailwind CSS", "PostgreSQL"],
     categories: ["Web Development", "Entertainment"],
     githubUrl: "https://github.com/basdat-d1/marmut",
@@ -128,13 +128,14 @@ const allProjects = [
   },
   {
     id: 11,
-    title: "Health Admission Prediction",
+    title: "HoomGroom",
     description:
-      "Healthcare analytics project predicting patient outcomes and ICU stay duration. Includes classification, regression, and clustering models for medical decision-making support.",
-    image: "/assets/health-admission.png",
-    technologies: ["Python", "Scikit-learn", "Pandas", "Healthcare"],
-    categories: ["Data Science", "Healthcare"],
-    githubUrl: "https://github.com/hilaldfzn/OkeGas-health-admission",
+      "IKEA-inspired furniture e-commerce platform with catalog browsing, cart management, balance top-up, and shipping tracking. Built with Spring Boot and Next.js + Tailwind CSS.",
+    image: "/assets/maintenance.png",
+    technologies: ["Java", "Spring Boot", "Next.js", "PostgreSQL"],
+    categories: ["Web Development", "E-commerce"],
+    githubUrl: "https://github.com/orgs/Adpro-C5/repositories",
+    liveDemo: "https://hoomgroom.vercel.app",
     featured: true,
   },
 ]
@@ -256,17 +257,19 @@ export default function ProjectsPage() {
               <GlassmorphicCard>
                 <div className="relative overflow-hidden rounded-lg mb-4">
                   <img
-                    src={project.image || "/placeholder.svg"}
+                    src={project.image}
                     alt={project.title}
                     className="w-full h-48 object-cover transition-transform duration-300 hover:scale-110"
                   />
                   {project.award && (
-                    <div className="absolute top-4 left-4">
-                      <Badge className="bg-yellow-400/20 text-yellow-400 border-yellow-400/30">
-                        <Award className="h-3 w-3 mr-1" />
-                        Award Winner
-                      </Badge>
-                    </div>
+                    <a href={project.awardUrl} target="_blank" rel="noopener noreferrer">
+                      <div className="absolute top-4 left-4">
+                        <Badge className="bg-yellow-400/20 text-yellow-400 border-yellow-400/30">
+                          <Award className="h-3 w-3 mr-1" />
+                          Award Winner
+                        </Badge>
+                      </div>
+                    </a>
                   )}
                 </div>
 

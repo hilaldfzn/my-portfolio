@@ -86,7 +86,7 @@ export function TestimonialsSection() {
                     <div className="relative">
                       <div className="w-16 h-16 rounded-full border-2 border-cyan-400/30 p-0.5">
                         <img
-                          src={testimonial.image || "/placeholder.svg"}
+                          src={testimonial.image}
                           alt={testimonial.name}
                           className="w-full h-full rounded-full object-cover"
                         />

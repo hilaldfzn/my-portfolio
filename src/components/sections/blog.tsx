@@ -1,7 +1,7 @@
 "use client"
 
 import { motion } from "framer-motion"
-import { ArrowRight, Calendar, Clock } from "lucide-react"
+import { ArrowRight, Award, Calendar, Clock } from "lucide-react"
 import { Button } from "../../components/ui/button"
 import { Badge } from "../../components/ui/badge"
 import { SectionHeading } from "../section-heading"
@@ -40,6 +40,8 @@ export function BlogSection() {
       readingTime: 10,
       publishedAt: "2025-05-27",
       url: "https://medium.com/@hilalfauzan9/mock-objects-stubs-your-key-to-bulletproof-test-isolation-9137ec062371",
+      newsletter: "Newsletter Software Testing Weekly #273",
+      newsletterUrl: "https://softwaretestingweekly.com/issues/273",
     },
     {
       id: 3,
@@ -64,6 +66,8 @@ export function BlogSection() {
       readingTime: 10,
       publishedAt: "2025-05-18",
       url: "https://medium.com/@hilalfauzan9/test-driven-development-the-key-to-building-reliable-and-scalable-software-f6f355901330",
+      newsletter: "Newsletter Software Testing Weekly #272",
+    newsletterUrl: "https://softwaretestingweekly.com/issues/272",
     },
     {
       id: 5,
@@ -113,10 +117,20 @@ export function BlogSection() {
               <GlassmorphicCard>
                 <div className="relative overflow-hidden rounded-lg mb-4">
                   <img
-                    src={blog.image || "/placeholder.svg"}
+                    src={blog.image}
                     alt={blog.title}
                     className="w-full h-48 object-cover transition-transform duration-300 hover:scale-110"
                   />
+                  {blog.newsletter && (
+                    <a href={blog.newsletterUrl} target="_blank" rel="noopener noreferrer">
+                      <div className="absolute top-4 left-4">
+                        <Badge className="bg-red-400/20 text-red-400 border-red-400/30">
+                          <Award className="h-3 w-3 mr-1" />
+                          International Newsletter
+                        </Badge>
+                      </div>
+                    </a>
+                  )}
                 </div>
 
                 <div className="flex items-center gap-4 text-sm text-muted-foreground mb-3">

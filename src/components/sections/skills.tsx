@@ -74,7 +74,7 @@ export function SkillsSection() {
                 <div className="flex flex-col items-center space-y-3 p-4 rounded-xl glass-effect border border-white/10 hover:border-cyan-400/50 transition-all duration-300 hover:scale-110 hover:shadow-lg hover:shadow-cyan-400/25">
                   <div className="relative w-12 h-12 flex-shrink-0">
                     <Image
-                      src={tech.logo || "/placeholder.svg"}
+                      src={tech.logo}
                       alt={tech.name}
                       fill
                       className="object-contain group-hover:scale-110 transition-transform duration-300"
@@ -113,7 +113,7 @@ export function SkillsSection() {
                 <div className="flex flex-col items-center space-y-3 p-4 rounded-xl glass-effect border border-white/10 hover:border-purple-400/50 transition-all duration-300 hover:scale-110 hover:shadow-lg hover:shadow-purple-400/25">
                   <div className="relative w-12 h-12 flex-shrink-0">
                     <Image
-                      src={tech.logo || "/placeholder.svg"}
+                      src={tech.logo}
                       alt={tech.name}
                       fill
                       className="object-contain group-hover:scale-110 transition-transform duration-300"
