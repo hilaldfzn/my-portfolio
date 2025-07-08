@@ -119,7 +119,7 @@ const allProjects = [
     title: "Marmut Music",
     description:
       "Spotify-like streaming platform offering music and podcasts with premium subscriptions, playlists, charts, and royalty tracking for artists, songwriters, and labels.",
-    image: "/assets/maintenance.png",
+    image: "/assets/marmut.png",
     technologies: ["Python", "Django", "Tailwind CSS", "PostgreSQL"],
     categories: ["Web Development", "Entertainment"],
     githubUrl: "https://github.com/basdat-d1/marmut",
