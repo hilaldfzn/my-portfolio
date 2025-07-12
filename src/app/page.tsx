@@ -20,9 +20,9 @@ const ProjectsSection = lazy(() =>
 const BlogSection = lazy(() =>
   import("../components/sections/blog").then((module) => ({ default: module.BlogSection })),
 )
-const TestimonialsSection = lazy(() =>
-  import("../components/sections/testimonials").then((module) => ({ default: module.TestimonialsSection })),
-)
+// const TestimonialsSection = lazy(() =>
+//   import("../components/sections/testimonials").then((module) => ({ default: module.TestimonialsSection })),
+// )
 const ContactSection = lazy(() =>
   import("../components/sections/contact").then((module) => ({ default: module.ContactSection })),
 )
@@ -62,9 +62,9 @@ export default function Portfolio() {
         <BlogSection />
       </Suspense>
 
-      <Suspense fallback={<SectionLoader />}>
+      {/* <Suspense fallback={<SectionLoader />}>
         <TestimonialsSection />
-      </Suspense>
+      </Suspense> */}
 
       <Suspense fallback={<SectionLoader />}>
         <ContactSection />

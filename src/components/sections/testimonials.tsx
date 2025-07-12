@@ -9,16 +9,16 @@ export function TestimonialsSection() {
   const testimonials = [
     {
       name: "Muhammad Rafli Mahesa",
-      role: "Teaching Assistant of Advanced Programming",
-      company: "Faculty of Computer Science, Universitas Indonesia",
+      role: "Data Engineer Intern",
+      company: "Otoritas Jasa Keuangan",
       image: "/assets/testimonials/rafli.jpeg",
       content:
         "Hilal is an exceptional developer who consistently delivers high-quality work. His attention to detail and problem-solving skills are outstanding.",
     },
     {
       name: "I Made Surya Anahata Putra",
-      role: "Vice Director of Mobile Development",
-      company: "RISTEK Fasilkom UI",
+      role: "Backend Developer Intern",
+      company: "Moladin",
       image: "/assets/testimonials/surya.jpeg",
       content:
         "Working with Hilal has been a pleasure. He brings innovative solutions to complex problems and is always willing to help team members.",
@@ -40,10 +40,10 @@ export function TestimonialsSection() {
         "Hilal's technical expertise and leadership skills make him an invaluable team member. He consistently exceeds expectations.",
     },
     // {
-    //   name: "Lisa Wang",
-    //   role: "Project Manager",
-    //   company: "Global Tech",
-    //   image: "/placeholder.svg?height=100&width=100",
+    //   name: "Jessica Ruth Damai Yanti Manurung",
+    //   role: "IT Project Management Officer Intern",
+    //   company: "bitcorp. (PT Bringin Teknologi Indonesia)",
+    //   image: "/assets/testimonials/jess.jpeg",
     //   content:
     //     "Hilal is reliable, communicative, and delivers projects on time. His code quality is excellent and well-documented.",
     // },
@@ -51,7 +51,7 @@ export function TestimonialsSection() {
     //   name: "Alex Kumar",
     //   role: "Full Stack Developer",
     //   company: "Innovation Labs",
-    //   image: "/placeholder.svg?height=100&width=100",
+    //   image: "/assets/testimonials/[jess].jpeg",
     //   content:
     //     "Hilal is a mentor and friend. His knowledge sharing and collaborative approach make him a great colleague to work with.",
     // },

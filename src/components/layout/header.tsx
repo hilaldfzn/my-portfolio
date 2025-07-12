@@ -25,7 +25,7 @@ export function Navbar() {
     { name: "Experiences", href: "#experiences" },
     { name: "Projects", href: "#projects" },
     { name: "Blogs", href: "#blogs" },
-    { name: "Testimonials", href: "#testimonials" },
+    // { name: "Testimonials", href: "#testimonials" },
     { name: "Contact", href: "#contact" },
   ]
 
