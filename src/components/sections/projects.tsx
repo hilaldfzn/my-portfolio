@@ -18,7 +18,6 @@ export function ProjectsSection() {
       image: "/assets/MAAMS.png",
       technologies: ["Python", "Django", "Next.js", "Tailwind CSS", "DeepSeek"],
       categories: ["Web Development", "AI/ML"],
-      githubUrl: "https://github.com/orgs/Kelompok-5-PPL-A/repositories",
       liveDemo: "https://maams-ng.netlify.app",
       featured: true,
     },
