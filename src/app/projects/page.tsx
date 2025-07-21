@@ -81,18 +81,6 @@ const allProjects = [
   },
   {
     id: 7,
-    title: "Food Recipes",
-    description:
-      "Recipe search application with Knowledge Graph implementation covering Indonesian and international cuisines. Built using RDF graphs with OpenRefine and ontology with Protégé.",
-    image: "/assets/food-recipes.png",
-    technologies: ["Python", "Django", "RDF", "OpenRefine", "Protégé"],
-    categories: ["Web Development", "Knowledge Graph", "Data Science"],
-    githubUrl: "https://github.com/hilaldfzn/knowledge-graph-food-recipes",
-    liveDemo: "https://food-recipe.up.railway.app",
-    featured: true,
-  },
-  {
-    id: 8,
     title: "Mario Object Detection",
     description:
       "YOLO v11-based object detection system for accurately detecting Mario characters in video datasets. Addresses real-world challenges like lighting variability and complex backgrounds.",
@@ -103,7 +91,7 @@ const allProjects = [
     featured: true,
   },
   {
-    id: 9,
+    id: 8,
     title: "Health Admission Prediction",
     description:
       "Healthcare analytics project predicting patient outcomes and ICU stay duration. Includes classification, regression, and clustering models for medical decision-making support.",
@@ -114,7 +102,7 @@ const allProjects = [
     featured: true,
   },
   {
-    id: 10,
+    id: 9,
     title: "Marmut Music",
     description:
       "Spotify-like streaming platform offering music and podcasts with premium subscriptions, playlists, charts, and royalty tracking for artists, songwriters, and labels.",
@@ -126,7 +114,7 @@ const allProjects = [
     featured: true,
   },
   {
-    id: 11,
+    id: 10,
     title: "HoomGroom",
     description:
       "IKEA-inspired furniture e-commerce platform with catalog browsing, cart management, balance top-up, and shipping tracking. Built with Spring Boot and Next.js + Tailwind CSS.",
