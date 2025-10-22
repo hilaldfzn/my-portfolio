@@ -9,16 +9,31 @@ import { Button } from "../ui/button"
 export function ExperienceSection() {
   const experience = [
     {
-      title: "Teaching Assistant of Calculus 2",
-      company: "Faculty of Computer Science, Universitas Indonesia",
-      period: "August - December 2024",
-      location: "Depok, Jawa Barat",
+      title: "Data Engineer Intern",
+      company: "PT Bringin Inti Teknologi (bitcorp.)",
+      period: "Juli 2025 - Present",
+      location: "Jakarta, Indonesia",
+      type: "Internship",
+      description:
+        "Working as a Data Engineer Intern at PT Bringin Inti Teknologi, focusing on data engineering solutions and infrastructure development.",
+      highlights: [
+        "Designed and implemented data pipelines for processing and transforming large-scale datasets",
+        "Collaborated on data infrastructure optimization and database performance tuning",
+        "Developed Together Apps, an employee management system with face recognition attendance and automated approval workflows for leave, overtime, and timesheets",
+      ],
+    },
+    {
+      title: "Teaching Assistant",
+      company: "Universitas Indonesia",
+      period: "August 2024 - Present",
+      location: "Depok, Indonesia",
       type: "Part Time",
       description:
-        "Assisted in teaching Calculus 2, providing support to students through tutoring sessions, grading assignments, and facilitating discussions to enhance understanding of complex mathematical concepts.",
+        "Teaching Assistant for multiple undergraduate courses including Calculus 2, Statistics & Probability, and Computer Vision, providing comprehensive academic support to students.",
       highlights: [
-        "Provided one-on-one tutoring for over 40 undergraduate students, helping them understand complex calculus concepts",
-        "Assisted in grading and providing feedback on homework assignments, ensuring clarity and consistency in assessment	",
+        "Tutored 250+ undergraduate students in Calculus 2, Statistics & Probability, and Computer Vision courses",
+        "Graded homework assignments, quizzes, and coding projects with clear feedback across all three subjects",
+        "Helped students connect theory to practical applications in mathematics and programming",
         "Helped in preparing course materials, including practice problems for exam preparation",
       ],
     },

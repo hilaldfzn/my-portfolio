@@ -9,24 +9,39 @@ import { Button } from "../../components/ui/button"
 export function Navbar() {
   const [isOpen, setIsOpen] = useState(false)
   const [scrolled, setScrolled] = useState(false)
+  const [activeSection, setActiveSection] = useState("home")
 
   useEffect(() => {
     const handleScroll = () => {
       setScrolled(window.scrollY > 50)
+      
+      // Detect active section
+      const sections = document.querySelectorAll("section[id]")
+      const scrollPosition = window.scrollY + 100 // Offset for header
+      
+      sections.forEach((section) => {
+        const sectionTop = (section as HTMLElement).offsetTop
+        const sectionHeight = (section as HTMLElement).offsetHeight
+        
+        if (scrollPosition >= sectionTop && scrollPosition < sectionTop + sectionHeight) {
+          setActiveSection(section.id)
+        }
+      })
     }
+    
     window.addEventListener("scroll", handleScroll)
     return () => window.removeEventListener("scroll", handleScroll)
   }, [])
 
   const navItems = [
-    { name: "Home", href: "#home" },
-    { name: "About", href: "#about" },
-    { name: "Skills", href: "#skills" },
-    { name: "Experiences", href: "#experiences" },
-    { name: "Projects", href: "#projects" },
-    { name: "Blogs", href: "#blogs" },
-    // { name: "Testimonials", href: "#testimonials" },
-    { name: "Contact", href: "#contact" },
+    { name: "Home", href: "#home", id: "home" },
+    { name: "About", href: "#about", id: "about" },
+    { name: "Skills", href: "#skills", id: "skills" },
+    { name: "Experiences", href: "#experience", id: "experience" },
+    { name: "Projects", href: "#projects", id: "projects" },
+    { name: "Blogs", href: "#blog", id: "blog" },
+    // { name: "Testimonials", href: "#testimonials", id: "testimonials" },
+    { name: "Contact", href: "#contact", id: "contact" },
   ]
 
   const scrollToSection = (href: string) => {
@@ -85,15 +100,29 @@ export function Navbar() {
 
           {/* Desktop Navigation */}
           <div className="hidden md:flex items-center space-x-8">
-            {navItems.map((item) => (
-              <button
-                key={item.name}
-                onClick={() => scrollToSection(item.href)}
-                className="text-foreground hover:text-cyan-400 transition-colors duration-200 font-medium px-3 py-2 rounded-2xl hover:bg-white/5"
-              >
-                {item.name}
-              </button>
-            ))}
+            {navItems.map((item) => {
+              const isActive = activeSection === item.id
+              return (
+                <button
+                  key={item.name}
+                  onClick={() => scrollToSection(item.href)}
+                  className={`relative text-foreground hover:text-cyan-400 transition-colors duration-200 font-medium px-3 py-2 rounded-2xl hover:bg-white/5 ${
+                    isActive ? "text-cyan-400" : ""
+                  }`}
+                >
+                  {item.name}
+                  {isActive && (
+                    <motion.div
+                      className="absolute bottom-0 left-1/2 -translate-x-1/2 w-6 h-0.5 bg-gradient-to-r from-cyan-400 to-purple-400 rounded-full"
+                      layoutId="activeIndicator"
+                      initial={{ opacity: 0, scaleX: 0 }}
+                      animate={{ opacity: 1, scaleX: 1 }}
+                      transition={{ duration: 0.3, ease: "easeOut" }}
+                    />
+                  )}
+                </button>
+              )
+            })}
           </div>
 
           {/* Mobile menu button */}
@@ -119,15 +148,29 @@ export function Navbar() {
             transition={{ duration: 0.3 }}
           >
             <div className="px-2 pt-2 pb-3 space-y-1 glass-effect rounded-2xl mt-2">
-              {navItems.map((item) => (
-                <button
-                  key={item.name}
-                  onClick={() => scrollToSection(item.href)}
-                  className="block px-3 py-2 text-foreground hover:text-cyan-400 transition-colors duration-200 font-medium w-full text-left rounded-2xl hover:bg-white/5"
-                >
-                  {item.name}
-                </button>
-              ))}
+              {navItems.map((item) => {
+                const isActive = activeSection === item.id
+                return (
+                  <button
+                    key={item.name}
+                    onClick={() => scrollToSection(item.href)}
+                    className={`relative block px-3 py-2 text-foreground hover:text-cyan-400 transition-colors duration-200 font-medium w-full text-left rounded-2xl hover:bg-white/5 ${
+                      isActive ? "text-cyan-400 bg-white/5" : ""
+                    }`}
+                  >
+                    {item.name}
+                    {isActive && (
+                      <motion.div
+                        className="absolute left-0 top-1/2 -translate-y-1/2 w-1 h-6 bg-gradient-to-b from-cyan-400 to-purple-400 rounded-full"
+                        layoutId="activeIndicatorMobile"
+                        initial={{ opacity: 0, scaleY: 0 }}
+                        animate={{ opacity: 1, scaleY: 1 }}
+                        transition={{ duration: 0.3, ease: "easeOut" }}
+                      />
+                    )}
+                  </button>
+                )
+              })}
             </div>
           </motion.div>
         )}

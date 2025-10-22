@@ -1,7 +1,7 @@
 "use client"
 
 import { motion } from "framer-motion"
-import { ArrowRight, Download } from "lucide-react"
+import { ArrowRight, Download, ChevronDown } from "lucide-react"
 import { Button } from "../../components/ui/button"
 import { lazy, Suspense } from "react"
 import { useToast } from "../../hooks/use-toast"
@@ -94,7 +94,7 @@ export function HeroSection() {
   }
 
   return (
-    <section id="home" className="min-h-screen flex items-center justify-center pt-16 relative overflow-hidden">
+    <section id="home" className="h-screen flex items-center justify-center relative overflow-hidden">
       {/* Background effects */}
       <div className="absolute inset-0 z-0 will-change-transform">
         <div className="absolute top-20 left-10 w-96 h-96 bg-cyan-500 rounded-full mix-blend-multiply filter blur-3xl opacity-20 animate-blob"></div>
@@ -102,12 +102,45 @@ export function HeroSection() {
         <div className="absolute bottom-20 left-1/3 w-96 h-96 bg-pink-500 rounded-full mix-blend-multiply filter blur-3xl opacity-20 animate-blob animation-delay-4000"></div>
       </div>
 
-      <div className="container mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+      <div className="w-full px-4 sm:px-6 lg:px-8 relative z-10 h-full flex items-center justify-center">
+        <div className="relative w-full max-w-screen-2xl mx-auto">
+          {/* Left Animation */}
           <motion.div
-            className="space-y-6"
+            className="absolute left-0 top-1/2 -translate-y-1/2 w-64 h-64 hidden lg:block"
             initial={{ opacity: 0, x: -50 }}
             animate={{ opacity: 1, x: 0 }}
+            transition={{ duration: 0.8, delay: 0.8, ease: "easeOut" }}
+          >
+            <Suspense
+              fallback={
+                <div className="w-full h-full bg-gradient-to-r from-cyan-500/10 to-purple-500/10 rounded-xl animate-pulse" />
+              }
+            >
+              <HeroAnimation />
+            </Suspense>
+          </motion.div>
+
+          {/* Right Animation */}
+          <motion.div
+            className="absolute right-0 top-1/2 -translate-y-1/2 w-64 h-64 hidden lg:block"
+            initial={{ opacity: 0, x: 50 }}
+            animate={{ opacity: 1, x: 0 }}
+            transition={{ duration: 0.8, delay: 0.8, ease: "easeOut" }}
+          >
+            <Suspense
+              fallback={
+                <div className="w-full h-full bg-gradient-to-r from-cyan-500/10 to-purple-500/10 rounded-xl animate-pulse" />
+              }
+            >
+              <HeroAnimation />
+            </Suspense>
+          </motion.div>
+
+          {/* Center Content */}
+          <motion.div
+            className="flex flex-col items-center justify-center text-center relative z-20 px-4 lg:px-32"
+            initial={{ opacity: 0, y: 50 }}
+            animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8, ease: "easeOut" }}
           >
             <motion.h1
@@ -121,7 +154,7 @@ export function HeroSection() {
             </motion.h1>
 
             <motion.p
-              className="text-xl text-muted-foreground max-w-[600px]"
+              className="text-xl text-muted-foreground max-w-[600px] mx-auto mt-6"
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.8, delay: 0.4, ease: "easeOut" }}
@@ -130,7 +163,7 @@ export function HeroSection() {
             </motion.p>
 
             <motion.div
-              className="flex flex-wrap gap-4 pt-4"
+              className="flex flex-wrap gap-4 pt-8 justify-center"
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.8, delay: 0.6, ease: "easeOut" }}
@@ -149,21 +182,119 @@ export function HeroSection() {
                 Download CV
               </Button>
             </motion.div>
+
+            {/* Mobile Animation - below content */}
+            <motion.div
+              className="mt-12 w-full max-w-sm lg:hidden"
+              initial={{ opacity: 0, scale: 0.8 }}
+              animate={{ opacity: 1, scale: 1 }}
+              transition={{ duration: 0.8, delay: 0.8, ease: "easeOut" }}
+            >
+              <Suspense
+                fallback={
+                  <div className="w-full h-[200px] bg-gradient-to-r from-cyan-500/10 to-purple-500/10 rounded-xl animate-pulse" />
+                }
+              >
+                <HeroAnimation />
+              </Suspense>
+            </motion.div>
           </motion.div>
 
+          {/* Floating Code Snippets - Left and Right Alignment Only */}
+          
+          {/* Left Side - Snippet 1 */}
           <motion.div
-            className="flex justify-center"
+            className="absolute left-4 top-16 hidden xl:block"
+            initial={{ opacity: 0, x: -50 }}
+            animate={{ opacity: 1, x: 0 }}
+            transition={{ duration: 0.8, delay: 1.2, ease: "easeOut" }}
+          >
+            <div className="bg-zinc-900/80 backdrop-blur-sm border border-zinc-700/50 rounded-lg p-4 font-mono text-sm shadow-lg transform rotate-[-3deg]">
+              <div className="flex items-center gap-2 mb-2">
+                <div className="w-3 h-3 rounded-full bg-red-500"></div>
+                <div className="w-3 h-3 rounded-full bg-yellow-500"></div>
+                <div className="w-3 h-3 rounded-full bg-green-500"></div>
+              </div>
+              <div className="text-blue-400">export async function <span className="text-green-400">POST(request) {"{"}</span></div>
+              <div className="text-zinc-400 ml-4">return Response.json()</div>
+              <div className="text-green-400">{"}"}</div>
+            </div>
+          </motion.div>
+
+          {/* Left Side - Snippet 2 */}
+          <motion.div
+            className="absolute left-4 bottom-16 hidden xl:block"
+            initial={{ opacity: 0, x: -50 }}
+            animate={{ opacity: 1, x: 0 }}
+            transition={{ duration: 0.8, delay: 1.8, ease: "easeOut" }}
+          >
+            <div className="bg-zinc-900/80 backdrop-blur-sm border border-zinc-700/50 rounded-lg p-4 font-mono text-sm shadow-lg transform rotate-[4deg]">
+              <div className="text-purple-400">def <span className="text-cyan-400">create_solution():</span></div>
+              <div className="text-zinc-400 ml-4">return "innovative"</div>
+            </div>
+          </motion.div>
+
+          {/* Right Side - Snippet 3 */}
+          <motion.div
+            className="absolute right-4 top-16 hidden xl:block"
             initial={{ opacity: 0, x: 50 }}
             animate={{ opacity: 1, x: 0 }}
-            transition={{ duration: 0.8, delay: 0.3, ease: "easeOut" }}
+            transition={{ duration: 0.8, delay: 2.4, ease: "easeOut" }}
           >
-            <Suspense
-              fallback={
-                <div className="w-full h-[400px] md:h-[500px] bg-gradient-to-r from-cyan-500/10 to-purple-500/10 rounded-xl animate-pulse" />
-              }
+            <div className="bg-zinc-900/80 backdrop-blur-sm border border-zinc-700/50 rounded-lg p-4 font-mono text-sm shadow-lg transform rotate-[2deg]">
+              <div className="text-green-400">$ git add .</div>
+              <div className="text-yellow-400">$ git commit -m <span className="text-blue-400">"feat: new feature"</span></div>
+              <div className="text-purple-400">$ git push origin main</div>
+            </div>
+          </motion.div>
+
+          {/* Right Side - Snippet 4 */}
+          <motion.div
+            className="absolute right-4 bottom-16 hidden xl:block"
+            initial={{ opacity: 0, x: 50 }}
+            animate={{ opacity: 1, x: 0 }}
+            transition={{ duration: 0.8, delay: 3.0, ease: "easeOut" }}
+          >
+            <div className="bg-zinc-900/80 backdrop-blur-sm border border-zinc-700/50 rounded-lg p-4 font-mono text-sm shadow-lg transform rotate-[-5deg]">
+              <div className="flex items-center gap-2 mb-2">
+                <div className="w-3 h-3 rounded-full bg-red-500"></div>
+                <div className="w-3 h-3 rounded-full bg-yellow-500"></div>
+                <div className="w-3 h-3 rounded-full bg-green-500"></div>
+              </div>
+              <div className="text-green-400">const <span className="text-blue-400">developer</span> <span className="text-yellow-400">= "Hilal"</span></div>
+            </div>
+          </motion.div>
+
+          {/* Decorative Connecting Lines */}
+          <motion.div
+            className="absolute left-72 top-1/3 w-20 h-px bg-gradient-to-r from-cyan-500/40 to-transparent hidden xl:block"
+            initial={{ scaleX: 0 }}
+            animate={{ scaleX: 1 }}
+            transition={{ duration: 1.2, delay: 3, ease: "easeOut" }}
+          />
+          
+          <motion.div
+            className="absolute right-72 bottom-1/3 w-20 h-px bg-gradient-to-l from-purple-500/40 to-transparent hidden xl:block"
+            initial={{ scaleX: 0 }}
+            animate={{ scaleX: 1 }}
+            transition={{ duration: 1.2, delay: 3.2, ease: "easeOut" }}
+          />
+
+          {/* Scroll Indicator */}
+          <motion.div
+            className="absolute bottom-8 left-1/2 -translate-x-1/2 flex flex-col items-center gap-2"
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.8, delay: 2, ease: "easeOut" }}
+          >
+            <span className="text-sm text-zinc-500">Scroll to explore</span>
+            <motion.div
+              animate={{ y: [0, 8, 0] }}
+              transition={{ duration: 2, repeat: Infinity, ease: "easeInOut" }}
+              className="p-2 border border-zinc-700/50 rounded-full"
             >
-              <HeroAnimation />
-            </Suspense>
+              <ChevronDown className="h-4 w-4 text-zinc-500" />
+            </motion.div>
           </motion.div>
         </div>
       </div>
