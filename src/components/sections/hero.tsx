@@ -138,7 +138,7 @@ export function HeroSection() {
 
           {/* Center Content */}
           <motion.div
-            className="flex flex-col items-center justify-center text-center relative z-20 px-4 lg:px-32"
+            className="absolute inset-0 flex flex-col items-center justify-center text-center z-20 px-4 lg:px-32"
             initial={{ opacity: 0, y: 50 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8, ease: "easeOut" }}
@@ -183,21 +183,6 @@ export function HeroSection() {
               </Button>
             </motion.div>
 
-            {/* Mobile Animation - below content */}
-            <motion.div
-              className="mt-12 w-full max-w-sm lg:hidden"
-              initial={{ opacity: 0, scale: 0.8 }}
-              animate={{ opacity: 1, scale: 1 }}
-              transition={{ duration: 0.8, delay: 0.8, ease: "easeOut" }}
-            >
-              <Suspense
-                fallback={
-                  <div className="w-full h-[200px] bg-gradient-to-r from-cyan-500/10 to-purple-500/10 rounded-xl animate-pulse" />
-                }
-              >
-                <HeroAnimation />
-              </Suspense>
-            </motion.div>
           </motion.div>
 
           {/* Floating Code Snippets - Left and Right Alignment Only */}
@@ -280,9 +265,9 @@ export function HeroSection() {
             transition={{ duration: 1.2, delay: 3.2, ease: "easeOut" }}
           />
 
-          {/* Scroll Indicator */}
+          {/* Scroll Indicator - Hidden on Mobile */}
           <motion.div
-            className="absolute bottom-8 left-1/2 -translate-x-1/2 flex flex-col items-center gap-2"
+            className="absolute bottom-8 left-1/2 -translate-x-1/2 flex-col items-center gap-2 hidden md:flex"
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8, delay: 2, ease: "easeOut" }}
