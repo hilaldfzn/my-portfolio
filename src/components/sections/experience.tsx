@@ -9,17 +9,17 @@ import { Button } from "../ui/button"
 export function ExperienceSection() {
   const experience = [
     {
-      title: "Data Engineer Intern",
+      title: "Software Engineer Intern",
       company: "PT Bringin Inti Teknologi (bitcorp.)",
       period: "Juli 2025 - Present",
       location: "Jakarta, Indonesia",
       type: "Internship",
       description:
-        "Working as a Data Engineer Intern at PT Bringin Inti Teknologi, focusing on data engineering solutions and infrastructure development.",
+        "Working as a Software Engineer Intern at PT Bringin Inti Teknologi, contributing to the development of TogetherApps, an innovative workforce management solution that enhances employee productivity through advanced technology integration.",
       highlights: [
-        "Designed and implemented data pipelines for processing and transforming large-scale datasets",
-        "Collaborated on data infrastructure optimization and database performance tuning",
-        "Developed Together Apps, an employee management system with face recognition attendance and automated approval workflows for leave, overtime, and timesheets",
+        "Developed facial recognition attendance system with face embedding extraction, anti-spoofing detection, and GPS validation, eliminating proxy attendance and ensuring 95%+ identity verification accuracy to prevent fraudulent clock-ins",
+        "Implemented automated approval systems for leave, overtime, and timesheets with real-time notification channels and analytics dashboards, decreasing manual processing time from 3 days to 4 hours and improving team productivity by 60%",
+        "Designed and delivered end-to-end workforce management platform with mobile and web interfaces, enabling efficient employee tracking, and project management",
       ],
     },
     {
