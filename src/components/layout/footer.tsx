@@ -1,56 +1,110 @@
 "use client"
 
 import Link from "next/link"
-import { Github, Linkedin, Mail } from "lucide-react"
-import { Button } from "../../components/ui/button"
+import { Github, Linkedin, Mail, ArrowUp, Heart } from "lucide-react"
 
 export function Footer() {
+  const scrollToTop = () => {
+    window.scrollTo({ top: 0, behavior: "smooth" })
+  }
+
+  const currentYear = new Date().getFullYear()
+
+  const socialLinks = [
+    {
+      name: "GitHub",
+      href: "https://github.com/hilaldfzn",
+      icon: Github,
+    },
+    {
+      name: "LinkedIn",
+      href: "https://linkedin.com/in/mhilaldfzn",
+      icon: Linkedin,
+    },
+    {
+      name: "Email",
+      href: "mailto:hilalfauzan9@gmail.com",
+      icon: Mail,
+    },
+  ]
+
+  const navLinks = [
+    { name: "Home", href: "#home" },
+    { name: "About", href: "#about" },
+    { name: "Skills", href: "#skills" },
+    { name: "Experience", href: "#experience" },
+    { name: "Projects", href: "#projects" },
+    { name: "Awards", href: "#awards" },
+    { name: "Blog", href: "#blog" },
+    { name: "Contact", href: "#contact" },
+  ]
+
   return (
-    <footer className="border-t border-white/10 py-12 relative">
-      <div className="absolute inset-0 bg-gradient-to-t from-background/80 to-transparent"></div>
+    <footer className="border-t border-border bg-card/50 backdrop-blur-sm">
+      <div className="container mx-auto px-4 sm:px-6 lg:px-8">
+        {/* Main Footer Content */}
+        <div className="py-12 lg:py-16">
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 lg:gap-12">
+            {/* Brand Section */}
+            <div className="space-y-4">
+              <Link href="#home" className="inline-block group">
+                <h3 className="text-2xl font-heading font-bold gradient-text">
+                  Muhammad Hilal Darul Fauzan
+                </h3>
+              </Link>
+              <p className="text-sm text-muted-foreground leading-relaxed max-w-xs">
+                Full Stack Developer & AI Enthusiast crafting intelligent, scalable digital
+                solutions with passion for innovation.
+              </p>
+            </div>
 
-      <div className="container mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
-        <div className="flex flex-col md:flex-row justify-between items-center gap-6">
-          <div className="text-center md:text-left">
-            <Link href="#home" className="font-bold text-2xl">
-              <span className="gradient-text">Hilal</span>
-            </Link>
-            <p className="text-sm text-muted-foreground mt-2">
-              © {new Date().getFullYear()} Hilal. All rights reserved.
-            </p>
+            {/* Quick Links */}
+            <div className="space-y-4">
+              <h4 className="text-sm font-heading font-semibold text-foreground uppercase tracking-wider">
+                Quick Links
+              </h4>
+              <nav className="grid grid-cols-2 gap-2">
+                {navLinks.map((link) => (
+                  <Link
+                    key={link.name}
+                    href={link.href}
+                    className="text-sm text-muted-foreground hover:text-primary transition-colors"
+                  >
+                    {link.name}
+                  </Link>
+                ))}
+              </nav>
+            </div>
+
+            {/* Connect Section */}
+            <div className="space-y-4">
+              <h4 className="text-sm font-heading font-semibold text-foreground uppercase tracking-wider">
+                Connect
+              </h4>
+              <div className="flex gap-3">
+                {socialLinks.map((social) => (
+                  <a
+                    key={social.name}
+                    href={social.href}
+                    target={social.href.startsWith("http") ? "_blank" : undefined}
+                    rel={social.href.startsWith("http") ? "noopener noreferrer" : undefined}
+                    className="w-10 h-10 rounded-full bg-secondary hover:bg-primary/10 border border-border hover:border-primary/50 flex items-center justify-center transition-all duration-300 hover:scale-110 group"
+                    aria-label={social.name}
+                  >
+                    <social.icon className="w-4 h-4 text-muted-foreground group-hover:text-primary transition-colors" />
+                  </a>
+                ))}
+              </div>
+            </div>
           </div>
+        </div>
 
-          <div className="flex gap-4">
-            <Link href="https://github.com/hilaldfzn" target="_blank" rel="noopener noreferrer">
-              <Button
-                variant="ghost"
-                size="icon"
-                className="rounded-full bg-white/5 hover:bg-white/10 text-muted-foreground hover:text-cyan-400"
-              >
-                <Github className="h-5 w-5" />
-                <span className="sr-only">GitHub</span>
-              </Button>
-            </Link>
-            <Link href="https://www.linkedin.com/in/muhammad-hilal-darul-fauzan/" target="_blank" rel="noopener noreferrer">
-              <Button
-                variant="ghost"
-                size="icon"
-                className="rounded-full bg-white/5 hover:bg-white/10 text-muted-foreground hover:text-purple-400"
-              >
-                <Linkedin className="h-5 w-5" />
-                <span className="sr-only">LinkedIn</span>
-              </Button>
-            </Link>
-            <Link href="mailto:hilalfauzan9@gmail.com">
-              <Button
-                variant="ghost"
-                size="icon"
-                className="rounded-full bg-white/5 hover:bg-white/10 text-muted-foreground hover:text-pink-400"
-              >
-                <Mail className="h-5 w-5" />
-                <span className="sr-only">Email</span>
-              </Button>
-            </Link>
+        {/* Bottom Bar */}
+        <div className="border-t border-border py-6">
+          <div className="flex flex-col sm:flex-row justify-between items-center gap-4">
+            <p className="text-sm text-muted-foreground text-center sm:text-left">
+              © {currentYear} Muhammad Hilal Darul Fauzan
+            </p>
           </div>
         </div>
       </div>

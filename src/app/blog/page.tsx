@@ -8,6 +8,8 @@ import { Button } from "../../components/ui/button"
 import { Badge } from "../../components/ui/badge"
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "../../components/ui/select"
 import { GlassmorphicCard } from "../../components/glassmorphic-card"
+import { Navbar } from "../../components/layout/header"
+import { Footer } from "../../components/layout/footer"
 
 // Medium logo component
 const MediumLogo = ({ className }: { className?: string }) => (
@@ -192,7 +194,9 @@ export default function BlogPage() {
   }, [searchTerm, selectedCategory])
 
   return (
-    <div className="min-h-screen bg-background text-foreground pt-24">
+    <>
+      <Navbar />
+      <div className="min-h-screen bg-background text-foreground pt-24 pb-20">
       <div className="container mx-auto px-4 sm:px-6 lg:px-8">
         <motion.div
           initial={{ opacity: 0, y: 20 }}
@@ -321,19 +325,15 @@ export default function BlogPage() {
                   )}
                 </div>
 
-                <Button
-                  variant="ghost"
-                  className="w-full justify-between group hover:bg-gradient-to-r hover:from-cyan-500/10 hover:to-purple-500/10"
-                  asChild
+                <a
+                  href={post.url}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-medium border border-border bg-secondary hover:bg-primary/10 hover:border-primary/50 text-foreground hover:text-primary transition-all duration-300"
                 >
-                  <a href={post.url} target="_blank" rel="noopener noreferrer">
-                    <div className="flex items-center">
-                      <MediumLogo className="h-4 w-4 mr-2" />
-                      Read on Medium
-                    </div>
-                    <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-1" />
-                  </a>
-                </Button>
+                  <MediumLogo className="h-4 w-4" />
+                  Read on Medium
+                </a>
               </GlassmorphicCard>
             </motion.div>
           ))}
@@ -362,5 +362,7 @@ export default function BlogPage() {
         )}
       </div>
     </div>
+    <Footer />
+    </>
   )
 }

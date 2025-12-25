@@ -1,6 +1,6 @@
 import type React from "react"
 import type { Metadata } from "next"
-import { Inter } from "next/font/google"
+import { Inter, Space_Grotesk } from "next/font/google"
 import "./globals.css"
 import { ThemeProvider } from "../components/ui/theme-provider"
 import { Toaster } from "../components/ui/toaster"
@@ -9,6 +9,14 @@ const inter = Inter({
   subsets: ["latin"],
   display: "swap",
   preload: true,
+  variable: "--font-inter",
+})
+
+const spaceGrotesk = Space_Grotesk({
+  subsets: ["latin"],
+  display: "swap",
+  variable: "--font-space-grotesk",
+  weight: ["400", "500", "600", "700"],
 })
 
 export const metadata: Metadata = {
@@ -51,11 +59,11 @@ export default function RootLayout({
         <link rel="preconnect" href="https://fonts.googleapis.com" />
         <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
         <link rel="preload" href="/assets/me.png" as="image" />
-        <meta name="theme-color" content="#0a0a0a" />
-        <meta name="color-scheme" content="dark" />
+        <meta name="theme-color" content="#ffffff" />
+        <meta name="color-scheme" content="light dark" />
       </head>
-      <body className={inter.className}>
-        <ThemeProvider attribute="class" defaultTheme="dark" enableSystem disableTransitionOnChange>
+      <body className={`${inter.variable} ${spaceGrotesk.variable} font-sans antialiased`}>
+        <ThemeProvider attribute="class" defaultTheme="dark" enableSystem={false} disableTransitionOnChange={false}>
           {children}
           <Toaster />
         </ThemeProvider>
