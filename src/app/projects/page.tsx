@@ -8,10 +8,23 @@ import { Button } from "../../components/ui/button"
 import { Badge } from "../../components/ui/badge"
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "../../components/ui/select"
 import { GlassmorphicCard } from "../../components/glassmorphic-card"
+import { Navbar } from "../../components/layout/header"
+import { Footer } from "../../components/layout/footer"
 
 const allProjects = [
   {
     id: 1,
+    title: "Sentiment Analysis: DC Universe Rebrand (Man of Steel vs. Superman 2025)",
+    description:
+      "Designed and executed a full-cycle research project to evaluate the shift in public sentiment regarding the DC Universe's creative direction. The study compared audience reception between Zack Snyder's Man of Steel (2013) and James Gunn's Superman (2025) using social media data.",
+    image: "/assets/Superman.png",
+    technologies: ["Python", "NLP", "Social Media Analytics", "Data Visualization"],
+    categories: ["AI/ML"],
+    githubUrl: "https://github.com/hilaldfzn/social-media-analytics",
+    featured: true,
+  },
+  {
+    id: 2,
     title: "MAAMS",
     description:
       "AI-powered root cause analysis application utilizing DeepSeek R1 model for chat completions. Validates and confirms underlying causes of problems with advanced analysis algorithms and prompt systems.",
@@ -22,7 +35,7 @@ const allProjects = [
     featured: true,
   },
   {
-    id: 2,
+    id: 3,
     title: "Apap Medika",
     description:
       "Hospital management system using a 6-microservice architecture for all core hospital functions. I took full ownership of the end-to-end product design, creating the UI/UX and design system from the ground up. The system features complex business logic and robust security with JWT-based authentication, OAuth, and role-based access control for five distinct user types.",
@@ -33,7 +46,7 @@ const allProjects = [
     featured: false,
   },
   {
-    id: 3,
+    id: 4,
     title: "Database Backup Utility",
     description:
       "Built a versatile Command-Line Interface (CLI) tool in Go to fully automate backup and restore operations for MySQL, PostgreSQL, MongoDB, and SQLite. It securely integrates with multi-cloud storage providers like AWS S3, GCS, and Azure, implementing compression, encryption, and custom retention policies. The tool features a modular architecture containerized with Docker, complete with Slack notifications and scheduled workflows for reliable, unattended operation.",
@@ -44,7 +57,7 @@ const allProjects = [
     featured: false,
   },
   {
-    id: 4,
+    id: 5,
     title: "CrawlKit API",
     description:
       "REST API for intelligent and ethical web scraping, featuring concurrent crawling and a real-time analytics dashboard. The system ensures responsible data collection by enforcing robots.txt compliance, automatic delays, and rate limiting. It uses BeautifulSoup for advanced HTML parsing and includes data quality monitoring reports to guarantee reliable data extraction.",
@@ -55,7 +68,7 @@ const allProjects = [
     featured: false,
   },
   {
-    id: 5,
+    id: 6,
     title: "Natural Language Inference",
     description:
       "Deep learning model for predicting logical relationships between sentences using pre-trained DeBERTa V3 model. Built entirely from scratch with PyTorch for Indonesian and English datasets.",
@@ -66,7 +79,7 @@ const allProjects = [
     featured: true,
   },
   {
-    id: 6,
+    id: 7,
     title: "Lembarpena",
     description:
       "Award-winning literacy community web and mobile application connecting readers and authors. Features book purchasing, discussion forums, and wishlist functionality. Winner of The Best Web Application Award.",
@@ -80,7 +93,7 @@ const allProjects = [
     awardUrl: "https://pbp-fasilkom-ui.github.io/ganjil-2024/awards#aplikasi-web-terbaik",
   },
   {
-    id: 7,
+    id: 8,
     title: "Mario Object Detection",
     description:
       "YOLO v11-based object detection system for accurately detecting Mario characters in video datasets. Addresses real-world challenges like lighting variability and complex backgrounds.",
@@ -91,7 +104,7 @@ const allProjects = [
     featured: true,
   },
   {
-    id: 8,
+    id: 9,
     title: "Health Admission Prediction",
     description:
       "Healthcare analytics project predicting patient outcomes and ICU stay duration. Includes classification, regression, and clustering models for medical decision-making support.",
@@ -102,7 +115,7 @@ const allProjects = [
     featured: true,
   },
   {
-    id: 9,
+    id: 10,
     title: "Marmut Music",
     description:
       "Spotify-like streaming platform offering music and podcasts with premium subscriptions, playlists, charts, and royalty tracking for artists, songwriters, and labels.",
@@ -114,7 +127,7 @@ const allProjects = [
     featured: true,
   },
   {
-    id: 10,
+    id: 11,
     title: "HoomGroom",
     description:
       "IKEA-inspired furniture e-commerce platform with catalog browsing, cart management, balance top-up, and shipping tracking. Built with Spring Boot and Next.js + Tailwind CSS.",
@@ -158,7 +171,9 @@ export default function ProjectsPage() {
   }, [searchTerm, selectedCategory])
 
   return (
-    <div className="min-h-screen bg-background text-foreground pt-24">
+    <>
+      <Navbar />
+      <div className="min-h-screen bg-background text-foreground pt-24 pb-20">
       <div className="container mx-auto px-4 sm:px-6 lg:px-8">
         <motion.div
           initial={{ opacity: 0, y: 20 }}
@@ -327,5 +342,7 @@ export default function ProjectsPage() {
         )}
       </div>
     </div>
+    <Footer />
+    </>
   )
 }

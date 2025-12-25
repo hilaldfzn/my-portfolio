@@ -3,8 +3,9 @@
 import { useState, useEffect } from "react"
 import Link from "next/link"
 import { motion } from "framer-motion"
-import { Menu, X } from "lucide-react"
+import { Menu, X, Code2 } from "lucide-react"
 import { Button } from "../../components/ui/button"
+import { ThemeToggle } from "../theme-toggle"
 
 export function Navbar() {
   const [isOpen, setIsOpen] = useState(false)
@@ -38,9 +39,9 @@ export function Navbar() {
     { name: "About", href: "#about", id: "about" },
     { name: "Skills", href: "#skills", id: "skills" },
     { name: "Experiences", href: "#experience", id: "experience" },
+    { name: "Awards", href: "#awards", id: "awards" },
     { name: "Projects", href: "#projects", id: "projects" },
     { name: "Blogs", href: "#blog", id: "blog" },
-    // { name: "Testimonials", href: "#testimonials", id: "testimonials" },
     { name: "Contact", href: "#contact", id: "contact" },
   ]
 
@@ -65,7 +66,7 @@ export function Navbar() {
         if (section) {
           // Trigger intersection observer manually for skipped sections
           const event = new CustomEvent("forceAnimate", { detail: { section } })
-          window.dispatchEvent(event)
+          globalThis.dispatchEvent(event)
         }
       }
 
@@ -88,32 +89,35 @@ export function Navbar() {
       >
         <div className="flex items-center justify-between h-16">
           {/* Logo */}
-          <Link href="#home" className="flex items-center">
+          <Link href="#home" className="flex items-center gap-2 group">
             <div
-              className={`rounded-2xl bg-gradient-to-r from-cyan-500 to-purple-500 flex items-center justify-center font-bold text-white text-xl transition-all duration-300 ${
-                scrolled ? "w-12 h-12" : "w-10 h-10"
+              className={`rounded-xl bg-gradient-to-r from-primary to-accent flex items-center justify-center transition-all duration-300 ${
+                scrolled ? "w-10 h-10" : "w-9 h-9"
               }`}
             >
-              H
+              <Code2 className="w-5 h-5 text-white" />
             </div>
+            <span className="text-xl font-heading font-bold gradient-text hidden sm:block">
+              Hilal
+            </span>
           </Link>
 
           {/* Desktop Navigation */}
-          <div className="hidden md:flex items-center space-x-8">
+          <div className="hidden md:flex items-center space-x-4">
             {navItems.map((item) => {
               const isActive = activeSection === item.id
               return (
                 <button
                   key={item.name}
                   onClick={() => scrollToSection(item.href)}
-                  className={`relative text-foreground hover:text-cyan-400 transition-colors duration-200 font-medium px-3 py-2 rounded-2xl hover:bg-white/5 ${
-                    isActive ? "text-cyan-400" : ""
+                  className={`relative text-foreground hover:text-primary transition-colors duration-200 font-medium px-3 py-2 rounded-2xl hover:bg-primary/5 ${
+                    isActive ? "text-primary" : ""
                   }`}
                 >
                   {item.name}
                   {isActive && (
                     <motion.div
-                      className="absolute bottom-0 left-1/2 -translate-x-1/2 w-6 h-0.5 bg-gradient-to-r from-cyan-400 to-purple-400 rounded-full"
+                      className="absolute bottom-0 left-1/2 -translate-x-1/2 w-6 h-0.5 bg-gradient-to-r from-primary to-accent rounded-full"
                       layoutId="activeIndicator"
                       initial={{ opacity: 0, scaleX: 0 }}
                       animate={{ opacity: 1, scaleX: 1 }}
@@ -123,15 +127,17 @@ export function Navbar() {
                 </button>
               )
             })}
+            <ThemeToggle />
           </div>
 
-          {/* Mobile menu button */}
-          <div className="md:hidden">
+          {/* Mobile menu button & theme toggle */}
+          <div className="md:hidden flex items-center gap-2">
+            <ThemeToggle />
             <Button
               variant="ghost"
               size="icon"
               onClick={() => setIsOpen(!isOpen)}
-              className="text-foreground hover:text-cyan-400 rounded-2xl"
+              className="text-foreground hover:text-primary rounded-2xl"
             >
               {isOpen ? <X className="h-6 w-6" /> : <Menu className="h-6 w-6" />}
             </Button>
@@ -154,14 +160,14 @@ export function Navbar() {
                   <button
                     key={item.name}
                     onClick={() => scrollToSection(item.href)}
-                    className={`relative block px-3 py-2 text-foreground hover:text-cyan-400 transition-colors duration-200 font-medium w-full text-left rounded-2xl hover:bg-white/5 ${
-                      isActive ? "text-cyan-400 bg-white/5" : ""
+                    className={`relative block px-3 py-2 text-foreground hover:text-primary transition-colors duration-200 font-medium w-full text-left rounded-2xl hover:bg-primary/5 ${
+                      isActive ? "text-primary bg-primary/5" : ""
                     }`}
                   >
                     {item.name}
                     {isActive && (
                       <motion.div
-                        className="absolute left-0 top-1/2 -translate-y-1/2 w-1 h-6 bg-gradient-to-b from-cyan-400 to-purple-400 rounded-full"
+                        className="absolute left-0 top-1/2 -translate-y-1/2 w-1 h-6 bg-gradient-to-b from-primary to-accent rounded-full"
                         layoutId="activeIndicatorMobile"
                         initial={{ opacity: 0, scaleY: 0 }}
                         animate={{ opacity: 1, scaleY: 1 }}

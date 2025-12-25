@@ -1,11 +1,9 @@
 "use client"
 
 import { motion } from "framer-motion"
-import { ArrowRight, Award, Calendar, Clock } from "lucide-react"
+import { ArrowRight, Award, Calendar, Clock, BookOpen } from "lucide-react"
 import { Button } from "../../components/ui/button"
-import { Badge } from "../../components/ui/badge"
 import { SectionHeading } from "../section-heading"
-import { GlassmorphicCard } from "../glassmorphic-card"
 import Link from "next/link"
 
 // Medium logo component
@@ -96,100 +94,142 @@ export function BlogSection() {
   ]
 
   return (
-    <section id="blog" className="py-32 relative">
-      <div className="absolute inset-0 z-0">
-        <div className="absolute top-1/4 right-1/4 w-64 h-64 bg-purple-500 rounded-full mix-blend-multiply filter blur-3xl opacity-10"></div>
-        <div className="absolute bottom-1/3 left-1/3 w-64 h-64 bg-pink-500 rounded-full mix-blend-multiply filter blur-3xl opacity-10"></div>
-      </div>
+    <section id="blog" className="py-20 sm:py-32 relative overflow-hidden">
+      <div className="container mx-auto px-4 sm:px-6 lg:px-8">
+        <SectionHeading title="Latest Articles" subtitle="Thoughts on development and technology" />
 
-      <div className="container mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
-        <SectionHeading title="Latest Blog Posts" />
-
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 mt-16">
-          {blogPosts.map((blog, index) => (
+        {/* Blog Posts Grid */}
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 lg:gap-8">
+          {blogPosts.slice(0, 6).map((blog, index) => (
             <motion.div
-              key={index}
-              initial={{ opacity: 0, y: 50 }}
+              key={blog.id}
+              initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.6, delay: index * 0.1 }}
               viewport={{ once: true }}
+              transition={{ duration: 0.5, delay: index * 0.1 }}
+              className="group"
             >
-              <GlassmorphicCard>
-                <div className="relative overflow-hidden rounded-lg mb-4">
+              <article className="bg-card border border-border rounded-3xl overflow-hidden hover:shadow-xl hover:border-primary/50 transition-all duration-300 h-full flex flex-col">
+                {/* Featured Image */}
+                <div className="relative overflow-hidden aspect-[16/9] bg-muted">
                   <img
                     src={blog.image}
                     alt={blog.title}
-                    className="w-full h-48 object-cover transition-transform duration-300 hover:scale-110"
+                    className="w-full h-full object-cover transition-all duration-500 group-hover:scale-110"
                   />
+
+                  {/* Newsletter Badge */}
                   {blog.newsletter && (
-                    <a href={blog.newsletterUrl} target="_blank" rel="noopener noreferrer">
-                      <div className="absolute top-4 left-4">
-                        <Badge className="bg-red-400/20 text-red-400 border-red-400/30">
-                          <Award className="h-3 w-3 mr-1" />
-                          International Newsletter
-                        </Badge>
-                      </div>
-                    </a>
-                  )}
-                </div>
-
-                <div className="flex items-center gap-4 text-sm text-muted-foreground mb-3">
-                  <div className="flex items-center gap-1">
-                    <Calendar className="h-4 w-4" />
-                    {new Date(blog.publishedAt).toLocaleDateString("en-ID")}
-                  </div>
-                  <div className="flex items-center gap-1">
-                    <Clock className="h-4 w-4" />
-                    {blog.readingTime} min read
-                  </div>
-                </div>
-
-                <h3 className="text-xl font-bold mb-2 line-clamp-2">{blog.title}</h3>
-                <p className="text-muted-foreground mb-4 line-clamp-3">{blog.excerpt}</p>
-
-                {/* Tags display */}
-                <div className="flex flex-wrap gap-1 mb-4">
-                  {blog.tags.slice(0, 3).map((tag, tagIndex) => (
-                    <Badge key={tagIndex} variant="secondary" className="bg-purple-400/20 text-purple-400 text-xs">
-                      {tag}
-                    </Badge>
-                  ))}
-                  {blog.tags.length > 3 && (
-                    <Badge variant="secondary" className="bg-gray-400/20 text-gray-400 text-xs">
-                      +{blog.tags.length - 3}
-                    </Badge>
-                  )}
-                </div>
-
-                <Button
-                  variant="ghost"
-                  className="w-full justify-between group hover:bg-gradient-to-r hover:from-cyan-500/10 hover:to-purple-500/10"
-                  asChild
-                >
-                  <a href={blog.url} target="_blank" rel="noopener noreferrer">
-                    <div className="flex items-center">
-                      <MediumLogo className="h-4 w-4 mr-2" />
-                      Read on Medium
+                    <div className="absolute top-4 left-4">
+                      <a
+                        href={blog.newsletterUrl}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="block"
+                      >
+                        <div className="px-3 py-1.5 rounded-full bg-rose-500/90 backdrop-blur-sm border border-rose-400/30 flex items-center gap-1.5 hover:bg-rose-500 transition-colors">
+                          <Award className="w-3.5 h-3.5 text-white" />
+                          <span className="text-xs font-medium text-white">International Newsletter</span>
+                        </div>
+                      </a>
                     </div>
-                    <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-1" />
+                  )}
+
+                  {/* Gradient Overlay */}
+                  <div className="absolute inset-0 bg-gradient-to-t from-background/60 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+                </div>
+
+                {/* Content */}
+                <div className="p-6 lg:p-8 flex flex-col flex-1">
+                  {/* Meta Info */}
+                  <div className="flex items-center gap-4 text-xs text-muted-foreground mb-4">
+                    <div className="flex items-center gap-1.5">
+                      <Calendar className="w-3.5 h-3.5" />
+                      <time dateTime={blog.publishedAt}>
+                        {new Date(blog.publishedAt).toLocaleDateString("en-US", {
+                          month: "short",
+                          day: "numeric",
+                          year: "numeric",
+                        })}
+                      </time>
+                    </div>
+                    <div className="flex items-center gap-1.5">
+                      <Clock className="w-3.5 h-3.5" />
+                      <span>{blog.readingTime} min read</span>
+                    </div>
+                  </div>
+
+                  {/* Categories */}
+                  <div className="flex flex-wrap gap-2 mb-3">
+                    {blog.categories.map((category) => (
+                      <span
+                        key={category}
+                        className="px-2.5 py-1 rounded-full text-xs font-medium bg-accent/10 text-accent border border-accent/20"
+                      >
+                        {category}
+                      </span>
+                    ))}
+                  </div>
+
+                  {/* Title */}
+                  <h3 className="text-lg lg:text-xl font-heading font-bold text-foreground mb-3 line-clamp-2 group-hover:text-primary transition-colors">
+                    {blog.title}
+                  </h3>
+
+                  {/* Excerpt */}
+                  <p className="text-sm text-muted-foreground leading-relaxed mb-4 line-clamp-3 flex-1">
+                    {blog.excerpt}
+                  </p>
+
+                  {/* Tags */}
+                  <div className="flex flex-wrap gap-2 mb-6">
+                    {blog.tags.slice(0, 3).map((tag) => (
+                      <span
+                        key={tag}
+                        className="px-2.5 py-1 rounded-lg text-xs font-medium bg-primary/10 text-primary"
+                      >
+                        {tag}
+                      </span>
+                    ))}
+                    {blog.tags.length > 3 && (
+                      <span className="px-2.5 py-1 rounded-lg text-xs font-medium bg-muted text-muted-foreground">
+                        +{blog.tags.length - 3}
+                      </span>
+                    )}
+                  </div>
+
+                  {/* Read More Link */}
+                  <a
+                    href={blog.url}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-medium border border-border bg-secondary hover:bg-primary/10 hover:border-primary/50 text-foreground hover:text-primary transition-all duration-300"
+                  >
+                    <MediumLogo className="w-4 h-4" />
+                    Read on Medium
                   </a>
-                </Button>
-              </GlassmorphicCard>
+                </div>
+              </article>
             </motion.div>
           ))}
         </div>
 
+        {/* View All Posts Button */}
         <motion.div
-          className="text-center mt-12"
+          className="text-center mt-12 lg:mt-16"
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6 }}
+          transition={{ duration: 0.5, delay: 0.3 }}
           viewport={{ once: true }}
         >
-          <Button className="cyber-button" asChild>
+          <Button
+            asChild
+            size="lg"
+            className="bg-secondary hover:bg-primary/10 text-foreground hover:text-primary border-2 border-border hover:border-primary/50 rounded-full px-8 h-12 text-base font-medium transition-all duration-300 group"
+          >
             <Link href="/blog">
               View All Posts
-              <ArrowRight className="ml-2 h-4 w-4" />
+              <ArrowRight className="ml-2 h-4 w-4 transition-transform group-hover:translate-x-1" />
             </Link>
           </Button>
         </motion.div>
