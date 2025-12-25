@@ -94,7 +94,7 @@ export function ProjectsSection() {
     <section id="projects" className="py-20 sm:py-32 relative overflow-hidden">
       <div className="container mx-auto px-4 sm:px-6 lg:px-8">
         <SectionHeading
-          title="Projects"
+          title="Latest Projects"
           subtitle="Showcasing my latest work and innovations"
         />
 

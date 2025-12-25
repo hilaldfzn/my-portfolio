@@ -199,15 +199,17 @@ export function BlogSection() {
                   </div>
 
                   {/* Read More Link */}
-                  <a
-                    href={blog.url}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-medium border border-border bg-secondary hover:bg-primary/10 hover:border-primary/50 text-foreground hover:text-primary transition-all duration-300"
-                  >
-                    <MediumLogo className="w-4 h-4" />
-                    Read on Medium
-                  </a>
+                  <div className="flex">
+                    <a
+                      href={blog.url}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-medium border border-border bg-secondary hover:bg-primary/10 hover:border-primary/50 text-foreground hover:text-primary transition-all duration-300"
+                    >
+                      <MediumLogo className="w-4 h-4" />
+                      Read on Medium
+                    </a>
+                  </div>
                 </div>
               </article>
             </motion.div>
