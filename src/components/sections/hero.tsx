@@ -173,7 +173,7 @@ export function HeroSection() {
             onClick={handleDownloadCV}
             variant="outline"
             size="lg"
-            className="border border-border hover:border-primary/50 text-foreground rounded-md px-8 h-12 text-sm font-mono font-medium hover:bg-primary/5 transition-all duration-300 group"
+            className="border border-border hover:border-primary/50 text-foreground rounded-md px-8 h-12 text-sm font-mono font-medium hover:bg-primary/10 hover:text-primary transition-all duration-300 group"
           >
             <Download className="mr-2 h-4 w-4" />
             Resume

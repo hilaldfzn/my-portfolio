@@ -210,7 +210,7 @@ export function ArticleSection() {
             asChild
             variant="outline"
             size="lg"
-            className="rounded-md px-8 h-11 text-sm font-mono border-border hover:border-primary/50 hover:text-primary transition-all duration-200"
+            className="rounded-md px-8 h-11 text-sm font-mono border-border hover:border-primary/50 hover:bg-primary/10 hover:text-primary transition-all duration-200"
           >
             <Link href="/articles">
               View All Posts
