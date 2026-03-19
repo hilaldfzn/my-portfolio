@@ -251,11 +251,11 @@ export function ProjectsSection() {
             asChild
             variant="outline"
             size="lg"
-            className="rounded-md px-8 h-11 text-sm font-mono border-border hover:border-primary/50 hover:text-primary transition-all duration-200 group"
+            className="rounded-md px-8 h-11 text-sm font-mono border-border hover:border-primary/50 hover:text-primary transition-all duration-200"
           >
             <Link href="/projects">
               View All Projects
-              <ArrowRight className="ml-2 h-4 w-4 transition-transform group-hover:translate-x-1" />
+              <ArrowRight className="ml-2 h-4 w-4" />
             </Link>
           </Button>
         </motion.div>

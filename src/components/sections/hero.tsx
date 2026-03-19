@@ -163,10 +163,10 @@ export function HeroSection() {
           <Button
             onClick={scrollToContact}
             size="lg"
-            className="bg-primary hover:bg-primary/90 text-primary-foreground rounded-md px-8 h-12 text-sm font-mono font-medium transition-all duration-300 group"
+            className="bg-primary hover:bg-primary/90 text-primary-foreground rounded-md px-8 h-12 text-sm font-mono font-medium transition-all duration-300"
           >
             Get in touch
-            <ArrowRight className="ml-2 h-4 w-4 transition-transform group-hover:translate-x-1" />
+            <ArrowRight className="ml-2 h-4 w-4" />
           </Button>
 
           <Button

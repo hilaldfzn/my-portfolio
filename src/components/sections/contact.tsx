@@ -225,7 +225,7 @@ export function ContactSection() {
               <Button
                 type="submit"
                 disabled={isSubmitting}
-                className="bg-primary hover:bg-primary/90 text-primary-foreground rounded-md h-11 px-8 text-sm font-mono transition-all duration-200 group w-full sm:w-auto"
+                className="bg-primary hover:bg-primary/90 text-primary-foreground rounded-md h-11 px-8 text-sm font-mono transition-all duration-200 w-full sm:w-auto"
               >
                 {isSubmitting ? (
                   <>
@@ -235,7 +235,7 @@ export function ContactSection() {
                 ) : (
                   <>
                     Send Message
-                    <Send className="ml-2 h-4 w-4 transition-transform group-hover:translate-x-1" />
+                    <Send className="ml-2 h-4 w-4" />
                   </>
                 )}
               </Button>

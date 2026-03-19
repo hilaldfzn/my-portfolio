@@ -2,12 +2,13 @@
 
 import { useState, useMemo } from "react"
 import { motion } from "framer-motion"
-import { Search, Award, Clock, ArrowRight } from "lucide-react"
+import { Search, Award, Clock, ArrowRight, ArrowLeft } from "lucide-react"
 import { Button } from "../../components/ui/button"
 import { TiltCard } from "../../components/tilt-card"
 import { Navbar } from "../../components/layout/header"
 import { Footer } from "../../components/layout/footer"
 import { SectionHeading } from "../../components/section-heading"
+import Link from "next/link"
 
 // Medium logo component
 const MediumLogo = ({ className }: { className?: string }) => (
@@ -196,6 +197,14 @@ export default function ArticlePage() {
       <Navbar />
       <div className="min-h-screen bg-background text-foreground pt-24 pb-20">
         <div className="container mx-auto px-4 sm:px-6 lg:px-8">
+          <Link
+            href="/"
+            className="inline-flex items-center gap-1.5 text-sm font-mono text-muted-foreground hover:text-primary transition-colors mb-6"
+          >
+            <ArrowLeft className="w-3.5 h-3.5" />
+            Back to Home
+          </Link>
+
           <SectionHeading title="All Article Posts" subtitle="articles" />
 
           <p className="text-base text-muted-foreground max-w-2xl font-body mb-10">

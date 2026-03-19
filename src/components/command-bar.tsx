@@ -2,6 +2,7 @@
 
 import { useState, useRef, useEffect, useCallback } from "react"
 import { motion } from "framer-motion"
+import { useTheme } from "next-themes"
 import { useTypewriter } from "../hooks/use-typewriter"
 
 const COMMANDS: Record<string, { action: string; target?: string }> = {
@@ -25,6 +26,7 @@ export function CommandBar() {
   const [isFocused, setIsFocused] = useState(false)
   const [feedback, setFeedback] = useState("")
   const inputRef = useRef<HTMLInputElement>(null)
+  const { setTheme } = useTheme()
 
   const placeholder = useTypewriter({
     texts: [
@@ -55,7 +57,7 @@ export function CommandBar() {
         setFeedback("")
       }
     } else if (match.action === "theme" && match.target) {
-      document.documentElement.classList.toggle("dark", match.target === "dark")
+      setTheme(match.target)
       setFeedback(`theme set to ${match.target}`)
       setTimeout(() => setFeedback(""), 2000)
     } else if (match.action === "clear") {
