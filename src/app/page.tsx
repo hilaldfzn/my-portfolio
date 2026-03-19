@@ -1,7 +1,9 @@
 import { Navbar } from "../components/layout/header"
 import { HeroSection } from "../components/sections/hero"
 import { ScrollProgress } from "../components/scroll-progress"
+import { CommandBar } from "../components/command-bar"
 import { Footer } from "../components/layout/footer"
+import { ParallaxBackground } from "../components/parallax-background"
 import { lazy, Suspense } from "react"
 
 const AboutSection = lazy(() =>
@@ -11,16 +13,19 @@ const SkillsSection = lazy(() =>
   import("../components/sections/skills").then((module) => ({ default: module.SkillsSection })),
 )
 const ExperienceSection = lazy(() =>
-  import("../components/sections/experience").then((module) => ({ default: module.ExperienceSection })),
-)
-const ProjectsSection = lazy(() =>
-  import("../components/sections/projects").then((module) => ({ default: module.ProjectsSection })),
+  import("../components/sections/experiences").then((module) => ({ default: module.ExperienceSection })),
 )
 const AwardsSection = lazy(() =>
   import("../components/sections/awards").then((module) => ({ default: module.AwardsSection })),
 )
-const BlogSection = lazy(() =>
-  import("../components/sections/blog").then((module) => ({ default: module.BlogSection })),
+const GitHubActivitySection = lazy(() =>
+  import("../components/sections/github-activity").then((module) => ({ default: module.GitHubActivitySection })),
+)
+const ProjectsSection = lazy(() =>
+  import("../components/sections/projects").then((module) => ({ default: module.ProjectsSection })),
+)
+const ArticleSection = lazy(() =>
+  import("../components/sections/articles").then((module) => ({ default: module.ArticleSection })),
 )
 const ContactSection = lazy(() =>
   import("../components/sections/contact").then((module) => ({ default: module.ContactSection })),
@@ -34,13 +39,14 @@ const SectionLoader = () => (
 
 export default function Portfolio() {
   return (
-    <div className="min-h-screen bg-background text-foreground overflow-x-hidden">
+    <div className="min-h-screen bg-background text-foreground overflow-x-hidden pb-10">
+      <ParallaxBackground />
       <ScrollProgress />
       <Navbar />
 
       <HeroSection />
 
-      <div className="space-y-24 md:space-y-32 lg:space-y-40">
+      <div className="space-y-24 md:space-y-32 lg:space-y-40 relative z-10">
         <Suspense fallback={<SectionLoader />}>
           <AboutSection />
         </Suspense>
@@ -62,7 +68,11 @@ export default function Portfolio() {
         </Suspense>
 
         <Suspense fallback={<SectionLoader />}>
-          <BlogSection />
+          <ArticleSection />
+        </Suspense>
+
+        <Suspense fallback={<SectionLoader />}>
+          <GitHubActivitySection />
         </Suspense>
 
         <Suspense fallback={<SectionLoader />}>
@@ -71,6 +81,7 @@ export default function Portfolio() {
       </div>
 
       <Footer />
+      <CommandBar />
     </div>
   )
 }

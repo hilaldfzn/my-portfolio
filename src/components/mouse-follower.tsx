@@ -55,35 +55,20 @@ export function MouseFollower() {
     }
   }, [updateMousePosition, supportsHover])
 
-  // Don't render on touch devices or during SSR
   if (typeof window === "undefined" || !supportsHover) {
     return null
   }
 
   return (
-    <>
-      <motion.div
-        className="fixed top-0 left-0 w-8 h-8 rounded-full pointer-events-none z-50 mix-blend-difference"
-        animate={{
-          x: mousePosition.x - 16,
-          y: mousePosition.y - 16,
-          opacity: isVisible ? 1 : 0,
-        }}
-        transition={{ type: "spring", damping: 20, stiffness: 300, mass: 0.5 }}
-        style={{ willChange: "transform, opacity" }}
-      >
-        <div className="w-full h-full rounded-full bg-white opacity-50"></div>
-      </motion.div>
-
-      <motion.div
-        className="fixed top-0 left-0 w-2 h-2 rounded-full bg-white pointer-events-none z-50"
-        animate={{
-          x: mousePosition.x - 1,
-          y: mousePosition.y - 1,
-          opacity: isVisible ? 1 : 0,
-        }}
-        style={{ willChange: "transform, opacity" }}
-      />
-    </>
+    <motion.div
+      className="fixed top-0 left-0 w-2 h-2 rounded-full bg-primary pointer-events-none z-50"
+      animate={{
+        x: mousePosition.x - 4,
+        y: mousePosition.y - 4,
+        opacity: isVisible ? 0.6 : 0,
+      }}
+      transition={{ type: "spring", damping: 25, stiffness: 400, mass: 0.3 }}
+      style={{ willChange: "transform, opacity" }}
+    />
   )
 }

@@ -1,7 +1,7 @@
 "use client"
 
 import { motion } from "framer-motion"
-import { Trophy, Medal, GraduationCap } from "lucide-react"
+import { Trophy } from "lucide-react"
 import { SectionHeading } from "../section-heading"
 
 export function AwardsSection() {
@@ -12,11 +12,7 @@ export function AwardsSection() {
       year: "2025",
       description:
         "Recipient of the prestigious RSA PTI Scholarship, recognizing academic excellence and outstanding potential across all faculties at Universitas Indonesia.",
-      icon: GraduationCap,
-      iconBg: "bg-primary/10",
-      iconColor: "text-primary",
       category: "Scholarship",
-      categoryColor: "text-primary",
     },
     {
       id: 2,
@@ -30,11 +26,7 @@ export function AwardsSection() {
         "2nd Best Video Project Innovation",
         "3rd Best Presentation",
       ],
-      icon: Trophy,
-      iconBg: "bg-primary/10",
-      iconColor: "text-primary",
       category: "International Competition",
-      categoryColor: "text-primary",
     },
     {
       id: 3,
@@ -44,87 +36,71 @@ export function AwardsSection() {
       description:
         "Achieved 1st Place and Gold Medal in Mathematics at the provincial level, demonstrating exceptional mathematical prowess and problem-solving abilities.",
       achievements: ["1st Place and Gold Medalist in Mathematics"],
-      icon: Medal,
-      iconBg: "bg-primary/10",
-      iconColor: "text-primary",
       category: "Academic Competition",
-      categoryColor: "text-primary",
     },
   ]
 
   return (
-    <section id="awards" className="py-20 sm:py-32 relative overflow-hidden">
+    <section id="awards" className="py-24 sm:py-32 relative">
       <div className="container mx-auto px-4 sm:px-6 lg:px-8">
-        <SectionHeading 
-          title="Honors & Awards" 
-          subtitle="Recognition of excellence and achievements" 
-        />
+        <SectionHeading title="Honors & Awards" subtitle="awards" />
 
-        <div className="max-w-4xl mx-auto space-y-8 mt-16">
+        <div className="max-w-6xl mx-auto grid grid-cols-1 md:grid-cols-3 gap-6">
           {awards.map((award, index) => (
             <motion.div
               key={award.id}
-              initial={{ opacity: 0, y: 20 }}
+              initial={{ opacity: 0, y: 25 }}
               whileInView={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.6, delay: index * 0.1 }}
               viewport={{ once: true }}
+              transition={{ duration: 0.5, delay: index * 0.12 }}
+              className="group"
             >
-              <div className="bg-card border border-border rounded-2xl p-6 hover:shadow-xl hover:border-primary/50 transition-all duration-300 group">
-                <div className="flex items-start gap-4">
-                  {/* Icon */}
-                  <div className={`w-12 h-12 rounded-xl ${award.iconBg} flex items-center justify-center flex-shrink-0`}>
-                    <award.icon className={`w-6 h-6 ${award.iconColor}`} />
+              <div className="card-accent rounded-lg p-6 h-full flex flex-col hover:border-[hsl(var(--syntax-yellow))]/40 transition-all duration-300">
+                {/* Trophy icon + year */}
+                <div className="flex items-center justify-between mb-4">
+                  <div className="w-10 h-10 rounded-md bg-[hsl(var(--syntax-yellow))]/10 flex items-center justify-center">
+                    <Trophy className="w-5 h-5 text-[hsl(var(--syntax-yellow))]" />
                   </div>
-
-                  <div className="flex-1">
-                    {/* Title */}
-                    <h3 className="text-xl font-heading font-bold text-foreground mb-1 group-hover:text-primary transition-colors">
-                      {award.title}
-                    </h3>
-
-                    {/* Subtitle with spacing */}
-                    {award.subtitle && (
-                      <p className={`text-base font-medium mb-3 ${award.iconColor}`}>
-                        {award.subtitle}
-                      </p>
-                    )}
-
-                    {/* Category Badge and Year */}
-                    <div className="flex flex-wrap items-center gap-3 mb-4">
-                      <span className={`text-xs font-bold ${award.categoryColor} tracking-wider`}>
-                        {award.category}
-                      </span>
-                      <span className="text-sm text-muted-foreground">
-                        {award.year}
-                      </span>
-                    </div>
-
-                    {/* Description */}
-                    <p className="text-sm text-muted-foreground mb-4 leading-relaxed">
-                      {award.description}
-                    </p>
-
-                    {/* Achievements */}
-                    {award.achievements && award.achievements.length > 0 && (
-                      <div>
-                        <h5 className="text-sm font-semibold text-foreground mb-2">
-                          Achievements:
-                        </h5>
-                        <ul className="space-y-2">
-                          {award.achievements.map((achievement) => (
-                            <li 
-                              key={achievement} 
-                              className="flex items-start gap-2 text-sm text-muted-foreground leading-relaxed"
-                            >
-                              <span className={`${award.iconColor} flex-shrink-0 mt-0.5`}>•</span>
-                              <span>{achievement}</span>
-                            </li>
-                          ))}
-                        </ul>
-                      </div>
-                    )}
-                  </div>
+                  <span className="font-mono text-sm text-muted-foreground">
+                    {award.year}
+                  </span>
                 </div>
+
+                {/* Category badge */}
+                <span className="inline-block font-mono text-[10px] tracking-wider text-[hsl(var(--syntax-yellow))] mb-3 uppercase">
+                  {award.category}
+                </span>
+
+                {/* Title */}
+                <h3 className="text-lg font-display text-foreground group-hover:text-[hsl(var(--syntax-yellow))] transition-colors mb-1">
+                  {award.title}
+                </h3>
+
+                {award.subtitle && (
+                  <p className="text-sm font-body text-muted-foreground mb-3">
+                    {award.subtitle}
+                  </p>
+                )}
+
+                {/* Description */}
+                <p className="text-sm text-muted-foreground leading-relaxed font-body">
+                  {award.description}
+                </p>
+
+                {/* Achievements */}
+                {award.achievements && award.achievements.length > 0 && (
+                  <ul className="space-y-1.5 mt-3 pt-3 border-t border-border">
+                    {award.achievements.map((achievement) => (
+                      <li
+                        key={achievement}
+                        className="flex items-start gap-2 text-sm text-muted-foreground font-body"
+                      >
+                        <span className="text-[hsl(var(--syntax-yellow))] mt-0.5 font-mono text-xs flex-shrink-0">{">"}</span>
+                        <span>{achievement}</span>
+                      </li>
+                    ))}
+                  </ul>
+                )}
               </div>
             </motion.div>
           ))}
