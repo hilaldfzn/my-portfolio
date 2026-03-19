@@ -31,17 +31,17 @@ const jetbrainsMono = JetBrains_Mono({
 export const metadata: Metadata = {
   title: "Hilal | Portfolio",
   description:
-    "Full Stack Developer passionate about creating intelligent, scalable, and innovative digital solutions. Specializing in AI/ML, web development, and modern technologies.",
-  keywords: "Full Stack Developer, AI/ML, Web Development, React, Next.js, Python, Django, Portfolio",
+    "AI & Software Engineer passionate about creating intelligent, scalable, and innovative digital solutions. Specializing in AI/ML, web development, and modern technologies.",
+  keywords: "Software Engineer, AI/ML, Web Development, React, Next.js, Python, Django, Portfolio",
   authors: [{ name: "Muhammad Hilal Darul Fauzan" }],
   creator: "Muhammad Hilal Darul Fauzan",
   openGraph: {
     type: "website",
     locale: "en_US",
     url: "https://hilaldfzn.vercel.app",
-    title: "Full Stack Developer | Muhammad Hilal Darul Fauzan",
+    title: "AI & Software Engineer | Muhammad Hilal Darul Fauzan",
     description:
-      "Full Stack Developer passionate about creating intelligent, scalable, and innovative digital solutions.",
+      "AI & Software Engineer passionate about creating intelligent, scalable, and innovative digital solutions.",
     siteName: "Portfolio | Muhammad Hilal Darul Fauzan",
   },
   robots: {
