@@ -4,8 +4,8 @@ import type React from "react"
 import { motion } from "framer-motion"
 import { ArrowRight, Award, Clock } from "lucide-react"
 import { Button } from "../ui/button"
-import { SectionHeading } from "../section-heading"
-import { TiltCard } from "../tilt-card"
+import { SectionHeading } from "../shared/section-heading"
+import { TiltCard } from "../shared/tilt-card"
 import Link from "next/link"
 
 export function ArticleSection() {

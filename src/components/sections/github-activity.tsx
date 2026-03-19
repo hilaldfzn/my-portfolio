@@ -1,8 +1,8 @@
 "use client"
 
 import { motion } from "framer-motion"
-import { SectionHeading } from "../section-heading"
-import { GitHubContributions } from "../github-contributions"
+import { SectionHeading } from "../shared/section-heading"
+import { GitHubContributions } from "./github-contributions"
 
 export function GitHubActivitySection() {
   return (

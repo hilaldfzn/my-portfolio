@@ -1,7 +1,7 @@
 "use client"
 
 import { motion } from "framer-motion"
-import { SectionHeading } from "../section-heading"
+import { SectionHeading } from "../shared/section-heading"
 import { Code, Users, FolderGit2, PenTool } from "lucide-react"
 
 export function AboutSection() {
@@ -34,17 +34,17 @@ export function AboutSection() {
                 </p>
                 <div className="space-y-4">
                   <p className="text-base lg:text-lg text-muted-foreground leading-relaxed font-body">
-                    I'm a passionate AI & software engineer currently pursuing my Bachelor's degree in Computer Science
-                    at <span className="text-foreground font-semibold">Universitas Indonesia</span>. My journey in tech
-                    started with a fascination for how things work behind the scenes, which led me to explore both
-                    frontend and backend development.
+                    I'm an AI & Software Engineer currently pursuing my Bachelor's degree in Computer Science
+                    at <span className="text-foreground font-semibold">Universitas Indonesia</span>. With internship
+                    experience in AI engineering and software development, I build end-to-end solutions from model
+                    development to production deployment.
                   </p>
 
                   <p className="text-base lg:text-lg text-muted-foreground leading-relaxed font-body">
-                    I specialize in building modern web applications using cutting-edge technologies like React, Next.js,
-                    Django, and FastAPI. Beyond web development, I'm deeply interested in{" "}
-                    <span className="text-foreground font-semibold">AI/ML</span> and how it can be integrated into
-                    practical solutions to solve real-world problems.
+                    I specialize in building AI-powered systems and modern web applications using technologies like
+                    React, Next.js, Django, FastAPI, and deep learning frameworks. I'm passionate about integrating{" "}
+                    <span className="text-foreground font-semibold">AI/ML</span> into practical solutions
+                    to solve real-world problems.
                   </p>
                 </div>
               </motion.div>

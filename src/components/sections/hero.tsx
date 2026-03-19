@@ -137,7 +137,7 @@ export function HeroSection() {
             <span className="text-primary">Hilal</span>
           </h1>
           <p className="text-lg sm:text-xl lg:text-2xl font-mono text-muted-foreground font-normal">
-            AI & Software Engineer Enthusiast
+            AI & Software Engineer
           </p>
         </motion.div>
 
@@ -148,7 +148,7 @@ export function HeroSection() {
           transition={{ duration: 0.5, delay: 0.25 }}
           className="text-base lg:text-lg text-muted-foreground leading-relaxed max-w-xl mx-auto font-body mb-8"
         >
-          I craft intelligent, scalable digital solutions with a passion for clean code and innovation.
+          Building intelligent, scalable digital solutions with hands-on experience in AI engineering and software development.
           Currently pursuing Computer Science at{" "}
           <span className="text-foreground font-semibold">Universitas Indonesia</span>.
         </motion.p>

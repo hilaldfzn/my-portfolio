@@ -3,7 +3,7 @@
 import { useState, useRef, useEffect, useCallback } from "react"
 import { motion } from "framer-motion"
 import { useTheme } from "next-themes"
-import { useTypewriter } from "../hooks/use-typewriter"
+import { useTypewriter } from "../../hooks/use-typewriter"
 
 const COMMANDS: Record<string, { action: string; target?: string }> = {
   "goto home": { action: "scroll", target: "#home" },
@@ -65,7 +65,7 @@ export function CommandBar() {
     }
 
     setInput("")
-  }, [])
+  }, [setTheme])
 
   const handleKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {
     if (e.key === "Enter") {

@@ -2,7 +2,7 @@
 
 import dynamic from "next/dynamic"
 import { useTheme } from "next-themes"
-import { TerminalWindow } from "./terminal-window"
+import { TerminalWindow } from "../shared/terminal-window"
 
 const GitHubCalendar = dynamic(
   () => import("react-github-calendar").then((mod) => mod.GitHubCalendar),

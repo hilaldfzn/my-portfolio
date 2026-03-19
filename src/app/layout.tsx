@@ -2,7 +2,7 @@ import type React from "react"
 import type { Metadata } from "next"
 import { Instrument_Serif, Plus_Jakarta_Sans, JetBrains_Mono } from "next/font/google"
 import "./globals.css"
-import { ThemeProvider } from "../components/ui/theme-provider"
+import { ThemeProvider } from "../components/layout/theme-provider"
 import { Toaster } from "../components/ui/toaster"
 
 const instrumentSerif = Instrument_Serif({
@@ -29,7 +29,7 @@ const jetbrainsMono = JetBrains_Mono({
 })
 
 export const metadata: Metadata = {
-  title: "Hilal | Portfolio",
+  title: "Portfolio | Muhammad Hilal Darul Fauzan",
   description:
     "AI & Software Engineer passionate about creating intelligent, scalable, and innovative digital solutions. Specializing in AI/ML, web development, and modern technologies.",
   keywords: "Software Engineer, AI/ML, Web Development, React, Next.js, Python, Django, Portfolio",

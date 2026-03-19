@@ -2,7 +2,7 @@
 
 import { motion } from "framer-motion"
 import { Trophy } from "lucide-react"
-import { SectionHeading } from "../section-heading"
+import { SectionHeading } from "../shared/section-heading"
 
 export function AwardsSection() {
   const awards = [

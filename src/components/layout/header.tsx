@@ -2,15 +2,20 @@
 
 import { useState, useEffect } from "react"
 import Link from "next/link"
+import { usePathname } from "next/navigation"
 import { motion } from "framer-motion"
 import { Menu, X } from "lucide-react"
 import { Button } from "../../components/ui/button"
-import { ThemeToggle } from "../theme-toggle"
+import { ThemeToggle } from "./theme-toggle"
 
 export function Navbar() {
   const [isOpen, setIsOpen] = useState(false)
   const [scrolled, setScrolled] = useState(false)
-  const [activeSection, setActiveSection] = useState("home")
+  const [scrollSection, setScrollSection] = useState("home")
+  const pathname = usePathname()
+
+  // On sub-pages, derive active from pathname; on home, use scroll-tracked section
+  const activeSection = pathname !== "/" ? pathname.replace("/", "") : scrollSection
 
   // Track navbar background on scroll
   useEffect(() => {
@@ -19,13 +24,15 @@ export function Navbar() {
     return () => window.removeEventListener("scroll", handleScroll)
   }, [])
 
-  // Track active section via IntersectionObserver
+  // Track active section via IntersectionObserver (only on home page)
   useEffect(() => {
+    if (pathname !== "/") return
+
     const observer = new IntersectionObserver(
       (entries) => {
         entries.forEach((entry) => {
           if (entry.isIntersecting) {
-            setActiveSection(entry.target.id)
+            setScrollSection(entry.target.id)
           }
         })
       },
@@ -36,7 +43,7 @@ export function Navbar() {
     sections.forEach((section) => observer.observe(section))
 
     return () => observer.disconnect()
-  }, [])
+  }, [pathname])
 
   const navItems = [
     { name: "Home", href: "#home", id: "home" },
@@ -50,6 +57,10 @@ export function Navbar() {
   ]
 
   const scrollToSection = (href: string) => {
+    if (pathname !== "/") {
+      window.location.href = "/" + href
+      return
+    }
     const element = document.querySelector(href)
     if (element) {
       element.scrollIntoView({ behavior: "smooth", block: "start" })

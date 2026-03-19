@@ -2,7 +2,7 @@
 
 import { motion } from "framer-motion"
 import { ExternalLink } from "lucide-react"
-import { SectionHeading } from "../section-heading"
+import { SectionHeading } from "../shared/section-heading"
 
 export function ExperienceSection() {
   const experiences = [

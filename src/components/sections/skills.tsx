@@ -2,7 +2,7 @@
 
 import { useState } from "react"
 import { motion } from "framer-motion"
-import { SectionHeading } from "../section-heading"
+import { SectionHeading } from "../shared/section-heading"
 
 const skillCategories = [
   {

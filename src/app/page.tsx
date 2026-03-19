@@ -1,9 +1,9 @@
 import { Navbar } from "../components/layout/header"
 import { HeroSection } from "../components/sections/hero"
-import { ScrollProgress } from "../components/scroll-progress"
-import { CommandBar } from "../components/command-bar"
+import { ScrollProgress } from "../components/layout/scroll-progress"
+import { CommandBar } from "../components/layout/command-bar"
 import { Footer } from "../components/layout/footer"
-import { ParallaxBackground } from "../components/parallax-background"
+import { ParallaxBackground } from "../components/sections/parallax-background"
 import { lazy, Suspense } from "react"
 
 const AboutSection = lazy(() =>

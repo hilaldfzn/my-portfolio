@@ -4,10 +4,10 @@ import { useState, useMemo } from "react"
 import { motion } from "framer-motion"
 import { Github, ExternalLink, Award, Search, ArrowLeft } from "lucide-react"
 import { Button } from "../../components/ui/button"
-import { TiltCard } from "../../components/tilt-card"
+import { TiltCard } from "../../components/shared/tilt-card"
 import { Navbar } from "../../components/layout/header"
 import { Footer } from "../../components/layout/footer"
-import { SectionHeading } from "../../components/section-heading"
+
 import Link from "next/link"
 
 const allProjects = [
@@ -174,15 +174,18 @@ export default function ProjectsPage() {
       <Navbar />
       <div className="min-h-screen bg-background text-foreground pt-24 pb-20">
         <div className="container mx-auto px-4 sm:px-6 lg:px-8">
-          <Link
-            href="/"
-            className="inline-flex items-center gap-1.5 text-sm font-mono text-muted-foreground hover:text-primary transition-colors mb-6"
-          >
-            <ArrowLeft className="w-3.5 h-3.5" />
-            Back to Home
-          </Link>
+          <div className="flex items-center justify-between mb-3">
+            <p className="section-label">{"// "}projects</p>
+            <Link
+              href="/"
+              className="inline-flex items-center gap-1.5 text-sm font-mono text-muted-foreground hover:text-primary transition-colors"
+            >
+              <ArrowLeft className="w-3.5 h-3.5" />
+              Back to Home
+            </Link>
+          </div>
 
-          <SectionHeading title="All Projects" subtitle="projects" />
+          <h2 className="text-4xl md:text-5xl lg:text-6xl font-display text-foreground mb-16">Projects</h2>
 
           <p className="text-base text-muted-foreground max-w-2xl font-body mb-10">
             Explore my complete portfolio of projects, from web applications to AI/ML solutions.
