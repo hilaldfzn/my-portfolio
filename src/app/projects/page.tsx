@@ -9,6 +9,7 @@ import { Navbar } from "../../components/layout/header"
 import { Footer } from "../../components/layout/footer"
 
 import Link from "next/link"
+import Image from "next/image"
 
 const allProjects = [
   {
@@ -27,7 +28,7 @@ const allProjects = [
     title: "MAAMS",
     description:
       "AI-powered root cause analysis application utilizing DeepSeek R1 model for chat completions. Validates and confirms underlying causes of problems with advanced analysis algorithms and prompt systems.",
-    image: "/assets/MAAMS.png",
+    image: "/assets/MAAMS.jpg",
     technologies: ["Python", "Django", "Next.js", "Tailwind CSS", "DeepSeek"],
     categories: ["Web Development", "AI/ML"],
     liveDemo: "https://maams-ng.netlify.app",
@@ -38,7 +39,7 @@ const allProjects = [
     title: "Apap Medika",
     description:
       "Hospital management system using a 6-microservice architecture for all core hospital functions. I took full ownership of the end-to-end product design, creating the UI/UX and design system from the ground up. The system features complex business logic and robust security with JWT-based authentication, OAuth, and role-based access control for five distinct user types.",
-    image: "/assets/apap-medika.png",
+    image: "/assets/apap-medika.jpg",
     technologies: ["Python", "Django", "Next.js", "Tailwind CSS", "PostgreSQL"],
     categories: ["Web Development", "Healthcare"],
     githubUrl: "https://github.com/orgs/ApapMedika/repositories",
@@ -82,7 +83,7 @@ const allProjects = [
     title: "Lembarpena",
     description:
       "Award-winning literacy community web and mobile application connecting readers and authors. Features book purchasing, discussion forums, and wishlist functionality. Winner of The Best Web Application Award.",
-    image: "/assets/lembar-pena.png",
+    image: "/assets/lembar-pena.jpg",
     technologies: ["Python", "Django", "HTML", "CSS", "JavaScript"],
     categories: ["Web Development"],
     githubUrl: "https://github.com/PBPC09/tugaskelompok1",
@@ -118,7 +119,7 @@ const allProjects = [
     title: "Marmut Music",
     description:
       "Spotify-like streaming platform offering music and podcasts with premium subscriptions, playlists, charts, and royalty tracking for artists, songwriters, and labels.",
-    image: "/assets/marmut.png",
+    image: "/assets/marmut.jpg",
     technologies: ["Python", "Django", "Tailwind CSS", "PostgreSQL"],
     categories: ["Web Development", "Entertainment"],
     githubUrl: "https://github.com/basdat-d1/marmut",
@@ -244,11 +245,12 @@ export default function ProjectsPage() {
                 <TiltCard className="h-full">
                   <div className="bg-card border border-border rounded-lg overflow-hidden hover:border-primary/40 transition-colors duration-200 h-full flex flex-col tilt-glow">
                     <div className="relative overflow-hidden aspect-video bg-muted">
-                      <img
+                      <Image
                         src={project.image}
                         alt={project.title}
-                        className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-103"
-                        loading="lazy"
+                        fill
+                        sizes="(max-width: 768px) 100vw, (max-width: 1024px) 50vw, 33vw"
+                        className="object-cover transition-transform duration-500 group-hover:scale-103"
                       />
                       {project.award && (
                         <div className="absolute top-3 left-3">

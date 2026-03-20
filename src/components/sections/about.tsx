@@ -3,6 +3,7 @@
 import { motion } from "framer-motion"
 import { SectionHeading } from "../shared/section-heading"
 import { Code, Users, FolderGit2, PenTool } from "lucide-react"
+import Image from "next/image"
 
 export function AboutSection() {
   const stats = [
@@ -61,9 +62,11 @@ export function AboutSection() {
               >
                 <div className="flex items-start gap-4 mb-6">
                   <div className="w-14 h-14 rounded-md flex items-center justify-center flex-shrink-0">
-                    <img
+                    <Image
                       src="/assets/UI.png"
                       alt="Universitas Indonesia"
+                      width={56}
+                      height={56}
                       className="w-full h-full object-contain"
                     />
                   </div>

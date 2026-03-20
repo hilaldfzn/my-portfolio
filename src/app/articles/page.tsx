@@ -9,6 +9,7 @@ import { Navbar } from "../../components/layout/header"
 import { Footer } from "../../components/layout/footer"
 
 import Link from "next/link"
+import Image from "next/image"
 
 // Medium logo component
 const MediumLogo = ({ className }: { className?: string }) => (
@@ -273,11 +274,12 @@ export default function ArticlePage() {
                   >
                     <div className="bg-card border border-border rounded-lg overflow-hidden hover:border-primary/40 transition-colors duration-200 h-full flex flex-col tilt-glow">
                       <div className="relative overflow-hidden aspect-video bg-muted">
-                        <img
+                        <Image
                           src={post.image}
                           alt={post.title}
-                          className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-103"
-                          loading="lazy"
+                          fill
+                          sizes="(max-width: 768px) 100vw, (max-width: 1024px) 50vw, 33vw"
+                          className="object-cover transition-transform duration-500 group-hover:scale-103"
                         />
                         {post.newsletter && (
                           <div className="absolute top-3 left-3">

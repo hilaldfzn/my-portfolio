@@ -3,6 +3,7 @@
 import { useState } from "react"
 import { motion } from "framer-motion"
 import { SectionHeading } from "../shared/section-heading"
+import Image from "next/image"
 
 const skillCategories = [
   {
@@ -62,7 +63,7 @@ function SkillChip({ name, logo, dimmed }: { name: string; logo: string; dimmed:
           : "border-border bg-card/60 hover:border-primary/50 hover:shadow-[0_0_16px_hsl(var(--primary)/0.08)]"
       }`}
     >
-      <img src={logo} alt={name} className="w-5 h-5 flex-shrink-0" loading="lazy" />
+      <Image src={logo} alt={name} width={20} height={20} className="w-5 h-5 flex-shrink-0" />
       <span className="text-sm font-mono text-foreground whitespace-nowrap">{name}</span>
     </div>
   )

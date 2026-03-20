@@ -7,16 +7,15 @@ const nextConfig = {
       ignoreBuildErrors: true,
     },
     images: {
-      domains: [
-        'cdn.jsdelivr.net',
-        'upload.wikimedia.org',
-        'blob.v0.dev'
+      remotePatterns: [
+        { protocol: 'https', hostname: 'cdn.jsdelivr.net' },
+        { protocol: 'https', hostname: 'upload.wikimedia.org' },
+        { protocol: 'https', hostname: 'blob.v0.dev' },
       ],
       formats: ['image/webp', 'image/avif'],
       minimumCacheTTL: 60,
       dangerouslyAllowSVG: true,
       contentSecurityPolicy: "default-src 'self'; script-src 'none'; sandbox;",
-      unoptimized: true,
     },
     experimental: {
       optimizeCss: true,

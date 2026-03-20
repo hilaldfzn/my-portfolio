@@ -5,6 +5,7 @@ import { ArrowRight, Download, Github, Linkedin, Mail, MapPin } from "lucide-rea
 import { Button } from "../../components/ui/button"
 import { useToast } from "../../hooks/use-toast"
 import { useRef } from "react"
+import Image from "next/image"
 
 export function HeroSection() {
   const { toast } = useToast()
@@ -115,9 +116,12 @@ export function HeroSection() {
                 animate={{ y: [0, -6, 0] }}
                 transition={{ duration: 4, repeat: Infinity, ease: "easeInOut" }}
               >
-                <img
+                <Image
                   src="/assets/me.png"
                   alt="Muhammad Hilal Darul Fauzan"
+                  width={128}
+                  height={128}
+                  priority
                   className="w-32 h-32 rounded-full object-cover border-2 border-border shadow-xl"
                 />
               </motion.div>

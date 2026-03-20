@@ -7,6 +7,7 @@ import { Button } from "../ui/button"
 import { SectionHeading } from "../shared/section-heading"
 import { TiltCard } from "../shared/tilt-card"
 import Link from "next/link"
+import Image from "next/image"
 
 export function ArticleSection() {
   const articlePosts = [
@@ -99,10 +100,12 @@ export function ArticleSection() {
                   <div className="grid grid-cols-1 md:grid-cols-[2fr,3fr]">
                     {/* Image */}
                     <div className="relative overflow-hidden aspect-video md:aspect-auto bg-muted">
-                      <img
+                      <Image
                         src={featured.image}
                         alt={featured.title}
-                        className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
+                        fill
+                        sizes="(max-width: 768px) 100vw, 40vw"
+                        className="object-cover transition-transform duration-500 group-hover:scale-105"
                       />
                       <div className="absolute bottom-0 left-0 right-0 h-0.5 bg-primary scale-x-0 group-hover:scale-x-100 transition-transform duration-300 origin-left md:hidden" />
                     </div>

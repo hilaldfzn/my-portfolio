@@ -6,6 +6,7 @@ import { Button } from "../../components/ui/button"
 import { SectionHeading } from "../shared/section-heading"
 import { TiltCard } from "../shared/tilt-card"
 import Link from "next/link"
+import Image from "next/image"
 
 export function ProjectsSection() {
   const projects = [
@@ -25,7 +26,7 @@ export function ProjectsSection() {
       title: "MAAMS",
       description:
         "AI-powered root cause analysis application utilizing DeepSeek R1 model for chat completions. Validates and confirms underlying causes of problems with advanced analysis algorithms.",
-      image: "/assets/MAAMS.png",
+      image: "/assets/MAAMS.jpg",
       technologies: ["Python", "Django", "Next.js", "Tailwind CSS", "DeepSeek"],
       categories: ["Web Development", "AI/ML"],
       liveDemo: "https://maams-ng.netlify.app",
@@ -36,7 +37,7 @@ export function ProjectsSection() {
       title: "Apap Medika",
       description:
         "Hospital management system using a 6-microservice architecture. Full ownership of end-to-end product design with JWT authentication, OAuth, and role-based access control for five user types.",
-      image: "/assets/apap-medika.png",
+      image: "/assets/apap-medika.jpg",
       technologies: ["Python", "Django", "Next.js", "Tailwind CSS", "PostgreSQL"],
       categories: ["Web Development", "Healthcare"],
       githubUrl: "https://github.com/orgs/ApapMedika/repositories",
@@ -80,7 +81,7 @@ export function ProjectsSection() {
       title: "Lembarpena",
       description:
         "Award-winning literacy community web and mobile application connecting readers and authors. Features book purchasing, discussion forums, and wishlist functionality.",
-      image: "/assets/lembar-pena.png",
+      image: "/assets/lembar-pena.jpg",
       technologies: ["Python", "Django", "HTML", "CSS", "JavaScript"],
       categories: ["Web Development"],
       githubUrl: "https://github.com/PBPC09/tugaskelompok1",
@@ -115,10 +116,12 @@ export function ProjectsSection() {
                   <div className="bg-card border border-border rounded-lg overflow-hidden hover:border-primary/40 transition-colors duration-200 h-full flex flex-col tilt-glow">
                     {/* Large image */}
                     <div className="relative overflow-hidden aspect-[16/10] bg-muted">
-                      <img
+                      <Image
                         src={project.image}
                         alt={project.title}
-                        className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-103"
+                        fill
+                        sizes="(max-width: 768px) 100vw, 50vw"
+                        className="object-cover transition-transform duration-500 group-hover:scale-103"
                       />
                       {project.award && (
                         <div className="absolute top-3 left-3">
@@ -189,11 +192,12 @@ export function ProjectsSection() {
                 <div className="card-accent rounded-lg p-4 h-full flex flex-col">
                   {/* Small thumbnail */}
                   <div className="relative overflow-hidden rounded-md aspect-video bg-muted mb-3">
-                    <img
+                    <Image
                       src={project.image}
                       alt={project.title}
-                      className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
-                      loading="lazy"
+                      fill
+                      sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 25vw"
+                      className="object-cover transition-transform duration-500 group-hover:scale-105"
                     />
                     {project.award && (
                       <div className="absolute top-2 left-2">

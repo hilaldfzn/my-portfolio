@@ -67,7 +67,6 @@ export default function RootLayout({
       <head>
         <link rel="preconnect" href="https://fonts.googleapis.com" />
         <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
-        <link rel="preload" href="/assets/me.png" as="image" />
         <meta name="theme-color" content="#0D1117" />
         <meta name="color-scheme" content="light dark" />
       </head>
