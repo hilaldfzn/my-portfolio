@@ -3,6 +3,7 @@
 import { useState, useRef, useEffect, useCallback } from "react"
 import { motion } from "framer-motion"
 import { useTheme } from "next-themes"
+import { useRouter } from "next/navigation"
 import { useTypewriter } from "../../hooks/use-typewriter"
 
 const COMMANDS: Record<string, { action: string; target?: string }> = {
@@ -18,6 +19,8 @@ const COMMANDS: Record<string, { action: string; target?: string }> = {
   "theme dark": { action: "theme", target: "dark" },
   "theme light": { action: "theme", target: "light" },
   "ls skills": { action: "scroll", target: "#skills" },
+  "goto 3d": { action: "route", target: "/3d" },
+  "play": { action: "route", target: "/3d" },
   "clear": { action: "clear" },
 }
 
@@ -27,12 +30,14 @@ export function CommandBar() {
   const [feedback, setFeedback] = useState("")
   const inputRef = useRef<HTMLInputElement>(null)
   const { setTheme } = useTheme()
+  const router = useRouter()
 
   const placeholder = useTypewriter({
     texts: [
       "goto projects",
       "theme dark",
       "ls skills",
+      "goto 3d",
       "goto contact",
     ],
     typingSpeed: 100,
@@ -60,12 +65,15 @@ export function CommandBar() {
       setTheme(match.target)
       setFeedback(`theme set to ${match.target}`)
       setTimeout(() => setFeedback(""), 2000)
+    } else if (match.action === "route" && match.target) {
+      setFeedback("loading 3d world...")
+      router.push(match.target)
     } else if (match.action === "clear") {
       setFeedback("")
     }
 
     setInput("")
-  }, [setTheme])
+  }, [setTheme, router])
 
   const handleKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {
     if (e.key === "Enter") {

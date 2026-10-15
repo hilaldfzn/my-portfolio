@@ -4,7 +4,7 @@ import { useState, useEffect } from "react"
 import Link from "next/link"
 import { usePathname } from "next/navigation"
 import { motion } from "framer-motion"
-import { Menu, X } from "lucide-react"
+import { Box, Menu, X } from "lucide-react"
 import { Button } from "../../components/ui/button"
 import { ThemeToggle } from "./theme-toggle"
 
@@ -104,6 +104,15 @@ export function Navbar() {
                 </button>
               )
             })}
+            <Link
+              href="/3d"
+              prefetch={false}
+              title="Explore my playable 3D portfolio"
+              className="ml-2 hidden lg:inline-flex items-center gap-1.5 rounded-md border border-accent/40 px-2.5 py-1.5 text-xs font-mono text-accent transition-colors duration-200 hover:border-accent hover:bg-accent/10"
+            >
+              <Box className="h-3.5 w-3.5" />
+              3D World
+            </Link>
             <div className="ml-2 pl-2 border-l border-border">
               <ThemeToggle />
             </div>
@@ -147,6 +156,15 @@ export function Navbar() {
                   </button>
                 )
               })}
+              <Link
+                href="/3d"
+                prefetch={false}
+                onClick={() => setIsOpen(false)}
+                className="flex items-center gap-2 px-3 py-2 text-sm font-mono text-accent rounded-md transition-colors duration-200 hover:bg-accent/10"
+              >
+                <Box className="h-4 w-4" />
+                Explore in 3D
+              </Link>
             </div>
           </motion.div>
         )}

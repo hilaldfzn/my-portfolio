@@ -1,17 +1,21 @@
 "use client"
 
+import { Fragment } from "react"
 import { motion } from "framer-motion"
 import { SectionHeading } from "../shared/section-heading"
 import { Code, Users, FolderGit2, PenTool } from "lucide-react"
 import Image from "next/image"
+import { bio, education, stats as statItems } from "../../content/profile"
+
+const statStyles = {
+  interning: { icon: Code, color: "text-primary" },
+  tutored: { icon: Users, color: "text-[hsl(var(--status-green))]" },
+  projects: { icon: FolderGit2, color: "text-[hsl(var(--syntax-yellow))]" },
+  articles: { icon: PenTool, color: "text-accent" },
+}
 
 export function AboutSection() {
-  const stats = [
-    { icon: Code, value: "7+", label: "Months Interning", color: "text-primary" },
-    { icon: Users, value: "250+", label: "Students Tutored", color: "text-[hsl(var(--status-green))]" },
-    { icon: FolderGit2, value: "10+", label: "Projects Built", color: "text-[hsl(var(--syntax-yellow))]" },
-    { icon: PenTool, value: "11+", label: "Articles Written", color: "text-accent" },
-  ]
+  const stats = statItems.map((stat) => ({ ...stat, ...statStyles[stat.key] }))
 
   return (
     <section id="about" className="py-24 sm:py-32 relative">
@@ -34,19 +38,19 @@ export function AboutSection() {
                   {"// "}who i am
                 </p>
                 <div className="space-y-4">
-                  <p className="text-base lg:text-lg text-muted-foreground leading-relaxed font-body">
-                    I'm an AI & Software Engineer currently pursuing my Bachelor's degree in Computer Science
-                    at <span className="text-foreground font-semibold">Universitas Indonesia</span>. With internship
-                    experience in AI engineering and software development, I build end-to-end solutions from model
-                    development to production deployment.
-                  </p>
-
-                  <p className="text-base lg:text-lg text-muted-foreground leading-relaxed font-body">
-                    I specialize in building AI-powered systems and modern web applications using technologies like
-                    React, Next.js, Django, FastAPI, and deep learning frameworks. I'm passionate about integrating{" "}
-                    <span className="text-foreground font-semibold">AI/ML</span> into practical solutions
-                    to solve real-world problems.
-                  </p>
+                  {bio.map((paragraph, index) => (
+                    <p key={index} className="text-base lg:text-lg text-muted-foreground leading-relaxed font-body">
+                      {paragraph.map((segment, segmentIndex) =>
+                        segment.strong ? (
+                          <span key={segmentIndex} className="text-foreground font-semibold">
+                            {segment.text}
+                          </span>
+                        ) : (
+                          <Fragment key={segmentIndex}>{segment.text}</Fragment>
+                        ),
+                      )}
+                    </p>
+                  ))}
                 </div>
               </motion.div>
             </div>
@@ -63,8 +67,8 @@ export function AboutSection() {
                 <div className="flex items-start gap-4 mb-6">
                   <div className="w-14 h-14 rounded-md flex items-center justify-center flex-shrink-0">
                     <Image
-                      src="/assets/UI.png"
-                      alt="Universitas Indonesia"
+                      src={education.logo}
+                      alt={education.school}
                       width={56}
                       height={56}
                       className="w-full h-full object-contain"
@@ -75,13 +79,16 @@ export function AboutSection() {
                       Education
                     </p>
                     <p className="text-xl font-display text-foreground">
-                      Computer Science
+                      {education.degree}
                     </p>
                     <p className="text-sm text-muted-foreground font-body">
-                      Universitas Indonesia
+                      {education.school}
                     </p>
                     <p className="text-sm text-primary font-mono font-medium">
-                      2022 - Present
+                      {education.period}
+                    </p>
+                    <p className="text-xs text-muted-foreground font-mono">
+                      CGPA {education.gpa}
                     </p>
                   </div>
                 </div>
@@ -91,7 +98,7 @@ export function AboutSection() {
                     {"// "}relevant coursework
                   </p>
                   <div className="flex flex-wrap gap-2">
-                    {["Deep Learning", "Computer Vision", "Knowledge Graph", "Software Engineering", "Web Development", "Databases", "Data Structures and Algorithms", "Human-Computer Interaction"].map((course) => (
+                    {education.coursework.map((course) => (
                       <span
                         key={course}
                         className="px-2.5 py-1 border border-border rounded-md text-xs text-foreground font-mono"

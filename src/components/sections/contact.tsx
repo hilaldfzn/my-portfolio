@@ -8,6 +8,7 @@ import { SectionHeading } from "../shared/section-heading"
 import { useToast } from "../../hooks/use-toast"
 import { useState } from "react"
 import { sendEmail } from "../../app/actions"
+import { profile } from "../../content/profile"
 
 export function ContactSection() {
   const { toast } = useToast()
@@ -47,10 +48,10 @@ export function ContactSection() {
   }
 
   const contactLinks = [
-    { icon: Mail, label: "hilalfauzan9@gmail.com", href: "mailto:hilalfauzan9@gmail.com" },
-    { icon: Linkedin, label: "LinkedIn", href: "https://linkedin.com/in/mhilaldfzn" },
-    { icon: Github, label: "GitHub", href: "https://github.com/hilaldfzn" },
-    { icon: MapPin, label: "Jakarta Pusat, Jakarta, Indonesia", href: null },
+    { icon: Mail, label: profile.email, href: `mailto:${profile.email}` },
+    { icon: Linkedin, label: "LinkedIn", href: profile.links.linkedin },
+    { icon: Github, label: "GitHub", href: profile.links.github },
+    { icon: MapPin, label: profile.location, href: null },
   ]
 
   return (

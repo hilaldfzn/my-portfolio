@@ -6,76 +6,12 @@ import { ArrowRight, Award, Clock } from "lucide-react"
 import { Button } from "../ui/button"
 import { SectionHeading } from "../shared/section-heading"
 import { TiltCard } from "../shared/tilt-card"
+import { articles } from "../../content/articles"
 import Link from "next/link"
 import Image from "next/image"
 
 export function ArticleSection() {
-  const articlePosts = [
-    {
-      id: 1,
-      title: "The Evolution of Deployment: From Manual Chaos to Automated Mastery with Docker & Cloud Run",
-      excerpt:
-        "Explore how modern deployment practices with Docker and Cloud Run have revolutionized the way we deploy applications.",
-      readingTime: 20,
-      publishedAt: "2025-05-27",
-      url: "https://medium.com/@hilalfauzan9/the-evolution-of-deployment-from-manual-chaos-to-automated-mastery-with-docker-cloud-run-d546565dc021",
-      image: "/assets/deployment-evolution.png",
-    },
-    {
-      id: 2,
-      title: "Mock Objects & Stubs: Your Key to Bulletproof Test Isolation",
-      excerpt:
-        "Discover how to use mock objects and stubs to create isolated, reliable, and maintainable tests for your applications.",
-      readingTime: 10,
-      publishedAt: "2025-05-27",
-      url: "https://medium.com/@hilalfauzan9/mock-objects-stubs-your-key-to-bulletproof-test-isolation-9137ec062371",
-      image: "/assets/mock-testing.png",
-      newsletter: "Software Testing Weekly #273",
-      newsletterUrl: "https://softwaretestingweekly.com/issues/273",
-    },
-    {
-      id: 3,
-      title: "Mastering Database Management: A Complete Guide to Automatic Data Seeding and Migration",
-      excerpt:
-        "Learn how to effectively manage your database with automatic data seeding and migration techniques for better development workflow.",
-      readingTime: 10,
-      publishedAt: "2025-05-27",
-      url: "https://medium.com/@hilalfauzan9/mastering-database-management-a-complete-guide-to-automatic-data-seeding-and-migration-59fdff63a0c3",
-      image: "/assets/database-management.png",
-    },
-    {
-      id: 4,
-      title: "Test-Driven Development: The Key to Building Reliable and Scalable Software",
-      excerpt:
-        "Discover how TDD methodology can help you build more reliable, maintainable, and scalable software applications.",
-      readingTime: 10,
-      publishedAt: "2025-05-18",
-      url: "https://medium.com/@hilalfauzan9/test-driven-development-the-key-to-building-reliable-and-scalable-software-f6f355901330",
-      image: "/assets/TDD.png",
-      newsletter: "Software Testing Weekly #272",
-      newsletterUrl: "https://softwaretestingweekly.com/issues/272",
-    },
-    {
-      id: 5,
-      title: "From Duplication to Elegance: How SOLID Principles Transformed Our Authentication System",
-      excerpt:
-        "Learn how applying SOLID principles can transform messy, duplicated code into elegant, maintainable authentication systems.",
-      readingTime: 10,
-      publishedAt: "2025-05-17",
-      url: "https://medium.com/@hilalfauzan9/from-duplication-to-elegance-how-solid-principles-transformed-our-authentication-system-f4411cc4675f",
-      image: "/assets/SOLID.png",
-    },
-    {
-      id: 6,
-      title: "OWASP Compliance and Beyond: Building Robust Security Through Secure Programming",
-      excerpt:
-        "Comprehensive guide to implementing OWASP security principles and building secure applications with robust programming practices.",
-      readingTime: 12,
-      publishedAt: "2025-04-03",
-      url: "https://medium.com/@hilalfauzan9/owasp-compliance-and-beyond-building-a-robust-security-through-secure-programming-aba4060f0280",
-      image: "/assets/secure-programming.png",
-    },
-  ]
+  const articlePosts = articles
 
   const featured = articlePosts[0]
   const listPosts = articlePosts.slice(1, 6)

@@ -5,93 +5,11 @@ import { ArrowRight, ExternalLink, Github, Award } from "lucide-react"
 import { Button } from "../../components/ui/button"
 import { SectionHeading } from "../shared/section-heading"
 import { TiltCard } from "../shared/tilt-card"
+import { projects } from "../../content/projects"
 import Link from "next/link"
 import Image from "next/image"
 
 export function ProjectsSection() {
-  const projects = [
-    {
-      id: 1,
-      title: "Sentiment Analysis: DC Universe Rebrand",
-      description:
-        "Full-cycle research project evaluating public sentiment on the DC Universe's creative direction. Compared audience reception between Man of Steel (2013) and Superman (2025) using social media data.",
-      image: "/assets/Superman.png",
-      technologies: ["Python", "NLP", "Social Media Analytics", "Data Visualization"],
-      categories: ["AI/ML"],
-      githubUrl: "https://github.com/hilaldfzn/social-media-analytics",
-      featured: true,
-    },
-    {
-      id: 2,
-      title: "MAAMS",
-      description:
-        "AI-powered root cause analysis application utilizing DeepSeek R1 model for chat completions. Validates and confirms underlying causes of problems with advanced analysis algorithms.",
-      image: "/assets/MAAMS.jpg",
-      technologies: ["Python", "Django", "Next.js", "Tailwind CSS", "DeepSeek"],
-      categories: ["Web Development", "AI/ML"],
-      liveDemo: "https://maams-ng.netlify.app",
-      featured: true,
-    },
-    {
-      id: 3,
-      title: "Apap Medika",
-      description:
-        "Hospital management system using a 6-microservice architecture. Full ownership of end-to-end product design with JWT authentication, OAuth, and role-based access control for five user types.",
-      image: "/assets/apap-medika.jpg",
-      technologies: ["Python", "Django", "Next.js", "Tailwind CSS", "PostgreSQL"],
-      categories: ["Web Development", "Healthcare"],
-      githubUrl: "https://github.com/orgs/ApapMedika/repositories",
-      featured: false,
-    },
-    {
-      id: 4,
-      title: "Database Backup Utility",
-      description:
-        "CLI tool in Go automating backup and restore for MySQL, PostgreSQL, MongoDB, and SQLite. Integrates with AWS S3, GCS, and Azure with compression, encryption, and retention policies.",
-      image: "/assets/db-backup-utility.png",
-      technologies: ["Go", "PostgreSQL", "MySQL", "MongoDB", "AWS", "Azure", "GCS"],
-      categories: ["Back End", "DevOps"],
-      githubUrl: "https://github.com/hilaldfzn/database-backup-utility",
-      featured: false,
-    },
-    {
-      id: 5,
-      title: "CrawlKit API",
-      description:
-        "REST API for intelligent web scraping with concurrent crawling and real-time analytics. Enforces robots.txt compliance, automatic delays, and rate limiting for ethical data collection.",
-      image: "/assets/crawlkit-api.png",
-      technologies: ["Python", "FastAPI"],
-      categories: ["Back End", "Web Scraping"],
-      githubUrl: "https://github.com/hilaldfzn/crawlkit-api",
-      featured: false,
-    },
-    {
-      id: 6,
-      title: "Natural Language Inference",
-      description:
-        "Deep learning model for predicting logical relationships between sentences using pre-trained DeBERTa V3. Built from scratch with PyTorch for Indonesian and English datasets.",
-      image: "/assets/NLI.png",
-      technologies: ["Python", "PyTorch", "Transformers", "DeBERTa"],
-      categories: ["AI/ML"],
-      githubUrl: "https://github.com/hilaldfzn/natural-language-inference",
-      featured: true,
-    },
-    {
-      id: 7,
-      title: "Lembarpena",
-      description:
-        "Award-winning literacy community web and mobile application connecting readers and authors. Features book purchasing, discussion forums, and wishlist functionality.",
-      image: "/assets/lembar-pena.jpg",
-      technologies: ["Python", "Django", "HTML", "CSS", "JavaScript"],
-      categories: ["Web Development"],
-      githubUrl: "https://github.com/PBPC09/tugaskelompok1",
-      liveDemo: "https://lembarpena.vercel.app",
-      featured: true,
-      award: "Best Web Application Award",
-      awardUrl: "https://pbp-fasilkom-ui.github.io/ganjil-2024/awards#aplikasi-web-terbaik",
-    },
-  ]
-
   const featured = projects.slice(0, 2)
   const compact = projects.slice(2, 6)
 
@@ -118,7 +36,7 @@ export function ProjectsSection() {
                     <div className="relative overflow-hidden aspect-[16/10] bg-muted">
                       <Image
                         src={project.image}
-                        alt={project.title}
+                        alt={project.shortTitle ?? project.title}
                         fill
                         sizes="(max-width: 768px) 100vw, 50vw"
                         className="object-cover transition-transform duration-500 group-hover:scale-103"
@@ -146,11 +64,11 @@ export function ProjectsSection() {
                       </div>
 
                       <h3 className="text-xl font-display text-foreground mb-3 group-hover:text-primary transition-colors">
-                        {project.title}
+                        {project.shortTitle ?? project.title}
                       </h3>
 
                       <p className="text-sm text-muted-foreground leading-relaxed mb-4 flex-1 font-body">
-                        {project.description}
+                        {project.summary}
                       </p>
 
                       <p className="text-xs font-mono text-muted-foreground/70 mb-4">
@@ -194,7 +112,7 @@ export function ProjectsSection() {
                   <div className="relative overflow-hidden rounded-md aspect-video bg-muted mb-3">
                     <Image
                       src={project.image}
-                      alt={project.title}
+                      alt={project.shortTitle ?? project.title}
                       fill
                       sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 25vw"
                       className="object-cover transition-transform duration-500 group-hover:scale-105"
@@ -216,11 +134,11 @@ export function ProjectsSection() {
                   </span>
 
                   <h3 className="text-sm font-display text-foreground mb-2 group-hover:text-primary transition-colors line-clamp-2">
-                    {project.title}
+                    {project.shortTitle ?? project.title}
                   </h3>
 
                   <p className="text-xs text-muted-foreground leading-relaxed mb-3 line-clamp-2 flex-1 font-body">
-                    {project.description}
+                    {project.summary}
                   </p>
 
                   <div className="flex gap-2">

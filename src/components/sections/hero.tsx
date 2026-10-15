@@ -1,11 +1,13 @@
 "use client"
 
 import { motion, useScroll, useTransform } from "framer-motion"
-import { ArrowRight, Download, Github, Linkedin, Mail, MapPin } from "lucide-react"
+import { ArrowRight, Box, Download, Github, Linkedin, Mail, MapPin } from "lucide-react"
 import { Button } from "../../components/ui/button"
 import { useToast } from "../../hooks/use-toast"
 import { useRef } from "react"
 import Image from "next/image"
+import Link from "next/link"
+import { profile } from "../../content/profile"
 
 export function HeroSection() {
   const { toast } = useToast()
@@ -26,10 +28,9 @@ export function HeroSection() {
 
   const handleDownloadCV = async () => {
     try {
-      const cvUrl = "/assets/CV/CV_Muhammad Hilal Darul Fauzan.pdf"
       const link = document.createElement("a")
-      link.href = cvUrl
-      link.download = "CV_Muhammad Hilal Darul Fauzan.pdf"
+      link.href = profile.resume.href
+      link.download = profile.resume.fileName
       link.target = "_blank"
       link.rel = "noopener noreferrer"
 
@@ -184,6 +185,29 @@ export function HeroSection() {
           </Button>
         </motion.div>
 
+        {/* Playable 3D portfolio entry (separate route, no 3D code loads here) */}
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.5, delay: 0.4 }}
+          className="flex flex-col items-center gap-3 mb-10"
+        >
+          <Link
+            href="/3d"
+            prefetch={false}
+            className="group inline-flex items-center gap-3 h-12 pl-2 pr-5 rounded-md border border-accent/40 bg-accent/5 text-sm font-mono font-medium text-foreground transition-colors duration-300 hover:border-accent hover:bg-accent/10 focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-accent"
+          >
+            <span className="flex h-8 w-8 items-center justify-center rounded border border-accent/30 bg-background/60 text-accent transition-transform duration-500 motion-safe:group-hover:rotate-90">
+              <Box className="h-4 w-4" />
+            </span>
+            Explore My 3D Portfolio
+            <ArrowRight className="h-4 w-4 text-accent transition-transform duration-200 motion-safe:group-hover:translate-x-0.5" />
+          </Link>
+          <p className="text-xs font-mono text-muted-foreground max-w-xl text-balance">
+            Want to explore my work differently? Walk through it in a playable 3D world.
+          </p>
+        </motion.div>
+
         {/* Social Links + Location */}
         <motion.div
           initial={{ opacity: 0, y: 20 }}
@@ -193,12 +217,12 @@ export function HeroSection() {
         >
           <div className="flex items-center gap-2 text-sm text-muted-foreground font-mono">
             <MapPin className="w-3.5 h-3.5" />
-            <span>Jakarta Pusat, Jakarta, Indonesia</span>
+            <span>{profile.location}</span>
           </div>
           <div className="h-4 w-px bg-border" />
           <div className="flex gap-3">
             <a
-              href="https://github.com/hilaldfzn"
+              href={profile.links.github}
               target="_blank"
               rel="noopener noreferrer"
               className="w-9 h-9 rounded-md border border-border hover:border-primary/50 flex items-center justify-center transition-all duration-200 hover:scale-105 group"
@@ -207,7 +231,7 @@ export function HeroSection() {
               <Github className="w-4 h-4 text-muted-foreground group-hover:text-primary transition-colors" />
             </a>
             <a
-              href="https://linkedin.com/in/hilaldfzn"
+              href={profile.links.linkedin}
               target="_blank"
               rel="noopener noreferrer"
               className="w-9 h-9 rounded-md border border-border hover:border-primary/50 flex items-center justify-center transition-all duration-200 hover:scale-105 group"
@@ -216,7 +240,7 @@ export function HeroSection() {
               <Linkedin className="w-4 h-4 text-muted-foreground group-hover:text-primary transition-colors" />
             </a>
             <a
-              href="mailto:hilalfauzan9@gmail.com"
+              href={`mailto:${profile.email}`}
               className="w-9 h-9 rounded-md border border-border hover:border-primary/50 flex items-center justify-center transition-all duration-200 hover:scale-105 group"
               aria-label="Email"
             >

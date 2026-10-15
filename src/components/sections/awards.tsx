@@ -3,43 +3,9 @@
 import { motion } from "framer-motion"
 import { Trophy } from "lucide-react"
 import { SectionHeading } from "../shared/section-heading"
+import { awards } from "../../content/achievements"
 
 export function AwardsSection() {
-  const awards = [
-    {
-      id: 1,
-      title: "RSA PTI Scholarship Awardee",
-      year: "2025",
-      description:
-        "Recipient of the prestigious RSA PTI Scholarship, recognizing academic excellence and outstanding potential across all faculties at Universitas Indonesia.",
-      category: "Scholarship",
-    },
-    {
-      id: 2,
-      title: "International Youth Innovation Summit #15",
-      subtitle: "Chapter Malaysia, Singapore, Thailand",
-      year: "2025",
-      description:
-        "Triple award winner at the International Youth Innovation Summit, demonstrating exceptional creativity, innovation, and presentation skills on an international platform.",
-      achievements: [
-        "The Most Creative Delegate",
-        "2nd Best Video Project Innovation",
-        "3rd Best Presentation",
-      ],
-      category: "International Competition",
-    },
-    {
-      id: 3,
-      title: "Primagama Mencari Juara",
-      subtitle: "Provincial-level Jakarta",
-      year: "2017",
-      description:
-        "Achieved 1st Place and Gold Medal in Mathematics at the provincial level, demonstrating exceptional mathematical prowess and problem-solving abilities.",
-      achievements: ["1st Place and Gold Medalist in Mathematics"],
-      category: "Academic Competition",
-    },
-  ]
-
   return (
     <section id="awards" className="py-24 sm:py-32 relative">
       <div className="container mx-auto px-4 sm:px-6 lg:px-8">
