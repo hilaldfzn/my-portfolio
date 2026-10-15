@@ -1,0 +1,102 @@
+"use client"
+
+import { useMemo } from "react"
+import { useFrame } from "@react-three/fiber"
+import * as THREE from "three"
+import { COLORS, DISTRICT_BY_ID } from "../../world-config"
+import { Model } from "../models"
+import { Screen, fontFamily } from "../canvas-art"
+import { DistrictFrame, DistrictPad, DistrictSign } from "./shared"
+
+const SHIELD_RADIUS = DISTRICT_BY_ID.lab.padRadius - 0.2
+
+function useShieldMaterial() {
+  return useMemo(
+    () =>
+      new THREE.ShaderMaterial({
+        transparent: true,
+        depthWrite: false,
+        side: THREE.DoubleSide,
+        uniforms: { uTime: { value: 0 }, uColor: { value: new THREE.Color(COLORS.lavender) } },
+        vertexShader: /* glsl */ `
+          varying vec2 vUv;
+          void main() { vUv = uv; gl_Position = projectionMatrix * modelViewMatrix * vec4(position, 1.0); }
+        `,
+        fragmentShader: /* glsl */ `
+          uniform float uTime;
+          uniform vec3 uColor;
+          varying vec2 vUv;
+          void main() {
+            float fade = pow(1.0 - vUv.y, 1.6);
+            float lines = smoothstep(0.82, 1.0, sin((vUv.y * 18.0 - uTime * 1.4) * 3.14159) * 0.5 + 0.5);
+            float seams = smoothstep(0.97, 1.0, abs(sin(vUv.x * 3.14159 * 48.0)));
+            float alpha = fade * (0.16 + lines * 0.22 + seams * 0.12);
+            gl_FragColor = vec4(uColor, alpha);
+          }
+        `,
+      }),
+    [],
+  )
+}
+
+export function LabDistrict({ animate }: { animate: boolean }) {
+  const shield = useShieldMaterial()
+  useFrame((_, delta) => {
+    if (animate) shield.uniforms.uTime.value += delta
+  })
+
+  return (
+    <DistrictFrame id="lab">
+      <DistrictPad id="lab" />
+
+      {/* Guardrail shield: the visitor passes a "safety check" when crossing it */}
+      <mesh position-y={0.9} material={shield}>
+        <cylinderGeometry args={[SHIELD_RADIUS, SHIELD_RADIUS, 1.8, 96, 1, true]} />
+      </mesh>
+
+      <Model pack="tech" name="hangar_roundGlass" position={[0, 0, -2.4]} scale={3.0} rotation={Math.PI} />
+      {/* Mirrored pairs on both sides of the dome */}
+      {[-1, 1].map((side) => (
+        <group key={side}>
+          <Model pack="tech" name="satelliteDish_large" position={[side * 5.8, 0, 0.8]} scale={3.2} rotation={-side * 0.6} />
+          <Model pack="tech" name="machine_generatorLarge" position={[side * 5.0, 0, -4.9]} scale={2.0} rotation={-side * 0.8} />
+          <Model pack="tech" name="rock_crystalsLargeA" position={[side * 6.9, 0, -1.6]} scale={2.2} rotation={-side * 1.2} />
+          <Model pack="tech" name="rock_crystals" position={[side * 3.6, 0, 5.0]} scale={1.8} rotation={-side * 0.4} />
+        </group>
+      ))}
+
+      {/* Classifier console in front of the lab door */}
+      <group position={[2.4, 0, 2.4]} rotation-y={-0.35}>
+        <mesh position={[0, 0.5, 0]} castShadow>
+          <boxGeometry args={[1.2, 1.0, 0.6]} />
+          <meshStandardMaterial color="#2C333E" roughness={0.7} />
+        </mesh>
+        <Screen
+          width={1.2}
+          height={0.72}
+          position={[0, 1.4, 0.05]}
+          rotation={[-0.25, 0, 0]}
+          drawKey="lab-console"
+          draw={(ctx, w, h) => {
+            ctx.fillStyle = "#0D1117"
+            ctx.fillRect(0, 0, w, h)
+            ctx.font = `500 26px ${fontFamily("--font-mono")}`
+            ctx.fillStyle = COLORS.lavender
+            ctx.fillText("guardrail.check(input)", 28, 60)
+            ctx.fillStyle = "#8B949E"
+            ctx.fillText("rule-based phrases", 28, 120)
+            ctx.fillStyle = "#E6EDF3"
+            ctx.fillText("→ LLM classifier", 28, 165)
+            ctx.fillStyle = COLORS.green
+            ctx.fillText('{ "verdict": "safe" }', 28, 230)
+            ctx.fillStyle = "#8B949E"
+            ctx.font = `400 20px ${fontFamily("--font-mono")}`
+            ctx.fillText("16 safety categories", 28, h - 30)
+          }}
+        />
+      </group>
+
+      <DistrictSign id="lab" />
+    </DistrictFrame>
+  )
+}

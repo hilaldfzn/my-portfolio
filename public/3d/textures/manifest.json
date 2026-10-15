@@ -1,0 +1,101 @@
+{
+  "note": "Downsized copies of images already used by the main portfolio. Regenerate with the processing command if a source image changes.",
+  "textures": [
+    {
+      "file": "/3d/textures/projects/dc-sentiment-analysis.jpg",
+      "bytes": 73181,
+      "source": "public/assets/Superman.png",
+      "license": "Owner's project screenshot (same image as the main portfolio)",
+      "processing": "sips -s format jpeg -s formatOptions 55% -Z 640",
+      "intendedUse": "Project gallery kiosk screen and 3D project panel image"
+    },
+    {
+      "file": "/3d/textures/projects/maams.jpg",
+      "bytes": 46328,
+      "source": "public/assets/MAAMS.jpg",
+      "license": "Owner's project screenshot (same image as the main portfolio)",
+      "processing": "sips -s format jpeg -s formatOptions 55% -Z 640",
+      "intendedUse": "Project gallery kiosk screen and 3D project panel image"
+    },
+    {
+      "file": "/3d/textures/projects/apap-medika.jpg",
+      "bytes": 37295,
+      "source": "public/assets/apap-medika.jpg",
+      "license": "Owner's project screenshot (same image as the main portfolio)",
+      "processing": "sips -s format jpeg -s formatOptions 55% -Z 640",
+      "intendedUse": "Project gallery kiosk screen and 3D project panel image"
+    },
+    {
+      "file": "/3d/textures/projects/database-backup-utility.jpg",
+      "bytes": 23894,
+      "source": "public/assets/db-backup-utility.png",
+      "license": "Owner's project screenshot (same image as the main portfolio)",
+      "processing": "sips -s format jpeg -s formatOptions 55% -Z 640",
+      "intendedUse": "Project gallery kiosk screen and 3D project panel image"
+    },
+    {
+      "file": "/3d/textures/projects/crawlkit-api.jpg",
+      "bytes": 40921,
+      "source": "public/assets/crawlkit-api.png",
+      "license": "Owner's project screenshot (same image as the main portfolio)",
+      "processing": "sips -s format jpeg -s formatOptions 55% -Z 640",
+      "intendedUse": "Project gallery kiosk screen and 3D project panel image"
+    },
+    {
+      "file": "/3d/textures/projects/natural-language-inference.jpg",
+      "bytes": 27304,
+      "source": "public/assets/NLI.png",
+      "license": "Owner's project screenshot (same image as the main portfolio)",
+      "processing": "sips -s format jpeg -s formatOptions 55% -Z 640",
+      "intendedUse": "Project gallery kiosk screen and 3D project panel image"
+    },
+    {
+      "file": "/3d/textures/projects/lembarpena.jpg",
+      "bytes": 30235,
+      "source": "public/assets/lembar-pena.jpg",
+      "license": "Owner's project screenshot (same image as the main portfolio)",
+      "processing": "sips -s format jpeg -s formatOptions 55% -Z 640",
+      "intendedUse": "Project gallery kiosk screen and 3D project panel image"
+    },
+    {
+      "file": "/3d/textures/projects/mario-object-detection.jpg",
+      "bytes": 46334,
+      "source": "public/assets/mario.png",
+      "license": "Owner's project screenshot (same image as the main portfolio)",
+      "processing": "sips -s format jpeg -s formatOptions 55% -Z 640",
+      "intendedUse": "Project gallery kiosk screen and 3D project panel image"
+    },
+    {
+      "file": "/3d/textures/projects/health-admission-prediction.jpg",
+      "bytes": 43995,
+      "source": "public/assets/health-admission.png",
+      "license": "Owner's project screenshot (same image as the main portfolio)",
+      "processing": "sips -s format jpeg -s formatOptions 55% -Z 640",
+      "intendedUse": "Project gallery kiosk screen and 3D project panel image"
+    },
+    {
+      "file": "/3d/textures/projects/marmut-music.jpg",
+      "bytes": 21957,
+      "source": "public/assets/marmut.jpg",
+      "license": "Owner's project screenshot (same image as the main portfolio)",
+      "processing": "sips -s format jpeg -s formatOptions 55% -Z 640",
+      "intendedUse": "Project gallery kiosk screen and 3D project panel image"
+    },
+    {
+      "file": "/3d/textures/projects/hoomgroom.jpg",
+      "bytes": 50844,
+      "source": "public/assets/maintenance.png",
+      "license": "Owner's project screenshot (same image as the main portfolio)",
+      "processing": "sips -s format jpeg -s formatOptions 55% -Z 640",
+      "intendedUse": "Project gallery kiosk screen and 3D project panel image"
+    },
+    {
+      "file": "/3d/textures/portrait.jpg",
+      "bytes": 17358,
+      "source": "public/assets/me.png",
+      "license": "Owner's profile photo (same image as the main portfolio)",
+      "processing": "sips -s format jpeg -s formatOptions 70% -Z 320",
+      "intendedUse": "Home Base monolith screen"
+    }
+  ]
+}

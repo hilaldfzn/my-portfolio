@@ -1,0 +1,225 @@
+"use client"
+
+import { useEffect, useMemo, useRef } from "react"
+import Link from "next/link"
+import { ArrowLeft, BookOpen, Check, Navigation, Play, RotateCcw } from "lucide-react"
+import { DISTRICTS, SPOKES, TOKENS, districtCenter, islandRadius, type DistrictId } from "../world-config"
+import { runtime } from "../systems/runtime"
+import { useWorldStore } from "../store"
+import { Dialog } from "./dialog"
+import { buttonStyles } from "./primitives"
+
+const VIEW = 36
+
+function islandPath() {
+  const steps = 120
+  let d = ""
+  for (let i = 0; i <= steps; i++) {
+    const theta = (i / steps) * Math.PI * 2
+    const r = islandRadius(theta)
+    d += `${i === 0 ? "M" : "L"}${(Math.sin(theta) * r).toFixed(2)} ${(-Math.cos(theta) * r).toFixed(2)} `
+  }
+  return d + "Z"
+}
+
+interface IslandMapProps {
+  className?: string
+  onSelect?: (id: DistrictId) => void
+  showLabels?: boolean
+  showPlayer?: boolean
+  /** Hide from assistive tech when a parent control already describes it (minimap button). */
+  decorative?: boolean
+}
+
+/** Top-down SVG of the island. Player position is written straight to the DOM each frame. */
+export function IslandMap({ className, onSelect, showLabels = true, showPlayer = true, decorative = false }: IslandMapProps) {
+  const outline = useMemo(islandPath, [])
+  const player = useRef<SVGGElement>(null)
+  const discovered = useWorldStore((state) => state.discovered)
+  const current = useWorldStore((state) => state.currentDistrict)
+
+  useEffect(() => {
+    if (!showPlayer) return
+    let frame = 0
+    const tick = () => {
+      const p = runtime.player
+      player.current?.setAttribute("transform", `translate(${p.x.toFixed(2)} ${p.z.toFixed(2)}) rotate(${(-(p.yaw * 180) / Math.PI + 180).toFixed(1)})`)
+      frame = requestAnimationFrame(tick)
+    }
+    tick()
+    return () => cancelAnimationFrame(frame)
+  }, [showPlayer])
+
+  return (
+    <svg
+      viewBox={`${-VIEW} ${-VIEW} ${VIEW * 2} ${VIEW * 2}`}
+      className={className}
+      role={decorative ? undefined : onSelect ? "group" : "img"}
+      aria-label={decorative ? undefined : "Map of Inference Island"}
+      aria-hidden={decorative || undefined}
+    >
+      <defs>
+        <pattern id="map-dots" width="3.2" height="3.2" patternUnits="userSpaceOnUse">
+          <circle cx="1.6" cy="1.6" r="0.22" fill="#30363D" />
+        </pattern>
+      </defs>
+      <rect x={-VIEW} y={-VIEW} width={VIEW * 2} height={VIEW * 2} fill="url(#map-dots)" />
+      <path d={outline} fill="#1E3A33" stroke="#D27A55" strokeWidth="0.6" />
+      {SPOKES.map((spoke) => (
+        <polyline
+          key={spoke.district}
+          points={spoke.points.map(([x, z]) => `${x},${z}`).join(" ")}
+          fill="none"
+          stroke="#F78166"
+          strokeOpacity="0.7"
+          strokeWidth="0.5"
+          strokeLinecap="round"
+          strokeLinejoin="round"
+        />
+      ))}
+      <circle r="7.2" fill="#2A313C" stroke="#F78166" strokeWidth="0.4" />
+      {DISTRICTS.map((district) => {
+        const [x, z] = districtCenter(district)
+        const known = discovered.includes(district.id)
+        const here = current === district.id
+        const label = district.path
+        const content = (
+          <>
+            <circle cx={x} cy={z} r={here ? 2.6 : 2.1} fill="#0D1117" stroke={district.color} strokeWidth={here ? 0.9 : 0.6} />
+            {known && <path d={`M${x - 0.9} ${z} l0.7 0.7 l1.3 -1.4`} fill="none" stroke={district.color} strokeWidth="0.45" />}
+            {showLabels && (
+              <text x={x} y={z + (z > 0 ? 4.6 : -3.6)} textAnchor="middle" fontSize="2.3" fill="#E6EDF3" fontFamily="var(--font-mono), monospace">
+                {label}
+              </text>
+            )}
+          </>
+        )
+        return onSelect ? (
+          <g
+            key={district.id}
+            role="button"
+            tabIndex={0}
+            aria-label={`Go to ${district.title}`}
+            className="cursor-pointer outline-none [&:focus-visible>circle]:stroke-[1.4]"
+            onClick={() => onSelect(district.id)}
+            onKeyDown={(event) => {
+              if (event.key === "Enter" || event.key === " ") {
+                event.preventDefault()
+                onSelect(district.id)
+              }
+            }}
+          >
+            {content}
+          </g>
+        ) : (
+          <g key={district.id}>{content}</g>
+        )
+      })}
+      {showPlayer && (
+        <g ref={player}>
+          <path d="M0 -1.6 L1.1 1.1 L0 0.5 L-1.1 1.1 Z" fill="#F78166" stroke="#0D1117" strokeWidth="0.3" />
+        </g>
+      )}
+    </svg>
+  )
+}
+
+export function MapOverlay({ restoreFocus }: { restoreFocus: () => HTMLElement | null }) {
+  const browsing = useWorldStore((state) => state.browsing)
+  const engine = useWorldStore((state) => state.engine)
+  const phase = useWorldStore((state) => state.phase)
+  const discovered = useWorldStore((state) => state.discovered)
+  const tokens = useWorldStore((state) => state.tokens)
+  const { setOverlay, openPanel, travelTo, stopBrowsing, enterWorld, resetProgress } = useWorldStore.getState()
+  const playing = phase === "playing" && !browsing
+
+  const close = () => (browsing ? stopBrowsing() : setOverlay(null))
+
+  return (
+    <Dialog
+      variant="modal"
+      wide
+      label={browsing ? "directory" : "map"}
+      title={browsing ? "Browse without playing" : "Island map"}
+      subtitle={
+        browsing
+          ? "Every section of the 3D world as plain, readable pages."
+          : `districts ${discovered.length}/${DISTRICTS.length} · tokens ${tokens.length}/${TOKENS.length}`
+      }
+      onClose={close}
+      restoreFocus={restoreFocus}
+    >
+      <div className="grid gap-6 md:grid-cols-[minmax(0,0.9fr)_minmax(0,1.1fr)]">
+        <div className="space-y-2">
+          <IslandMap
+            className="w-full rounded-lg border border-border bg-[#0D1117]"
+            onSelect={playing ? (id) => travelTo(id) : undefined}
+            showPlayer={playing}
+          />
+          {playing && <p className="font-mono text-[11px] text-muted-foreground">Select a district on the map to fast-travel there.</p>}
+        </div>
+        <ul className="space-y-2">
+          {DISTRICTS.map((district) => {
+            const known = discovered.includes(district.id)
+            return (
+              <li key={district.id} className="card-accent flex items-center gap-3 rounded-lg px-3 py-2.5">
+                <span className="h-2.5 w-2.5 flex-shrink-0 rounded-full" style={{ background: district.color }} aria-hidden="true" />
+                <div className="min-w-0 flex-1">
+                  <p className="flex items-center gap-1.5 text-sm font-semibold text-foreground">
+                    {district.title}
+                    {known && <Check className="h-3.5 w-3.5 text-[hsl(var(--status-green))]" aria-label="discovered" />}
+                  </p>
+                  <p className="truncate font-mono text-[11px] text-muted-foreground">
+                    {district.path} · {district.subtitle}
+                  </p>
+                </div>
+                {playing && (
+                  <button type="button" className={buttonStyles.link} onClick={() => travelTo(district.id)} aria-label={`Go to ${district.title}`}>
+                    <Navigation className="h-3.5 w-3.5" /> Go
+                  </button>
+                )}
+                <button
+                  type="button"
+                  className={`${buttonStyles.link} border-primary/50 text-primary`}
+                  onClick={() => (playing ? travelTo(district.id, true) : openPanel(district.panel))}
+                  aria-label={`Read ${district.title}`}
+                >
+                  <BookOpen className="h-3.5 w-3.5" /> Read
+                </button>
+              </li>
+            )
+          })}
+        </ul>
+      </div>
+      <div className="mt-6 flex flex-wrap items-center gap-3 border-t border-border pt-4">
+        {browsing && engine === "ready" && (
+          <button type="button" className={buttonStyles.primary} onClick={enterWorld}>
+            <Play className="h-4 w-4" /> Enter the 3D world
+          </button>
+        )}
+        <Link href="/" className={buttonStyles.outline}>
+          <ArrowLeft className="h-4 w-4" /> Back to main portfolio
+        </Link>
+        {playing && (
+          <button type="button" className="ml-auto inline-flex items-center gap-1.5 font-mono text-xs text-muted-foreground underline-offset-4 hover:text-primary hover:underline" onClick={resetProgress}>
+            <RotateCcw className="h-3.5 w-3.5" /> Reset progress
+          </button>
+        )}
+      </div>
+    </Dialog>
+  )
+}
+
+export function Minimap() {
+  const setOverlay = useWorldStore((state) => state.setOverlay)
+  return (
+    <button
+      type="button"
+      onClick={() => setOverlay("map")}
+      className="pointer-events-auto block overflow-hidden rounded-lg border border-border bg-[#0D1117]/95 shadow-lg transition-colors hover:border-primary/60 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring"
+      aria-label="Open the island map (M)"
+    >
+      <IslandMap className="h-[150px] w-[150px]" showLabels={false} decorative />
+    </button>
+  )
+}
