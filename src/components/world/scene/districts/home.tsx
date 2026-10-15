@@ -118,7 +118,7 @@ export function HomeDistrict({ animate }: { animate: boolean }) {
             ctx.font = `400 27px ${fontFamily("--font-mono")}`
             ctx.fillText("AI Engineer", cx, 656)
             ctx.font = `400 24px ${fontFamily("--font-mono")}`
-            ctx.fillText("Backend-Focused Software Engineer", cx, 694, w - 60)
+            ctx.fillText("Software Engineer (Backend)", cx, 694, w - 60)
             ctx.fillStyle = COLORS.coral
             ctx.font = `500 26px ${fontFamily("--font-mono")}`
             ctx.fillText("> read about me", cx, h - 52)

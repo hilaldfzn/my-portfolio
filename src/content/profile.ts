@@ -9,7 +9,7 @@ export interface RichTextSegment {
 export const profile = {
   name: "Muhammad Hilal Darul Fauzan",
   shortName: "Hilal",
-  headline: "AI Engineer · Backend-Focused Software Engineer",
+  headline: "AI Engineer · Software Engineer (Backend)",
   location: "Jakarta Pusat, Jakarta, Indonesia",
   email: "hilalfauzan9@gmail.com",
   photo: "/assets/me.png",

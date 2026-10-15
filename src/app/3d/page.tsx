@@ -11,7 +11,7 @@ export const metadata: Metadata = {
     locale: "en_US",
     url: "https://hilaldfzn.vercel.app/3d",
     title: "Orbit Park · Playable 3D Portfolio",
-    description: "A playable 3D portfolio by Muhammad Hilal Darul Fauzan, AI Engineer and backend-focused software engineer.",
+    description: "A playable 3D portfolio by Muhammad Hilal Darul Fauzan, AI Engineer and Software Engineer (Backend).",
     siteName: "Portfolio | Muhammad Hilal Darul Fauzan",
   },
 }
