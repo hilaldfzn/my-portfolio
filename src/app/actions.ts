@@ -1,6 +1,7 @@
 "use server"
 
 import { Resend } from "resend"
+import { profile } from "../content/profile"
 
 const resend = new Resend(process.env.RESEND_API_KEY)
 
@@ -37,5 +38,5 @@ export async function sendEmail(formData: FormData) {
 }
 
 export async function downloadCV() {
-  return { success: true, url: "/assets/CV/Muhammad Hilal Darul Fauzan_CV.pdf" }
+  return { success: true, url: profile.resume.href }
 }

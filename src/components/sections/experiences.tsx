@@ -3,81 +3,9 @@
 import { motion } from "framer-motion"
 import { ExternalLink } from "lucide-react"
 import { SectionHeading } from "../shared/section-heading"
+import { experiences } from "../../content/experience"
 
 export function ExperienceSection() {
-  const experiences = [
-    {
-      title: "AI Engineer",
-      company: "GDP Labs",
-      period: "Mar 2026 - Present",
-      location: "Jakarta Selatan, Jakarta, Indonesia",
-      type: "INTERNSHIP",
-      description:
-        "Contributing to the development of AI safety and guardrail systems, focusing on LLM-based content moderation and safety configuration architecture.",
-      highlights: [
-        "Redesigned the SDK's guardrail detection from rule-based phrase matching to LLM-based classification with structured safety verdicts across 16 content safety categories, improving multilingual accuracy and reducing false positives",
-        "Built a pluggable safety configuration architecture with YAML-driven defaults, category filtering, and allowlist/denylist topic modes, integrated into NVIDIA NeMo Guardrails via custom Colang flows and a LangChain adapter",
-      ],
-    },
-    {
-      title: "Software Engineer",
-      company: "PT Bringin Inti Teknologi (bitcorp.)",
-      period: "Jul 2025 - Jan 2026",
-      location: "Jakarta Pusat, Jakarta, Indonesia",
-      type: "INTERNSHIP",
-      description:
-        "Contributing to the development of TogetherApps, an innovative workforce management solution that enhances employee productivity through advanced technology integration.",
-      highlights: [
-        "Designed and delivered end-to-end workforce management platform with mobile and web interfaces, enabling efficient employee tracking, and project management",
-        "Developed a facial recognition attendance system with face embedding extraction, anti-spoofing detection, and GPS validation, impersonation in attendance and ensuring 95%+ identity verification accuracy to prevent fraudulent clock-ins",
-        "Implemented automated approval systems for leave, overtime, and timesheets with real-time notification channels and analytics dashboards, decreasing manual processing time from 3 days to 4 hours and improving team productivity by 60%",
-      ],
-    },
-    {
-      title: "Teaching Assistant",
-      company: "Universitas Indonesia",
-      period: "Feb - Oct 2025",
-      location: "Depok, Jawa Barat, Indonesia",
-      type: "PART TIME",
-      description:
-        "Teaching Assistant for multiple undergraduate courses including Calculus 2, Statistics & Probability, and Computer Vision, providing comprehensive academic support to students.",
-      highlights: [
-        "Tutored 250+ undergraduate students in Computer Vision, Statistics & Probability and Calculus 2 courses",
-        "Graded homework assignments, quizzes, and coding projects with clear feedback across all three subjects",
-        "Helped students connect theory to practical applications in mathematics and programming",
-        "Helped in preparing course materials, including practice problems for exam preparation",
-      ],
-    },
-    {
-      title: "IT & Broadcast",
-      company: "OKK UI 2024",
-      period: "Jun - Aug 2024",
-      location: "Depok, Jawa Barat, Indonesia",
-      type: "ORGANIZATION",
-      description:
-        "Contributed to the development of the OKK UI 2024 website's frontend, leveraging React for dynamic user interfaces and Tailwind CSS for efficient and responsive styling.",
-      highlights: [
-        "Designed engaging and user-friendly interfaces to enhance user experience",
-        "Developed responsive frontend components and pages using React and Tailwind CSS for the official OKK UI website",
-        "Contributed to the development of a website used by thousands of new students at Universitas Indonesia in 2024 for orientation and university-related information",
-      ],
-      liveDemo: "https://okk-ui-2024.up.railway.app",
-    },
-    {
-      title: "Editorial Marketing",
-      company: "COMPFEST 15",
-      period: "Apr - Nov 2023",
-      location: "Depok, Jawa Barat, Indonesia",
-      type: "ORGANIZATION",
-      description:
-        "Contributed to editorial marketing activities for COMPFEST 15, focusing on content creation, media relations, and publication management to enhance event visibility and engagement.",
-      highlights: [
-        "Provided captioning, proofreading, translating, and copywriting services for COMPFEST publications, resulting in thousands of insights across various social media platforms",
-        "Created and published press releases and conducted speaker interviews for the Grand Launching of COMPFEST 15",
-      ],
-    },
-  ]
-
   return (
     <section id="experiences" className="py-24 sm:py-32 relative">
       <div className="container mx-auto px-4 sm:px-6 lg:px-8">

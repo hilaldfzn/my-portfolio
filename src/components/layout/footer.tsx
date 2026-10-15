@@ -2,6 +2,7 @@
 
 import Link from "next/link"
 import { Github, Linkedin, Mail } from "lucide-react"
+import { profile } from "../../content/profile"
 
 export function Footer() {
   const currentYear = new Date().getFullYear()
@@ -9,17 +10,17 @@ export function Footer() {
   const socialLinks = [
     {
       name: "GitHub",
-      href: "https://github.com/hilaldfzn",
+      href: profile.links.github,
       icon: Github,
     },
     {
       name: "LinkedIn",
-      href: "https://linkedin.com/in/mhilaldfzn",
+      href: profile.links.linkedin,
       icon: Linkedin,
     },
     {
       name: "Email",
-      href: "mailto:hilalfauzan9@gmail.com",
+      href: `mailto:${profile.email}`,
       icon: Mail,
     },
   ]
