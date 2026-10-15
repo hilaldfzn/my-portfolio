@@ -1,8 +1,9 @@
 "use client"
 
-import { useLayoutEffect, useMemo, useRef } from "react"
+import { useLayoutEffect, useMemo, useRef, type ReactNode } from "react"
 import { useGLTF } from "@react-three/drei"
 import * as THREE from "three"
+import { mergeGeometries } from "three/examples/jsm/utils/BufferGeometryUtils.js"
 
 // Optimized packs produced by scripts/build-world-assets.mjs (see public/3d/models/manifest.json).
 export const PACK_URLS = {
@@ -10,12 +11,28 @@ export const PACK_URLS = {
   tech: "/3d/models/tech.glb",
   factory: "/3d/models/factory.glb",
   furniture: "/3d/models/furniture.glb",
+  food: "/3d/models/food.glb",
   robot: "/3d/models/robot.glb",
 } as const
 
 export type PackName = Exclude<keyof typeof PACK_URLS, "robot">
 
 const prepared = new WeakSet<THREE.Object3D>()
+
+// Recolors that turn Kenney's earthly nature kit into alien flora and lunar rock.
+const RECOLOR: Record<string, { color: string; emissive?: number }> = {
+  leafsGreen: { color: "#57C4B8", emissive: 0.1 },
+  leafsDark: { color: "#7F6FD6", emissive: 0.12 },
+  leafsFall: { color: "#E98AA6", emissive: 0.1 },
+  grass: { color: "#7FD6C6", emissive: 0.08 },
+  woodBark: { color: "#6B5A8E" },
+  woodBarkDark: { color: "#56487A" },
+  stone: { color: "#9B98C4" },
+  stoneDark: { color: "#7E7AA8" },
+  rock: { color: "#9B98C4" },
+  rockTrack: { color: "#7F7BAA" },
+  rockDark: { color: "#6E6A99" },
+}
 
 /** One-time material and shadow setup per loaded pack. */
 function preparePack(scene: THREE.Object3D) {
@@ -30,6 +47,14 @@ function preparePack(scene: THREE.Object3D) {
     for (const material of materials) {
       const standard = material as THREE.MeshStandardMaterial
       if (!standard.isMeshStandardMaterial) continue
+      const recolor = RECOLOR[standard.name]
+      if (recolor) {
+        standard.color.set(recolor.color)
+        if (recolor.emissive) {
+          standard.emissive.set(recolor.color)
+          standard.emissiveIntensity = recolor.emissive
+        }
+      }
       if (standard.name === "crystal") {
         standard.color.set("#C9A2FF")
         standard.emissive.set("#8E5BE8")
@@ -171,4 +196,95 @@ function InstancedPart({
 
 export function preloadPacks() {
   for (const url of Object.values(PACK_URLS)) useGLTF.preload(url, false, true)
+}
+
+// ---------------------------------------------------------------------------
+// Static batching
+// ---------------------------------------------------------------------------
+
+const BATCH_ATTRIBUTES = ["position", "normal", "uv"] as const
+
+/**
+ * Copies the attributes batching needs into plain float arrays (meshopt data is quantized).
+ * Position and normal are required; uv is kept when present.
+ */
+function toFloatGeometry(source: THREE.BufferGeometry) {
+  const geometry = new THREE.BufferGeometry()
+  for (const name of BATCH_ATTRIBUTES) {
+    const attribute = source.getAttribute(name) as THREE.BufferAttribute | THREE.InterleavedBufferAttribute | undefined
+    if (!attribute) {
+      if (name === "uv") continue
+      return null
+    }
+    const array = new Float32Array(attribute.count * attribute.itemSize)
+    for (let i = 0; i < attribute.count; i++) {
+      for (let c = 0; c < attribute.itemSize; c++) array[i * attribute.itemSize + c] = attribute.getComponent(i, c)
+    }
+    geometry.setAttribute(name, new THREE.BufferAttribute(array, attribute.itemSize))
+  }
+  if (source.index) geometry.setIndex(Array.from(source.index.array as ArrayLike<number>))
+  else return null
+  return geometry
+}
+
+/**
+ * Merges static meshes that share a material into one mesh per material, cutting draw calls.
+ * Anything under an object with `userData.dynamic` (animated parts) is left untouched, as are
+ * instanced meshes, multi-material meshes and transparent materials.
+ */
+export function StaticBatch({ children }: { children: ReactNode }) {
+  const root = useRef<THREE.Group>(null)
+  useLayoutEffect(() => {
+    const group = root.current
+    if (!group) return
+    group.updateWorldMatrix(true, true)
+    const inverse = new THREE.Matrix4().copy(group.matrixWorld).invert()
+    // Meshes merge only with others that share both the material and the attribute layout.
+    const buckets = new Map<string, { material: THREE.Material; meshes: THREE.Mesh[]; geometries: THREE.BufferGeometry[] }>()
+    const visit = (object: THREE.Object3D) => {
+      if (object.userData.dynamic) return
+      const mesh = object as THREE.Mesh
+      if (mesh.isMesh && !(mesh as THREE.InstancedMesh).isInstancedMesh && mesh.visible && !Array.isArray(mesh.material)) {
+        const material = mesh.material as THREE.Material
+        if (!material.transparent && !(material as THREE.ShaderMaterial).isShaderMaterial) {
+          const geometry = toFloatGeometry(mesh.geometry)
+          if (geometry) {
+            geometry.applyMatrix4(new THREE.Matrix4().multiplyMatrices(inverse, mesh.matrixWorld))
+            const key = `${material.uuid}:${geometry.getAttribute("uv") ? "uv" : "plain"}`
+            if (!buckets.has(key)) buckets.set(key, { material, meshes: [], geometries: [] })
+            buckets.get(key)!.meshes.push(mesh)
+            buckets.get(key)!.geometries.push(geometry)
+          }
+        }
+      }
+      for (const child of object.children) visit(child)
+    }
+    for (const child of group.children) visit(child)
+
+    const merged: THREE.Mesh[] = []
+    const hidden: THREE.Mesh[] = []
+    buckets.forEach(({ material, meshes, geometries }) => {
+      if (meshes.length < 2) return
+      const geometry = mergeGeometries(geometries)
+      if (!geometry) return
+      const batch = new THREE.Mesh(geometry, material)
+      batch.castShadow = meshes.some((m) => m.castShadow)
+      batch.receiveShadow = true
+      batch.userData.dynamic = true
+      group.add(batch)
+      merged.push(batch)
+      for (const mesh of meshes) {
+        mesh.visible = false
+        hidden.push(mesh)
+      }
+    })
+    return () => {
+      for (const batch of merged) {
+        group.remove(batch)
+        batch.geometry.dispose()
+      }
+      for (const mesh of hidden) mesh.visible = true
+    }
+  }, [])
+  return <group ref={root}>{children}</group>
 }

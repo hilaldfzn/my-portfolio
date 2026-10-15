@@ -71,7 +71,7 @@ export function StatusBar() {
   const discovered = useWorldStore((state) => state.discovered)
   const tokens = useWorldStore((state) => state.tokens)
   const touch = useWorldStore((state) => state.touch)
-  const where = !current ? "trail" : current === "home" ? "home" : DISTRICT_BY_ID[current].path
+  const where = !current ? "paths" : current === "home" ? "mission-control" : DISTRICT_BY_ID[current].path
   return (
     <footer className="pointer-events-auto absolute inset-x-0 bottom-0 z-20 flex h-8 items-center gap-3 border-t border-border bg-card px-3 font-mono text-[11px] text-muted-foreground sm:gap-4 sm:px-4">
       <span className="flex items-center gap-1.5 text-primary">
@@ -79,7 +79,7 @@ export function StatusBar() {
       </span>
       <span className="flex min-w-0 items-center gap-1.5 truncate">
         <MapPin className="h-3 w-3 flex-shrink-0" />
-        <span className="truncate">inference-island/{where}</span>
+        <span className="truncate">orbit-park/{where}</span>
       </span>
       <span className="ml-auto flex items-center gap-3 sm:gap-4">
         <span className="flex items-center gap-1" title="Districts discovered">

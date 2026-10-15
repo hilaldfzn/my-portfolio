@@ -5,6 +5,7 @@
 //   Kenney Furniture Kit  https://kenney.nl/assets/furniture-kit
 //   Kenney Nature Kit     https://kenney.nl/assets/nature-kit
 //   Kenney Factory Kit    https://kenney.nl/assets/factory-kit
+//   Kenney Food Kit       https://kenney.nl/assets/food-kit
 //   RobotExpressive       https://github.com/mrdoob/three.js/tree/r170/examples/models/gltf/RobotExpressive
 // and unzip each kit into <src>/<kit-name>/ (keeping the "Models/..." folders).
 //
@@ -45,14 +46,12 @@ const PACKS = {
     sourceUrl: "https://kenney.nl/assets/nature-kit",
     dir: "Models/GLTF format",
     ext: ".glb",
-    use: "Island greenery, rocks, fences and monuments",
+    use: "Island flora (recolored as alien plants), lunar rocks, campus columns and the awards obelisk",
     models: [
-      "tree_default", "tree_oak", "tree_pineRoundA", "tree_pineTallA", "tree_cone", "tree_plateau", "tree_fat",
-      "tree_default_fall", "tree_oak_fall", "tree_cone_fall",
-      "rock_largeA", "rock_largeB", "rock_tallA", "rock_tallB", "rock_smallA", "rock_smallC", "stone_tallA",
-      "grass", "grass_large", "flower_purpleA", "flower_yellowA", "flower_redA",
-      "plant_bush", "plant_bushLarge", "mushroom_redGroup", "stump_round", "log",
-      "fence_simple", "sign", "statue_obelisk", "statue_column", "statue_ring",
+      "tree_default", "tree_oak", "tree_pineRoundA", "tree_pineTallA", "tree_cone", "tree_plateau",
+      "tree_fat", "tree_default_fall", "tree_oak_fall", "tree_cone_fall", "rock_largeA", "rock_largeB",
+      "rock_smallC", "grass", "grass_large", "flower_purpleA", "flower_yellowA", "flower_redA",
+      "plant_bush", "plant_bushLarge", "statue_obelisk", "statue_column",
     ],
   },
   tech: {
@@ -61,13 +60,13 @@ const PACKS = {
     sourceUrl: "https://kenney.nl/assets/space-kit",
     dir: "Models/GLTF format",
     ext: ".glb",
-    use: "AI Research Lab dome, satellite dishes, generators, crystals, contact tower",
+    use: "Space park: lab dome, dishes, crystals, rocket, monorail train, astronaut guests, craters, spacecraft",
     models: [
-      "hangar_roundGlass", "hangar_roundA", "satelliteDish_large", "satelliteDish", "satelliteDish_detailed",
-      "machine_wireless", "machine_generator", "machine_generatorLarge", "machine_barrelLarge",
-      "rock_crystalsLargeA", "rock_crystalsLargeB", "rock_crystals",
-      "desk_computer", "desk_computerScreen", "desk_computerCorner", "desk_chair",
-      "gate_complex", "rover", "craft_speederA", "barrels", "structure_detailed", "pipe_ringHigh",
+      "hangar_roundGlass", "satelliteDish_large", "machine_wireless", "machine_generatorLarge",
+      "rock_crystalsLargeA", "rock_crystals", "gate_complex", "craft_speederA", "rocket_baseA",
+      "rocket_fuelA", "rocket_sidesA", "rocket_topA", "monorail_trainFront", "monorail_trainPassenger",
+      "monorail_trainEnd", "astronautA", "astronautB", "alien", "crater", "craterLarge", "meteor",
+      "craft_racer",
     ],
   },
   factory: {
@@ -76,11 +75,11 @@ const PACKS = {
     sourceUrl: "https://kenney.nl/assets/factory-kit",
     dir: "Models/GLB format",
     ext: ".glb",
-    use: "Engineering Workshop: conveyors, robot arms, face-scan gate, screens, crates",
+    use: "bitcorp. assembly bay: conveyors, robot arms, face-scan gate, screens, crates",
     models: [
-      "robot-arm-a", "robot-arm-b", "scanner-high", "conveyor-long", "conveyor", "conveyor-stripe-sides",
-      "box-small", "box-large", "box-wide", "machine", "machine-window", "screen-wide", "screen-hanging-wide",
-      "screen-panel-wide", "cog-a", "hopper-round", "warning-traffic", "lever-single", "crane",
+      "robot-arm-a", "robot-arm-b", "scanner-high", "conveyor-long", "box-small", "box-large",
+      "box-wide", "machine", "machine-window", "screen-panel-wide", "cog-a", "hopper-round",
+      "warning-traffic",
     ],
   },
   furniture: {
@@ -89,11 +88,24 @@ const PACKS = {
     sourceUrl: "https://kenney.nl/assets/furniture-kit",
     dir: "Models/GLTF format",
     ext: ".glb",
-    use: "Home base desk setup, bookcase (articles), benches, plants, lamps",
+    use: "Library writing desks, campus classroom, plaza planters, library topic props",
     models: [
-      "desk", "laptop", "computerScreen", "computerKeyboard", "chairDesk", "bookcaseOpen", "bookcaseClosedWide",
-      "books", "lampRoundFloor", "lampSquareFloor", "pottedPlant", "plantSmall1", "plantSmall2", "bench",
-      "benchCushion", "rugRound", "speaker", "radio",
+      "desk", "laptop", "computerScreen", "chairDesk", "chair", "pottedPlant", "plantSmall1",
+    ],
+  },
+  food: {
+    kit: "food-kit",
+    title: "Kenney Food Kit (2.0)",
+    sourceUrl: "https://kenney.nl/assets/food-kit",
+    dir: "Models/GLB format",
+    ext: ".glb",
+    use: "Main Street snack stalls: the food on each counter and the giant roof signs",
+    models: [
+      "donut-sprinkles", "donut-chocolate", "donut", "cup-coffee",
+      "burger-cheese", "burger", "fries", "hot-dog", "soda-can",
+      "ice-cream", "ice-cream-cup", "sundae", "popsicle",
+      "soda", "frappe", "cocktail",
+      "cupcake", "muffin", "cookie-chocolate", "lollypop",
     ],
   },
 }

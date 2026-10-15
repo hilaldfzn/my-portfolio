@@ -21,7 +21,7 @@ interface Progress {
   onboarded: boolean
 }
 
-const STORAGE_KEY = "inference-island:v1"
+const STORAGE_KEY = "orbit-park:v1"
 
 function loadProgress(): Progress {
   const empty: Progress = { discovered: [], tokens: [], onboarded: false }

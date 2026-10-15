@@ -4,12 +4,12 @@
   "packs": {
     "nature": {
       "file": "/3d/models/nature.glb",
-      "bytes": 116224,
+      "bytes": 77852,
       "source": "Kenney Nature Kit (2.0)",
       "sourceUrl": "https://kenney.nl/assets/nature-kit",
       "license": "CC0-1.0",
       "author": "Kenney (www.kenney.nl)",
-      "intendedUse": "Island greenery, rocks, fences and monuments",
+      "intendedUse": "Island flora (recolored as alien plants), lunar rocks, campus columns and the awards obelisk",
       "models": [
         {
           "name": "tree_default",
@@ -120,48 +120,12 @@
           ]
         },
         {
-          "name": "rock_tallA",
-          "file": "Models/GLTF format/rock_tallA.glb",
-          "size": [
-            0.983,
-            0.996,
-            0.683
-          ]
-        },
-        {
-          "name": "rock_tallB",
-          "file": "Models/GLTF format/rock_tallB.glb",
-          "size": [
-            0.765,
-            0.884,
-            0.77
-          ]
-        },
-        {
-          "name": "rock_smallA",
-          "file": "Models/GLTF format/rock_smallA.glb",
-          "size": [
-            0.361,
-            0.191,
-            0.361
-          ]
-        },
-        {
           "name": "rock_smallC",
           "file": "Models/GLTF format/rock_smallC.glb",
           "size": [
             0.361,
             0.123,
             0.361
-          ]
-        },
-        {
-          "name": "stone_tallA",
-          "file": "Models/GLTF format/stone_tallA.glb",
-          "size": [
-            0.983,
-            0.996,
-            0.683
           ]
         },
         {
@@ -228,51 +192,6 @@
           ]
         },
         {
-          "name": "mushroom_redGroup",
-          "file": "Models/GLTF format/mushroom_redGroup.glb",
-          "size": [
-            0.27,
-            0.25,
-            0.254
-          ]
-        },
-        {
-          "name": "stump_round",
-          "file": "Models/GLTF format/stump_round.glb",
-          "size": [
-            0.321,
-            0.206,
-            0.371
-          ]
-        },
-        {
-          "name": "log",
-          "file": "Models/GLTF format/log.glb",
-          "size": [
-            0.234,
-            0.173,
-            0.71
-          ]
-        },
-        {
-          "name": "fence_simple",
-          "file": "Models/GLTF format/fence_simple.glb",
-          "size": [
-            1,
-            0.345,
-            0.07
-          ]
-        },
-        {
-          "name": "sign",
-          "file": "Models/GLTF format/sign.glb",
-          "size": [
-            0.3,
-            0.409,
-            0.07
-          ]
-        },
-        {
           "name": "statue_obelisk",
           "file": "Models/GLTF format/statue_obelisk.glb",
           "size": [
@@ -289,26 +208,17 @@
             1,
             0.3
           ]
-        },
-        {
-          "name": "statue_ring",
-          "file": "Models/GLTF format/statue_ring.glb",
-          "size": [
-            0.6,
-            0.796,
-            0.4
-          ]
         }
       ]
     },
     "tech": {
       "file": "/3d/models/tech.glb",
-      "bytes": 150292,
+      "bytes": 145228,
       "source": "Kenney Space Kit (2.0)",
       "sourceUrl": "https://kenney.nl/assets/space-kit",
       "license": "CC0-1.0",
       "author": "Kenney (www.kenney.nl)",
-      "intendedUse": "AI Research Lab dome, satellite dishes, generators, crystals, contact tower",
+      "intendedUse": "Space park: lab dome, dishes, crystals, rocket, monorail train, astronaut guests, craters, spacecraft",
       "models": [
         {
           "name": "hangar_roundGlass",
@@ -316,15 +226,6 @@
           "size": [
             3.271,
             1.4,
-            2.833
-          ]
-        },
-        {
-          "name": "hangar_roundA",
-          "file": "Models/GLTF format/hangar_roundA.glb",
-          "size": [
-            3.271,
-            1.5,
             2.833
           ]
         },
@@ -338,39 +239,12 @@
           ]
         },
         {
-          "name": "satelliteDish",
-          "file": "Models/GLTF format/satelliteDish.glb",
-          "size": [
-            0.688,
-            0.616,
-            0.566
-          ]
-        },
-        {
-          "name": "satelliteDish_detailed",
-          "file": "Models/GLTF format/satelliteDish_detailed.glb",
-          "size": [
-            0.7,
-            0.616,
-            0.7
-          ]
-        },
-        {
           "name": "machine_wireless",
           "file": "Models/GLTF format/machine_wireless.glb",
           "size": [
             0.75,
             0.6,
             0.5
-          ]
-        },
-        {
-          "name": "machine_generator",
-          "file": "Models/GLTF format/machine_generator.glb",
-          "size": [
-            0.7,
-            0.4,
-            0.525
           ]
         },
         {
@@ -383,30 +257,12 @@
           ]
         },
         {
-          "name": "machine_barrelLarge",
-          "file": "Models/GLTF format/machine_barrelLarge.glb",
-          "size": [
-            0.754,
-            0.6,
-            0.754
-          ]
-        },
-        {
           "name": "rock_crystalsLargeA",
           "file": "Models/GLTF format/rock_crystalsLargeA.glb",
           "size": [
             0.834,
             0.541,
             0.919
-          ]
-        },
-        {
-          "name": "rock_crystalsLargeB",
-          "file": "Models/GLTF format/rock_crystalsLargeB.glb",
-          "size": [
-            0.939,
-            0.55,
-            0.932
           ]
         },
         {
@@ -419,57 +275,12 @@
           ]
         },
         {
-          "name": "desk_computer",
-          "file": "Models/GLTF format/desk_computer.glb",
-          "size": [
-            0.525,
-            0.375,
-            0.225
-          ]
-        },
-        {
-          "name": "desk_computerScreen",
-          "file": "Models/GLTF format/desk_computerScreen.glb",
-          "size": [
-            0.525,
-            0.637,
-            0.225
-          ]
-        },
-        {
-          "name": "desk_computerCorner",
-          "file": "Models/GLTF format/desk_computerCorner.glb",
-          "size": [
-            0.75,
-            0.375,
-            0.75
-          ]
-        },
-        {
-          "name": "desk_chair",
-          "file": "Models/GLTF format/desk_chair.glb",
-          "size": [
-            0.15,
-            0.294,
-            0.15
-          ]
-        },
-        {
           "name": "gate_complex",
           "file": "Models/GLTF format/gate_complex.glb",
           "size": [
             1,
             1.013,
             0.5
-          ]
-        },
-        {
-          "name": "rover",
-          "file": "Models/GLTF format/rover.glb",
-          "size": [
-            0.3,
-            0.385,
-            0.35
           ]
         },
         {
@@ -482,17 +293,26 @@
           ]
         },
         {
-          "name": "barrels",
-          "file": "Models/GLTF format/barrels.glb",
+          "name": "rocket_baseA",
+          "file": "Models/GLTF format/rocket_baseA.glb",
           "size": [
-            0.55,
-            0.35,
-            0.496
+            1.8,
+            1.6,
+            1.8
           ]
         },
         {
-          "name": "structure_detailed",
-          "file": "Models/GLTF format/structure_detailed.glb",
+          "name": "rocket_fuelA",
+          "file": "Models/GLTF format/rocket_fuelA.glb",
+          "size": [
+            1,
+            0.5,
+            1
+          ]
+        },
+        {
+          "name": "rocket_sidesA",
+          "file": "Models/GLTF format/rocket_sidesA.glb",
           "size": [
             1,
             1,
@@ -500,24 +320,114 @@
           ]
         },
         {
-          "name": "pipe_ringHigh",
-          "file": "Models/GLTF format/pipe_ringHigh.glb",
+          "name": "rocket_topA",
+          "file": "Models/GLTF format/rocket_topA.glb",
           "size": [
-            0.924,
-            1.3,
+            1,
+            0.8,
             1
+          ]
+        },
+        {
+          "name": "monorail_trainFront",
+          "file": "Models/GLTF format/monorail_trainFront.glb",
+          "size": [
+            0.6,
+            0.8,
+            1.05
+          ]
+        },
+        {
+          "name": "monorail_trainPassenger",
+          "file": "Models/GLTF format/monorail_trainPassenger.glb",
+          "size": [
+            0.5,
+            0.8,
+            1
+          ]
+        },
+        {
+          "name": "monorail_trainEnd",
+          "file": "Models/GLTF format/monorail_trainEnd.glb",
+          "size": [
+            0.5,
+            0.8,
+            1
+          ]
+        },
+        {
+          "name": "astronautA",
+          "file": "Models/GLTF format/astronautA.glb",
+          "size": [
+            0.483,
+            0.793,
+            0.33
+          ]
+        },
+        {
+          "name": "astronautB",
+          "file": "Models/GLTF format/astronautB.glb",
+          "size": [
+            0.483,
+            0.793,
+            0.33
+          ]
+        },
+        {
+          "name": "alien",
+          "file": "Models/GLTF format/alien.glb",
+          "size": [
+            0.483,
+            0.843,
+            0.33
+          ]
+        },
+        {
+          "name": "crater",
+          "file": "Models/GLTF format/crater.glb",
+          "size": [
+            0.715,
+            0.118,
+            0.826
+          ]
+        },
+        {
+          "name": "craterLarge",
+          "file": "Models/GLTF format/craterLarge.glb",
+          "size": [
+            0.886,
+            0.12,
+            0.886
+          ]
+        },
+        {
+          "name": "meteor",
+          "file": "Models/GLTF format/meteor.glb",
+          "size": [
+            0.866,
+            0.735,
+            0.75
+          ]
+        },
+        {
+          "name": "craft_racer",
+          "file": "Models/GLTF format/craft_racer.glb",
+          "size": [
+            1.2,
+            0.75,
+            2.026
           ]
         }
       ]
     },
     "factory": {
       "file": "/3d/models/factory.glb",
-      "bytes": 113456,
+      "bytes": 82720,
       "source": "Kenney Factory Kit (3.0)",
       "sourceUrl": "https://kenney.nl/assets/factory-kit",
       "license": "CC0-1.0",
       "author": "Kenney (www.kenney.nl)",
-      "intendedUse": "Engineering Workshop: conveyors, robot arms, face-scan gate, screens, crates",
+      "intendedUse": "bitcorp. assembly bay: conveyors, robot arms, face-scan gate, screens, crates",
       "models": [
         {
           "name": "robot-arm-a",
@@ -551,24 +461,6 @@
           "file": "Models/GLB format/conveyor-long.glb",
           "size": [
             2,
-            0.4,
-            1
-          ]
-        },
-        {
-          "name": "conveyor",
-          "file": "Models/GLB format/conveyor.glb",
-          "size": [
-            1,
-            0.4,
-            1
-          ]
-        },
-        {
-          "name": "conveyor-stripe-sides",
-          "file": "Models/GLB format/conveyor-stripe-sides.glb",
-          "size": [
-            1,
             0.4,
             1
           ]
@@ -619,24 +511,6 @@
           ]
         },
         {
-          "name": "screen-wide",
-          "file": "Models/GLB format/screen-wide.glb",
-          "size": [
-            1.2,
-            0.991,
-            0.487
-          ]
-        },
-        {
-          "name": "screen-hanging-wide",
-          "file": "Models/GLB format/screen-hanging-wide.glb",
-          "size": [
-            0.9,
-            0.691,
-            0.577
-          ]
-        },
-        {
           "name": "screen-panel-wide",
           "file": "Models/GLB format/screen-panel-wide.glb",
           "size": [
@@ -671,35 +545,17 @@
             1.551,
             0.4
           ]
-        },
-        {
-          "name": "lever-single",
-          "file": "Models/GLB format/lever-single.glb",
-          "size": [
-            0.5,
-            0.475,
-            0.34
-          ]
-        },
-        {
-          "name": "crane",
-          "file": "Models/GLB format/crane.glb",
-          "size": [
-            1.926,
-            3.553,
-            3.68
-          ]
         }
       ]
     },
     "furniture": {
       "file": "/3d/models/furniture.glb",
-      "bytes": 80484,
+      "bytes": 34192,
       "source": "Kenney Furniture Kit (1.0)",
       "sourceUrl": "https://kenney.nl/assets/furniture-kit",
       "license": "CC0-1.0",
       "author": "Kenney (www.kenney.nl)",
-      "intendedUse": "Home base desk setup, bookcase (articles), benches, plants, lamps",
+      "intendedUse": "Library writing desks, campus classroom, plaza planters, library topic props",
       "models": [
         {
           "name": "desk",
@@ -729,15 +585,6 @@
           ]
         },
         {
-          "name": "computerKeyboard",
-          "file": "Models/GLTF format/computerKeyboard.glb",
-          "size": [
-            0.282,
-            0.028,
-            0.118
-          ]
-        },
-        {
           "name": "chairDesk",
           "file": "Models/GLTF format/chairDesk.glb",
           "size": [
@@ -747,48 +594,12 @@
           ]
         },
         {
-          "name": "bookcaseOpen",
-          "file": "Models/GLTF format/bookcaseOpen.glb",
+          "name": "chair",
+          "file": "Models/GLTF format/chair.glb",
           "size": [
-            0.4,
-            0.88,
-            0.25
-          ]
-        },
-        {
-          "name": "bookcaseClosedWide",
-          "file": "Models/GLTF format/bookcaseClosedWide.glb",
-          "size": [
-            0.8,
-            0.79,
-            0.25
-          ]
-        },
-        {
-          "name": "books",
-          "file": "Models/GLTF format/books.glb",
-          "size": [
-            0.15,
-            0.104,
-            0.094
-          ]
-        },
-        {
-          "name": "lampRoundFloor",
-          "file": "Models/GLTF format/lampRoundFloor.glb",
-          "size": [
-            0.152,
-            0.86,
-            0.176
-          ]
-        },
-        {
-          "name": "lampSquareFloor",
-          "file": "Models/GLTF format/lampSquareFloor.glb",
-          "size": [
-            0.12,
-            0.86,
-            0.12
+            0.2,
+            0.47,
+            0.2
           ]
         },
         {
@@ -808,59 +619,196 @@
             0.14,
             0.095
           ]
-        },
+        }
+      ]
+    },
+    "food": {
+      "file": "/3d/models/food.glb",
+      "bytes": 111712,
+      "source": "Kenney Food Kit (2.0)",
+      "sourceUrl": "https://kenney.nl/assets/food-kit",
+      "license": "CC0-1.0",
+      "author": "Kenney (www.kenney.nl)",
+      "intendedUse": "Main Street snack stalls: the food on each counter and the giant roof signs",
+      "models": [
         {
-          "name": "plantSmall2",
-          "file": "Models/GLTF format/plantSmall2.glb",
+          "name": "donut-sprinkles",
+          "file": "Models/GLB format/donut-sprinkles.glb",
           "size": [
+            0.245,
             0.095,
+            0.283
+          ]
+        },
+        {
+          "name": "donut-chocolate",
+          "file": "Models/GLB format/donut-chocolate.glb",
+          "size": [
+            0.245,
+            0.089,
+            0.283
+          ]
+        },
+        {
+          "name": "donut",
+          "file": "Models/GLB format/donut.glb",
+          "size": [
+            0.245,
+            0.089,
+            0.283
+          ]
+        },
+        {
+          "name": "cup-coffee",
+          "file": "Models/GLB format/cup-coffee.glb",
+          "size": [
+            0.216,
             0.14,
-            0.095
+            0.287
           ]
         },
         {
-          "name": "bench",
-          "file": "Models/GLTF format/bench.glb",
+          "name": "burger-cheese",
+          "file": "Models/GLB format/burger-cheese.glb",
           "size": [
-            0.4,
-            0.47,
-            0.2
+            0.378,
+            0.22,
+            0.378
           ]
         },
         {
-          "name": "benchCushion",
-          "file": "Models/GLTF format/benchCushion.glb",
+          "name": "burger",
+          "file": "Models/GLB format/burger.glb",
           "size": [
-            0.4,
-            0.46,
-            0.2
+            0.404,
+            0.29,
+            0.404
           ]
         },
         {
-          "name": "rugRound",
-          "file": "Models/GLTF format/rugRound.glb",
+          "name": "fries",
+          "file": "Models/GLB format/fries.glb",
           "size": [
-            0.92,
-            0.01,
-            0.92
+            0.183,
+            0.398,
+            0.265
           ]
         },
         {
-          "name": "speaker",
-          "file": "Models/GLTF format/speaker.glb",
+          "name": "hot-dog",
+          "file": "Models/GLB format/hot-dog.glb",
           "size": [
-            0.148,
-            0.636,
-            0.148
+            0.586,
+            0.153,
+            0.203
           ]
         },
         {
-          "name": "radio",
-          "file": "Models/GLTF format/radio.glb",
+          "name": "soda-can",
+          "file": "Models/GLB format/soda-can.glb",
           "size": [
-            0.315,
-            0.228,
-            0.098
+            0.225,
+            0.351,
+            0.225
+          ]
+        },
+        {
+          "name": "ice-cream",
+          "file": "Models/GLB format/ice-cream.glb",
+          "size": [
+            0.235,
+            0.463,
+            0.272
+          ]
+        },
+        {
+          "name": "ice-cream-cup",
+          "file": "Models/GLB format/ice-cream-cup.glb",
+          "size": [
+            0.201,
+            0.18,
+            0.232
+          ]
+        },
+        {
+          "name": "sundae",
+          "file": "Models/GLB format/sundae.glb",
+          "size": [
+            0.223,
+            0.668,
+            0.258
+          ]
+        },
+        {
+          "name": "popsicle",
+          "file": "Models/GLB format/popsicle.glb",
+          "size": [
+            0.075,
+            0.49,
+            0.18
+          ]
+        },
+        {
+          "name": "soda",
+          "file": "Models/GLB format/soda.glb",
+          "size": [
+            0.254,
+            0.432,
+            0.254
+          ]
+        },
+        {
+          "name": "frappe",
+          "file": "Models/GLB format/frappe.glb",
+          "size": [
+            0.254,
+            0.499,
+            0.254
+          ]
+        },
+        {
+          "name": "cocktail",
+          "file": "Models/GLB format/cocktail.glb",
+          "size": [
+            0.261,
+            0.506,
+            0.361
+          ]
+        },
+        {
+          "name": "cupcake",
+          "file": "Models/GLB format/cupcake.glb",
+          "size": [
+            0.355,
+            0.424,
+            0.308
+          ]
+        },
+        {
+          "name": "muffin",
+          "file": "Models/GLB format/muffin.glb",
+          "size": [
+            0.305,
+            0.249,
+            0.264
+          ]
+        },
+        {
+          "name": "cookie-chocolate",
+          "file": "Models/GLB format/cookie-chocolate.glb",
+          "size": [
+            0.121,
+            0.065,
+            0.14
+          ]
+        },
+        {
+          "name": "lollypop",
+          "file": "Models/GLB format/lollypop.glb",
+          "size": [
+            0.039,
+            0.38,
+            0.188
           ]
         }
       ]

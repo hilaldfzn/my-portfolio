@@ -89,50 +89,64 @@ export function SkillTokens({ animate }: { animate: boolean }) {
   return <instancedMesh ref={coins} args={[coinGeometry, coinMaterial, TOKENS.length]} castShadow frustumCulled={false} />
 }
 
+// Markers float just above the object they belong to.
+const MARKER_HEIGHTS: Record<string, number> = {
+  "home-monolith": 4.6,
+  "gdp-labs-door": 5.6,
+  "bitcorp-terminal": 2.6,
+  "campus-education": 2.8,
+  "campus-classroom": 3.2,
+  "campus-booths": 3.4,
+  "skills-tower": 3.1,
+  "articles-index": 3.0,
+  "awards-hall": 3.0,
+}
+
 /** Floating diamonds marking things you can open; the nearest one lights up. */
 export function InteractionMarkers({ animate }: { animate: boolean }) {
-  const refs = useRef<(THREE.Mesh | null)[]>([])
+  const mesh = useRef<THREE.InstancedMesh>(null)
+  const scales = useRef<number[]>([])
+  const dummy = useMemo(() => new THREE.Object3D(), [])
   const items = useMemo(
     () =>
       INTERACTABLES.map((item) => ({
         ...item,
         color: item.panel.type === "exit" ? "#F78166" : DISTRICT_BY_ID[item.district].color,
-        height: item.id === "home-monolith" ? 4.45 : item.id.startsWith("kiosk") ? 2.75 : 2.9,
+        height: MARKER_HEIGHTS[item.id] ?? (item.id.startsWith("kiosk") ? 2.75 : item.id.startsWith("exhibit") ? 2.4 : 2.9),
       })),
     [],
   )
 
+  useLayoutEffect(() => {
+    const color = new THREE.Color()
+    items.forEach((item, index) => mesh.current?.setColorAt(index, color.set(item.color)))
+    if (mesh.current?.instanceColor) mesh.current.instanceColor.needsUpdate = true
+  }, [items])
+
+  // One instanced mesh for every marker; the nearby one grows.
   useFrame(({ clock }) => {
     const t = clock.elapsedTime
     const { nearby, phase } = useWorldStore.getState()
+    if (!mesh.current) return
+    mesh.current.visible = phase === "playing"
     items.forEach((item, index) => {
-      const mesh = refs.current[index]
-      if (!mesh) return
-      const active = nearby === item.id
-      mesh.visible = phase === "playing"
-      mesh.position.y = item.height + (animate ? Math.sin(t * 2.2 + index) * 0.12 : 0)
-      mesh.rotation.y = animate ? t * 1.2 : 0
-      const target = active ? 1.35 : 0.9
-      mesh.scale.setScalar(THREE.MathUtils.lerp(mesh.scale.x || target, target, 0.15))
-      ;(mesh.material as THREE.MeshBasicMaterial).opacity = active ? 1 : 0.7
+      const target = nearby === item.id ? 1.35 : 0.9
+      const scale = THREE.MathUtils.lerp(scales.current[index] ?? target, target, 0.15)
+      scales.current[index] = scale
+      dummy.position.set(item.position[0], item.height + (animate ? Math.sin(t * 2.2 + index) * 0.12 : 0), item.position[1])
+      dummy.rotation.set(0, animate ? t * 1.2 : 0, 0)
+      dummy.scale.setScalar(scale)
+      dummy.updateMatrix()
+      mesh.current!.setMatrixAt(index, dummy.matrix)
     })
+    mesh.current.instanceMatrix.needsUpdate = true
   })
 
   return (
-    <group>
-      {items.map((item, index) => (
-        <mesh
-          key={item.id}
-          ref={(node) => {
-            refs.current[index] = node
-          }}
-          position={[item.position[0], item.height, item.position[1]]}
-        >
-          <octahedronGeometry args={[0.2, 0]} />
-          <meshBasicMaterial color={item.color} transparent toneMapped={false} />
-        </mesh>
-      ))}
-    </group>
+    <instancedMesh ref={mesh} args={[undefined, undefined, items.length]} frustumCulled={false}>
+      <octahedronGeometry args={[0.2, 0]} />
+      <meshBasicMaterial toneMapped={false} />
+    </instancedMesh>
   )
 }
 
@@ -161,7 +175,8 @@ export function InteractionHitboxes() {
           onPointerOut={() => (document.body.style.cursor = "")}
         >
           <cylinderGeometry args={[0.85, 0.85, 2.4, 8]} />
-          <meshBasicMaterial transparent opacity={0} depthWrite={false} />
+          {/* Never drawn, still hit by the raycaster */}
+          <meshBasicMaterial visible={false} />
         </mesh>
       ))}
     </group>

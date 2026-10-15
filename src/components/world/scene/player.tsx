@@ -19,8 +19,8 @@ import {
   type Collider,
 } from "../world-config"
 
-const WALK_SPEED = 3.8
-const RUN_SPEED = 7.2
+const WALK_SPEED = 4.6
+const RUN_SPEED = 9.5
 const JUMP_VELOCITY = 7.2
 const GRAVITY = 21
 const ROBOT_SCALE = 0.4

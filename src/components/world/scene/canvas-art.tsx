@@ -3,6 +3,7 @@
 import { useEffect, useMemo } from "react"
 import * as THREE from "three"
 import { COLORS } from "../world-config"
+import { SHARED } from "./materials"
 
 type FontVariable = "--font-mono" | "--font-display" | "--font-body"
 
@@ -100,8 +101,12 @@ export function useCanvasTexture(width: number, height: number, draw: Draw, key:
 }
 
 // ---------------------------------------------------------------------------
-// Signboard: the main site's card motif (ink card, 1px border, coral left accent).
+// Signboard: the main site's card motif (ink card, 1px border, coral left accent), mounted
+// low on a plinth like a theme-park land marker.
 // ---------------------------------------------------------------------------
+
+const PLINTH_HEIGHT = 0.42
+const BOARD_TILT = -0.14
 
 interface SignProps {
   label: string
@@ -129,13 +134,25 @@ export function SignBoard({ label, title, subtitle, color = COLORS.coral, positi
       ctx.fillStyle = color
       ctx.font = `500 30px ${fontFamily("--font-mono")}`
       ctx.fillText(`// ${label}`, 44, 64)
+      // Long titles (company names) shrink first, then wrap onto two lines instead of being squashed.
+      const maxWidth = w - 84
+      const titleFont = (size: number) => `400 ${size}px ${fontFamily("--font-display")}`
+      let size = 74
+      ctx.font = titleFont(size)
+      while (size > 56 && ctx.measureText(title).width > maxWidth) ctx.font = titleFont((size -= 2))
+      let lines = [title]
+      if (ctx.measureText(title).width > maxWidth) {
+        size = 54
+        ctx.font = titleFont(size)
+        lines = wrapText(ctx, title, maxWidth).slice(0, 2)
+      }
       ctx.fillStyle = "#E6EDF3"
-      ctx.font = `400 74px ${fontFamily("--font-display")}`
-      ctx.fillText(title, 42, 160, w - 80)
+      const firstBaseline = lines.length > 1 ? 128 : 160
+      lines.forEach((line, index) => ctx.fillText(line, 42, firstBaseline + index * size * 1.02, maxWidth))
       if (subtitle) {
         ctx.fillStyle = "#8B949E"
         ctx.font = `400 28px ${fontFamily("--font-mono")}`
-        ctx.fillText(subtitle, 44, 232, w - 80)
+        ctx.fillText(subtitle, 44, lines.length > 1 ? 262 : 232, maxWidth)
       }
       ctx.fillStyle = "#3FB950"
       ctx.beginPath()
@@ -147,20 +164,25 @@ export function SignBoard({ label, title, subtitle, color = COLORS.coral, positi
 
   return (
     <group position={position} rotation-y={rotation}>
-      {[-1, 1].map((side) => (
-        <mesh key={side} position={[side * (width / 2 - 0.25), 0.9, -0.17]} castShadow>
-          <boxGeometry args={[0.12, 1.8, 0.12]} />
-          <meshStandardMaterial color="#2C333E" roughness={0.7} />
+      <mesh position-y={PLINTH_HEIGHT / 2} castShadow receiveShadow>
+        <boxGeometry args={[width + 0.3, PLINTH_HEIGHT, 0.56]} />
+        <primitive object={SHARED.slate} attach="material" />
+      </mesh>
+      <mesh position={[0, PLINTH_HEIGHT - 0.07, 0.285]}>
+        <boxGeometry args={[width + 0.3, 0.05, 0.02]} />
+        <meshBasicMaterial color={color} toneMapped={false} />
+      </mesh>
+      {/* Tilted back a little so it reads from the follow camera above */}
+      <group position-y={PLINTH_HEIGHT + 0.04 + (height + 0.12) / 2} rotation-x={BOARD_TILT}>
+        <mesh castShadow>
+          <boxGeometry args={[width + 0.12, height + 0.12, 0.12]} />
+          <primitive object={SHARED.ink} attach="material" />
         </mesh>
-      ))}
-      <mesh position={[0, 1.85, -0.06]} castShadow>
-        <boxGeometry args={[width + 0.12, height + 0.12, 0.08]} />
-        <meshStandardMaterial color="#161B22" roughness={0.6} />
-      </mesh>
-      <mesh position={[0, 1.85, -0.015]}>
-        <planeGeometry args={[width, height]} />
-        <meshBasicMaterial map={texture} toneMapped={false} />
-      </mesh>
+        <mesh position-z={0.065}>
+          <planeGeometry args={[width, height]} />
+          <meshBasicMaterial map={texture} toneMapped={false} polygonOffset polygonOffsetFactor={-1} polygonOffsetUnits={-4} />
+        </mesh>
+      </group>
     </group>
   )
 }
@@ -184,10 +206,11 @@ export function Screen({
   resolution?: number
 }) {
   const texture = useCanvasTexture(resolution, Math.round((resolution * height) / width), draw, drawKey)
+  // Screens sit just in front of their housings; the polygon offset keeps them from z-fighting.
   return (
     <mesh position={position} rotation={rotation}>
       <planeGeometry args={[width, height]} />
-      <meshBasicMaterial map={texture} toneMapped={false} />
+      <meshBasicMaterial map={texture} toneMapped={false} polygonOffset polygonOffsetFactor={-1} polygonOffsetUnits={-4} />
     </mesh>
   )
 }

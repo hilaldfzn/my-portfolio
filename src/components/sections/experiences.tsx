@@ -95,7 +95,6 @@ function TimelineCard({
     period: string
     location: string
     type: string
-    description: string
     highlights: string[]
     liveDemo?: string
   }
@@ -126,10 +125,6 @@ function TimelineCard({
       </p>
       <p className="text-xs font-mono text-muted-foreground/70 mb-4">
         {exp.location}
-      </p>
-
-      <p className="text-sm text-muted-foreground mb-4 leading-relaxed font-body">
-        {exp.description}
       </p>
 
       <ul className="space-y-2 mb-4">

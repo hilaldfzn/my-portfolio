@@ -9,58 +9,100 @@ import { allSkills, skillCategories } from "../../../../content/skills"
 import { COLORS, TOKEN_COLORS } from "../../world-config"
 import { Model } from "../models"
 import { Screen, fontFamily, wrapText } from "../canvas-art"
+import { Lattice } from "../park"
 import { DistrictFrame, DistrictPad, DistrictSign } from "./shared"
+import { SHARED } from "../materials"
 
 // ---------------------------------------------------------------------------
-// skills/ — the Token Well
+// skills/ — Tech Stack: a drop-tower ride whose tower is one layer per skill category
 // ---------------------------------------------------------------------------
 
-export function SkillsDistrict({ animate }: { animate: boolean }) {
-  const orbit = useRef<THREE.Group>(null)
-  useFrame(({ clock }) => {
-    if (orbit.current && animate) orbit.current.rotation.y = clock.elapsedTime * 0.5
-  })
+const LAYER_HEIGHT = 0.95
+const STACK_BASE = 0.4
+const DROP_CYCLE = 9
+
+function DropTower({ animate }: { animate: boolean }) {
+  const gondola = useRef<THREE.Group>(null)
   const categories = skillCategories.map((category) => ({ ...category, color: TOKEN_COLORS[category.label] }))
-
+  const stackTop = STACK_BASE + categories.length * LAYER_HEIGHT
+  const mastTop = stackTop + 5.2
+  useFrame(({ clock }) => {
+    if (!gondola.current) return
+    if (!animate) {
+      gondola.current.position.y = 3.6
+      return
+    }
+    // Slow climb, a pause at the top, then the drop.
+    const t = clock.elapsedTime % DROP_CYCLE
+    const low = 0.9
+    const high = mastTop - 1.4
+    let y = low
+    if (t < 6) y = low + (high - low) * (t / 6)
+    else if (t < 7) y = high
+    else if (t < 7.6) y = high - (high - low) * Math.pow((t - 7) / 0.6, 2)
+    gondola.current.position.y = y
+  })
   return (
-    <DistrictFrame id="skills">
-      <DistrictPad id="skills" />
-      {/* The well */}
-      <mesh position={[0, 0.35, -0.4]} castShadow receiveShadow>
-        <cylinderGeometry args={[1.55, 1.7, 0.7, 6, 1, true]} />
-        <meshStandardMaterial color="#3A4250" roughness={0.8} side={THREE.DoubleSide} />
+    <group position={[0, 0, -1.2]}>
+      <mesh position-y={0.2} castShadow receiveShadow>
+        <cylinderGeometry args={[2.1, 2.2, 0.4, 6]} />
+        <meshStandardMaterial color="#3A4250" roughness={0.8} flatShading />
       </mesh>
-      <mesh position={[0, 0.5, -0.4]} rotation-x={-Math.PI / 2}>
-        <circleGeometry args={[1.5, 6]} />
-        <meshBasicMaterial color="#8E5BE8" toneMapped={false} />
+      {categories.map((category, index) => (
+        <mesh key={category.label} position-y={STACK_BASE + index * LAYER_HEIGHT + LAYER_HEIGHT / 2} rotation-y={index * 0.12} castShadow receiveShadow>
+          <cylinderGeometry args={[1.75 - index * 0.1, 1.8 - index * 0.1, LAYER_HEIGHT - 0.08, 6]} />
+          <meshStandardMaterial color={category.color} emissive={category.color} emissiveIntensity={0.22} roughness={0.5} flatShading />
+        </mesh>
+      ))}
+      <mesh position-y={(stackTop + mastTop) / 2}>
+        <cylinderGeometry args={[0.22, 0.3, mastTop - stackTop, 8]} />
+        <meshStandardMaterial color="#D9DCEB" roughness={0.5} metalness={0.2} />
       </mesh>
-      <group ref={orbit} position={[0, 1.6, -0.4]}>
-        {categories.map((category, index) => {
-          const angle = (index / categories.length) * Math.PI * 2
+      <mesh position-y={mastTop + 0.2}>
+        <sphereGeometry args={[0.3, 12, 10]} />
+        <meshBasicMaterial color="#FF5F57" toneMapped={false} />
+      </mesh>
+      <group ref={gondola} position-y={3.6} userData={{ dynamic: true }}>
+        <mesh rotation-x={Math.PI / 2}>
+          <torusGeometry args={[2.25, 0.16, 8, 36]} />
+          <meshStandardMaterial color="#D9DCEB" roughness={0.45} metalness={0.2} />
+        </mesh>
+        {Array.from({ length: 8 }, (_, i) => {
+          const a = (i / 8) * Math.PI * 2
           return (
-            <mesh key={category.label} position={[Math.cos(angle) * 1.1, Math.sin(index) * 0.15, Math.sin(angle) * 1.1]} rotation-y={-angle}>
-              <cylinderGeometry args={[0.24, 0.24, 0.07, 6]} />
-              <meshBasicMaterial color={category.color} toneMapped={false} />
+            <mesh key={i} position={[Math.cos(a) * 2.55, -0.15, Math.sin(a) * 2.55]} rotation-y={-a}>
+              <boxGeometry args={[0.45, 0.55, 0.5]} />
+              <meshStandardMaterial color={categories[i % categories.length].color} roughness={0.5} />
             </mesh>
           )
         })}
       </group>
+    </group>
+  )
+}
+
+export function SkillsDistrict({ animate }: { animate: boolean }) {
+  const categories = skillCategories.map((category) => ({ ...category, color: TOKEN_COLORS[category.label] }))
+  return (
+    <DistrictFrame id="skills">
+      <DistrictPad id="skills" />
+      <DropTower animate={animate} />
 
       {/* Terminal screen listing the catalog */}
-      <group position={[0, 0, -3.4]}>
-        {[-1.75, 1.75].map((x) => (
+      <group position={[0, 0, -6.0]}>
+        {[-1.85, 1.85].map((x) => (
           <mesh key={x} position={[x, 1.5, 0]} castShadow>
             <boxGeometry args={[0.14, 3.0, 0.14]} />
-            <meshStandardMaterial color="#2C333E" />
+            <primitive object={SHARED.slate} attach="material" />
           </mesh>
         ))}
         <mesh position={[0, 2.6, -0.04]} castShadow>
-          <boxGeometry args={[3.7, 1.9, 0.1]} />
-          <meshStandardMaterial color="#161B22" />
+          <boxGeometry args={[3.9, 1.95, 0.1]} />
+          <primitive object={SHARED.ink} attach="material" />
         </mesh>
         <Screen
-          width={3.5}
-          height={1.72}
+          width={3.7}
+          height={1.78}
           position={[0, 2.6, 0.02]}
           resolution={760}
           drawKey="skills-terminal"
@@ -72,7 +114,6 @@ export function SkillsDistrict({ animate }: { animate: boolean }) {
             ctx.fillText("$", 30, 54)
             ctx.fillStyle = "#E6EDF3"
             ctx.fillText(" ls skills/", 46, 54)
-            // Two columns so all categories fit the screen.
             const rows = Math.ceil(categories.length / 2)
             categories.forEach((category, index) => {
               const column = Math.floor(index / rows)
@@ -92,7 +133,7 @@ export function SkillsDistrict({ animate }: { animate: boolean }) {
       </group>
 
       {[-1, 1].map((side) => (
-        <Model key={side} pack="tech" name="rock_crystalsLargeA" position={[side * 4.3, 0, -2.2]} scale={2.2} rotation={-side * 0.6} />
+        <Model key={side} pack="tech" name="rock_crystalsLargeA" position={[side * 5.0, 0, -3.2]} scale={2.3} rotation={-side * 0.6} />
       ))}
       <DistrictSign id="skills" subtitle={`${allSkills.length} skills · ${skillCategories.length} categories`} />
     </DistrictFrame>
@@ -100,7 +141,7 @@ export function SkillsDistrict({ animate }: { animate: boolean }) {
 }
 
 // ---------------------------------------------------------------------------
-// awards/ — Hall of Achievements
+// awards/ — Hall of Achievements, with a walk of fame leading in
 // ---------------------------------------------------------------------------
 
 function useTrophyGeometry() {
@@ -122,8 +163,25 @@ function useTrophyGeometry() {
   }, [])
 }
 
+function useStarGeometry() {
+  return useMemo(() => {
+    const shape = new THREE.Shape()
+    for (let i = 0; i < 10; i++) {
+      const r = i % 2 ? 0.2 : 0.48
+      const a = (i / 10) * Math.PI * 2 - Math.PI / 2
+      const x = Math.cos(a) * r
+      const y = Math.sin(a) * r
+      if (i === 0) shape.moveTo(x, y)
+      else shape.lineTo(x, y)
+    }
+    shape.closePath()
+    return new THREE.ShapeGeometry(shape)
+  }, [])
+}
+
 export function AwardsDistrict({ animate }: { animate: boolean }) {
   const trophy = useTrophyGeometry()
+  const star = useStarGeometry()
   const trophies = useRef<(THREE.Mesh | null)[]>([])
   useFrame(({ clock }) => {
     if (!animate) return
@@ -132,24 +190,24 @@ export function AwardsDistrict({ animate }: { animate: boolean }) {
     })
   })
   const pedestals: [number, number][] = [
-    [-2.2, -1.3],
-    [0, -0.6],
-    [2.2, -1.3],
+    [-2.6, -1.6],
+    [0, -0.8],
+    [2.6, -1.6],
   ]
 
   return (
     <DistrictFrame id="awards">
       <DistrictPad id="awards" />
-      <Model pack="nature" name="statue_obelisk" position={[0, 0, -2.9]} scale={4.6} />
-      <Model pack="nature" name="statue_column" position={[-3.7, 0, -0.4]} scale={2.6} />
-      <Model pack="nature" name="statue_column" position={[3.7, 0, -0.4]} scale={2.6} />
+      <Model pack="nature" name="statue_obelisk" position={[0, 0, -3.6]} scale={5.4} />
+      <Model pack="nature" name="statue_column" position={[-4.4, 0, -0.6]} scale={2.8} />
+      <Model pack="nature" name="statue_column" position={[4.4, 0, -0.6]} scale={2.8} />
       {pedestals.map(([x, z], index) => {
         const award = awards[index]
         return (
-          <group key={award.id} position={[x, 0, z]} rotation-y={-x * 0.12}>
+          <group key={award.id} position={[x, 0, z]} rotation-y={-x * 0.1}>
             <mesh position={[0, 0.55, 0]} castShadow receiveShadow>
               <boxGeometry args={[1.0, 1.1, 1.0]} />
-              <meshStandardMaterial color="#2C333E" roughness={0.75} />
+              <primitive object={SHARED.slate} attach="material" />
             </mesh>
             <mesh
               ref={(node) => {
@@ -157,7 +215,8 @@ export function AwardsDistrict({ animate }: { animate: boolean }) {
               }}
               geometry={trophy}
               position={[0, 1.1, 0]}
-              scale={1.15}
+              userData={{ dynamic: true }}
+              scale={1.2}
               castShadow
             >
               <meshStandardMaterial color={COLORS.yellow} metalness={0.55} roughness={0.32} flatShading />
@@ -168,10 +227,10 @@ export function AwardsDistrict({ animate }: { animate: boolean }) {
               position={[0, 0.62, 0.505]}
               resolution={360}
               drawKey={`plaque-${award.id}`}
-              draw={(ctx, w, h) => {
+              draw={(ctx, w) => {
                 ctx.fillStyle = "#0D1117"
-                ctx.fillRect(0, 0, w, h)
-                ctx.fillStyle = COLORS.yellow
+                ctx.fillRect(0, 0, w, 248)
+                ctx.fillStyle = COLORS.orange
                 ctx.font = `500 22px ${fontFamily("--font-mono")}`
                 ctx.fillText(award.year, 20, 40)
                 ctx.fillStyle = "#E6EDF3"
@@ -184,84 +243,46 @@ export function AwardsDistrict({ animate }: { animate: boolean }) {
           </group>
         )
       })}
+      {/* Walk of fame */}
+      {[2.8, 4.3, 5.8, 7.3].map((z, index) => (
+        <mesh key={z} geometry={star} position={[index % 2 ? 1.0 : -1.0, 0.04, z]} rotation-x={-Math.PI / 2}>
+          <meshBasicMaterial color={COLORS.orange} toneMapped={false} />
+        </mesh>
+      ))}
       <DistrictSign id="awards" subtitle="scholarship · competitions" />
     </DistrictFrame>
   )
 }
 
 // ---------------------------------------------------------------------------
-// contact/ — Signal Tower and the portal home
+// contact/ — Contact Hub: comms tower, contact terminal and the portal home
 // ---------------------------------------------------------------------------
 
-function LatticeTower({ animate }: { animate: boolean }) {
+export function ContactDistrict({ animate }: { animate: boolean }) {
   const beacon = useRef<THREE.MeshBasicMaterial>(null)
   useFrame(({ clock }) => {
     if (beacon.current) beacon.current.opacity = animate ? (Math.sin(clock.elapsedTime * 3) > 0 ? 1 : 0.25) : 1
   })
-  const height = 8.6
-  const base = 1.3
-  const top = 0.32
-  const legs = [
-    [-1, -1],
-    [1, -1],
-    [1, 1],
-    [-1, 1],
-  ]
-  const levels = 5
-  return (
-    <group>
-      {legs.map(([sx, sz], index) => {
-        const from = new THREE.Vector3(sx * base, 0, sz * base)
-        const to = new THREE.Vector3(sx * top, height, sz * top)
-        const mid = from.clone().add(to).multiplyScalar(0.5)
-        const length = from.distanceTo(to)
-        const quaternion = new THREE.Quaternion().setFromUnitVectors(new THREE.Vector3(0, 1, 0), to.clone().sub(from).normalize())
-        return (
-          <mesh key={index} position={mid} quaternion={quaternion} castShadow>
-            <boxGeometry args={[0.14, length, 0.14]} />
-            <meshStandardMaterial color="#3A4250" roughness={0.6} />
-          </mesh>
-        )
-      })}
-      {Array.from({ length: levels }, (_, level) => {
-        const y = ((level + 1) / (levels + 1)) * height
-        const half = base + (top - base) * (y / height)
-        return (
-          <group key={level} position-y={y}>
-            {[0, Math.PI / 2, Math.PI, -Math.PI / 2].map((angle) => (
-              <mesh key={angle} rotation-y={angle} position={[Math.sin(angle) * half, 0, Math.cos(angle) * half]}>
-                <boxGeometry args={[half * 2, 0.08, 0.08]} />
-                <meshStandardMaterial color={level % 2 ? COLORS.coral : "#3A4250"} roughness={0.6} />
-              </mesh>
-            ))}
-          </group>
-        )
-      })}
-      <group position={[0, height, 0]}>
-        <Model pack="tech" name="satelliteDish_large" scale={2.2} rotation={Math.PI} />
-        <mesh position={[0, 2.0, 0]}>
-          <sphereGeometry args={[0.16, 10, 8]} />
-          <meshBasicMaterial ref={beacon} color="#FF5F57" transparent toneMapped={false} />
-        </mesh>
-      </group>
-    </group>
-  )
-}
-
-export function ContactDistrict({ animate }: { animate: boolean }) {
   return (
     <DistrictFrame id="contact">
       <DistrictPad id="contact" />
-      <group position={[0, 0, -2.2]}>
-        <LatticeTower animate={animate} />
-        <Model pack="tech" name="machine_wireless" position={[0, 0, 0]} scale={2.4} />
+      <group position={[0, 0, -2.6]}>
+        <Lattice height={9} base={1.4} top={0.34} levels={5} accent={COLORS.coral} />
+        <group position-y={9}>
+          <Model pack="tech" name="satelliteDish_large" scale={2.3} rotation={Math.PI} />
+          <mesh position={[0, 2.1, 0]}>
+            <sphereGeometry args={[0.17, 10, 8]} />
+            <meshBasicMaterial ref={beacon} color="#FF5F57" transparent toneMapped={false} />
+          </mesh>
+        </group>
+        <Model pack="tech" name="machine_wireless" scale={2.4} />
       </group>
 
       {/* Contact terminal and the portal home, mirrored either side of the approach */}
-      <group position={[-3.2, 0, 0.8]}>
+      <group position={[-3.4, 0, 1.0]}>
         <mesh position={[0, 0.6, 0]} castShadow>
           <boxGeometry args={[1.0, 1.2, 0.7]} />
-          <meshStandardMaterial color="#2C333E" roughness={0.7} />
+          <primitive object={SHARED.slate} attach="material" />
         </mesh>
         <Screen
           width={1.0}
@@ -286,8 +307,7 @@ export function ContactDistrict({ animate }: { animate: boolean }) {
           }}
         />
       </group>
-
-      <group position={[3.2, 0, 0.8]}>
+      <group position={[3.4, 0, 1.0]}>
         <Model pack="tech" name="gate_complex" scale={3.2} />
         <mesh position={[0, 1.45, 0]}>
           <planeGeometry args={[1.5, 2.3]} />

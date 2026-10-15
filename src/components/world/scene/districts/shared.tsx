@@ -10,14 +10,19 @@ import {
   type DistrictId,
 } from "../../world-config"
 import { SignBoard } from "../canvas-art"
+import { StaticBatch } from "../models"
+import { SHARED } from "../materials"
 
-/** Places children in a district's local frame (+z faces the island center). */
+/**
+ * Places children in a district's local frame (+z faces the park center) and batches its static
+ * meshes. Animated parts must be marked with `userData={{ dynamic: true }}`.
+ */
 export function DistrictFrame({ id, children }: { id: DistrictId; children: ReactNode }) {
   const district = DISTRICT_BY_ID[id]
   const [x, z] = districtCenter(district)
   return (
     <group position={[x, 0, z]} rotation-y={districtRotation(district)}>
-      {children}
+      <StaticBatch>{children}</StaticBatch>
     </group>
   )
 }
@@ -29,7 +34,7 @@ export function DistrictPad({ id, segments = 64 }: { id: DistrictId; segments?: 
     <group>
       <mesh rotation-x={-Math.PI / 2} position-y={0.025} receiveShadow>
         <circleGeometry args={[padRadius, segments]} />
-        <meshStandardMaterial color="#2C333E" roughness={0.9} />
+        <primitive object={SHARED.slate} attach="material" />
       </mesh>
       <mesh rotation-x={-Math.PI / 2} position-y={0.035}>
         <ringGeometry args={[padRadius - 0.16, padRadius, segments]} />

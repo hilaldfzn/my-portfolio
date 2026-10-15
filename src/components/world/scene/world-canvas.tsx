@@ -10,7 +10,7 @@ import * as THREE from "three"
 import { COLORS } from "../world-config"
 import { useWorldStore } from "../store"
 import { CameraRig } from "./camera-rig"
-import { Dust, FloatingIslets, Lights, Void } from "./environment"
+import { Dust, Lights, Nebula, Planets, Stars, Void } from "./environment"
 import { preloadPacks } from "./models"
 import { World } from "./world"
 
@@ -27,6 +27,10 @@ function LoadingReporter() {
 /** Opt-in renderer stats for maintainers: open /3d?debug and read window.__islandPerf. */
 function PerfProbe() {
   const gl = useThree((state) => state.gl)
+  const scene = useThree((state) => state.scene)
+  useEffect(() => {
+    ;(window as unknown as { __islandScene?: THREE.Scene }).__islandScene = scene
+  }, [scene])
   const frames = useRef({ count: 0, since: performance.now() })
   useFrame(() => {
     const f = frames.current
@@ -58,7 +62,7 @@ export default function WorldCanvas() {
     <Canvas
       shadows
       dpr={dpr}
-      camera={{ fov: 45, near: 0.5, far: 400, position: [40, 40, 50] }}
+      camera={{ fov: 45, near: 0.5, far: 900, position: [90, 80, 110] }}
       gl={{ antialias: true, powerPreference: "high-performance" }}
       onCreated={({ gl }) => {
         gl.toneMapping = THREE.ACESFilmicToneMapping
@@ -72,12 +76,14 @@ export default function WorldCanvas() {
       tabIndex={-1}
     >
       <color attach="background" args={[COLORS.ink]} />
-      <fog attach="fog" args={[COLORS.ink, 70, 170]} />
+      <fog attach="fog" args={[COLORS.ink, 120, 300]} />
       <PerformanceMonitor onDecline={() => setDpr(1)} onIncline={() => setDpr(maxDpr)} />
       <Lights shadowSize={touch ? 1024 : 2048} />
       <Void />
-      <FloatingIslets animate={animate} />
-      {animate && <Dust animate={animate} count={touch ? 120 : 240} />}
+      <Stars count={touch ? 1400 : 2200} />
+      <Planets animate={animate} />
+      <Nebula />
+      {animate && <Dust animate={animate} count={touch ? 140 : 260} />}
       <Suspense fallback={null}>
         <World animate={animate} />
       </Suspense>

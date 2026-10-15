@@ -3,7 +3,7 @@
 import { useEffect, useRef, useState, type ReactNode } from "react"
 import Link from "next/link"
 import { ArrowLeft, ArrowUp, Map as MapIcon, Play, RotateCcw } from "lucide-react"
-import { DISTRICTS, TOKENS } from "../world-config"
+import { DISTRICTS, PARK_NAME, TOKENS } from "../world-config"
 import { runtime } from "../systems/runtime"
 import { useWorldStore } from "../store"
 import { Dialog } from "./dialog"
@@ -65,7 +65,7 @@ export function ControlsLegend({ touch, compact = false }: { touch: boolean; com
 const STEPS = (touch: boolean) => [
   {
     label: "system",
-    body: "You're a guest agent on Inference Island. Every building here is made from Hilal's real work: the AI lab, the engineering workshop, the project gallery, and more.",
+    body: `Welcome to ${PARK_NAME}, guest agent. Every land in this park is built from Hilal's real work: GDP Labs, bitcorp., Universitas Indonesia, his projects, articles, and more.`,
   },
   {
     label: "controls",
@@ -75,7 +75,7 @@ const STEPS = (touch: boolean) => [
   },
   {
     label: "objective",
-    body: `Visit all ${DISTRICTS.length} districts and collect ${TOKENS.length} skill tokens. In a hurry? Press M (or Map) anytime to jump straight to any section.`,
+    body: `Visit all ${DISTRICTS.length} lands and collect ${TOKENS.length} skill tokens along the paths. In a hurry? Press M (or Map) anytime to jump straight to any section.`,
   },
 ]
 
@@ -142,8 +142,8 @@ export function PauseMenu({ restoreFocus }: { restoreFocus: () => HTMLElement | 
         <section className="space-y-2 border-t border-border pt-4">
           <p className="font-mono text-xs text-muted-foreground">{"// credits"}</p>
           <p className="text-xs leading-relaxed text-muted-foreground">
-            3D models: Kenney Space, Factory, Furniture and Nature kits (CC0) and RobotExpressive by Tomás Laulhé /
-            Quaternius (CC0). Island, paths and signage are procedural. Built with three.js and React Three Fiber.
+            3D models: Kenney Space, Factory, Furniture, Food and Nature kits (CC0) and RobotExpressive by Tomás Laulhé /
+            Quaternius (CC0). Island, paths, signage, stalls, benches and bookcases are procedural. Built with three.js and React Three Fiber.
           </p>
           <button type="button" className="inline-flex items-center gap-1.5 font-mono text-xs text-muted-foreground underline-offset-4 hover:text-primary hover:underline" onClick={resetProgress}>
             <RotateCcw className="h-3.5 w-3.5" /> Reset progress

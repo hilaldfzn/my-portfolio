@@ -3,13 +3,13 @@
 import { useEffect, useMemo, useRef } from "react"
 import Link from "next/link"
 import { ArrowLeft, BookOpen, Check, Navigation, Play, RotateCcw } from "lucide-react"
-import { DISTRICTS, SPOKES, TOKENS, districtCenter, islandRadius, type DistrictId } from "../world-config"
+import { DISTRICTS, FEATURES, ISLAND_MAX_RADIUS, PATHS, PLAZA_RADIUS, TOKENS, districtCenter, islandRadius, type DistrictId } from "../world-config"
 import { runtime } from "../systems/runtime"
 import { useWorldStore } from "../store"
 import { Dialog } from "./dialog"
 import { buttonStyles } from "./primitives"
 
-const VIEW = 36
+const VIEW = ISLAND_MAX_RADIUS + 2
 
 function islandPath() {
   const steps = 120
@@ -55,29 +55,38 @@ export function IslandMap({ className, onSelect, showLabels = true, showPlayer =
       viewBox={`${-VIEW} ${-VIEW} ${VIEW * 2} ${VIEW * 2}`}
       className={className}
       role={decorative ? undefined : onSelect ? "group" : "img"}
-      aria-label={decorative ? undefined : "Map of Inference Island"}
+      aria-label={decorative ? undefined : "Map of Orbit Park"}
       aria-hidden={decorative || undefined}
     >
       <defs>
-        <pattern id="map-dots" width="3.2" height="3.2" patternUnits="userSpaceOnUse">
-          <circle cx="1.6" cy="1.6" r="0.22" fill="#30363D" />
+        <pattern id="map-dots" width="5" height="5" patternUnits="userSpaceOnUse">
+          <circle cx="2.5" cy="2.5" r="0.32" fill="#30363D" />
         </pattern>
       </defs>
       <rect x={-VIEW} y={-VIEW} width={VIEW * 2} height={VIEW * 2} fill="url(#map-dots)" />
-      <path d={outline} fill="#1E3A33" stroke="#D27A55" strokeWidth="0.6" />
-      {SPOKES.map((spoke) => (
+      <path d={outline} fill="#2F2C4A" stroke="#7C73A6" strokeWidth="0.9" />
+      {PATHS.map((line) => (
         <polyline
-          key={spoke.district}
-          points={spoke.points.map(([x, z]) => `${x},${z}`).join(" ")}
+          key={line.id}
+          points={line.points.map(([x, z]) => `${x.toFixed(1)},${z.toFixed(1)}`).join(" ")}
           fill="none"
-          stroke="#F78166"
-          strokeOpacity="0.7"
-          strokeWidth="0.5"
+          stroke={line.kind === "promenade" ? "#D2A8FF" : "#F78166"}
+          strokeOpacity="0.75"
+          strokeWidth={line.kind === "avenue" ? 1.6 : 0.9}
           strokeLinecap="round"
           strokeLinejoin="round"
         />
       ))}
-      <circle r="7.2" fill="#2A313C" stroke="#F78166" strokeWidth="0.4" />
+      <circle r={PLAZA_RADIUS} fill="#2A313C" stroke="#F78166" strokeWidth="0.7" />
+      {/* Attractions: rocket, wheel, orbiter, gate */}
+      <path
+        d={`M${FEATURES.rocket.position[0]} ${FEATURES.rocket.position[1] - 3} l2.4 4.6 h-4.8 Z`}
+        fill="#E6EDF3"
+        fillOpacity="0.8"
+      />
+      <circle cx={FEATURES.wheel.position[0]} cy={FEATURES.wheel.position[1]} r="3" fill="none" stroke="#E6EDF3" strokeOpacity="0.7" strokeWidth="0.6" />
+      <circle cx={FEATURES.orbiter.position[0]} cy={FEATURES.orbiter.position[1]} r={FEATURES.orbiter.radius} fill="none" stroke="#D2A8FF" strokeOpacity="0.7" strokeWidth="0.6" />
+      <rect x={-FEATURES.gate.halfWidth} y={FEATURES.gate.position[1] - 0.6} width={FEATURES.gate.halfWidth * 2} height="1.2" fill="#F78166" />
       {DISTRICTS.map((district) => {
         const [x, z] = districtCenter(district)
         const known = discovered.includes(district.id)
@@ -85,10 +94,10 @@ export function IslandMap({ className, onSelect, showLabels = true, showPlayer =
         const label = district.path
         const content = (
           <>
-            <circle cx={x} cy={z} r={here ? 2.6 : 2.1} fill="#0D1117" stroke={district.color} strokeWidth={here ? 0.9 : 0.6} />
-            {known && <path d={`M${x - 0.9} ${z} l0.7 0.7 l1.3 -1.4`} fill="none" stroke={district.color} strokeWidth="0.45" />}
+            <circle cx={x} cy={z} r={here ? 4.2 : 3.4} fill="#0D1117" stroke={district.color} strokeWidth={here ? 1.4 : 1} />
+            {known && <path d={`M${x - 1.5} ${z} l1.1 1.1 l2.1 -2.2`} fill="none" stroke={district.color} strokeWidth="0.7" />}
             {showLabels && (
-              <text x={x} y={z + (z > 0 ? 4.6 : -3.6)} textAnchor="middle" fontSize="2.3" fill="#E6EDF3" fontFamily="var(--font-mono), monospace">
+              <text x={x} y={z + (z > 0 ? 7.4 : -5.8)} textAnchor="middle" fontSize="3.6" fill="#E6EDF3" fontFamily="var(--font-mono), monospace">
                 {label}
               </text>
             )}
@@ -100,7 +109,7 @@ export function IslandMap({ className, onSelect, showLabels = true, showPlayer =
             role="button"
             tabIndex={0}
             aria-label={`Go to ${district.title}`}
-            className="cursor-pointer outline-none [&:focus-visible>circle]:stroke-[1.4]"
+            className="cursor-pointer outline-none [&:focus-visible>circle]:stroke-[2.2]"
             onClick={() => onSelect(district.id)}
             onKeyDown={(event) => {
               if (event.key === "Enter" || event.key === " ") {
@@ -117,7 +126,7 @@ export function IslandMap({ className, onSelect, showLabels = true, showPlayer =
       })}
       {showPlayer && (
         <g ref={player}>
-          <path d="M0 -1.6 L1.1 1.1 L0 0.5 L-1.1 1.1 Z" fill="#F78166" stroke="#0D1117" strokeWidth="0.3" />
+          <path d="M0 -2.7 L1.9 1.9 L0 0.85 L-1.9 1.9 Z" fill="#F78166" stroke="#0D1117" strokeWidth="0.5" />
         </g>
       )}
     </svg>
@@ -140,7 +149,7 @@ export function MapOverlay({ restoreFocus }: { restoreFocus: () => HTMLElement |
       variant="modal"
       wide
       label={browsing ? "directory" : "map"}
-      title={browsing ? "Browse without playing" : "Island map"}
+      title={browsing ? "Browse without playing" : "Park map"}
       subtitle={
         browsing
           ? "Every section of the 3D world as plain, readable pages."
@@ -217,7 +226,7 @@ export function Minimap() {
       type="button"
       onClick={() => setOverlay("map")}
       className="pointer-events-auto block overflow-hidden rounded-lg border border-border bg-[#0D1117]/95 shadow-lg transition-colors hover:border-primary/60 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring"
-      aria-label="Open the island map (M)"
+      aria-label="Open the park map (M)"
     >
       <IslandMap className="h-[150px] w-[150px]" showLabels={false} decorative />
     </button>

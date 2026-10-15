@@ -3,14 +3,14 @@ import Link from "next/link"
 import { PlayablePortfolio } from "../../components/world/playable-portfolio"
 
 export const metadata: Metadata = {
-  title: "Inference Island · Playable 3D Portfolio | Muhammad Hilal Darul Fauzan",
+  title: "Orbit Park · Playable 3D Portfolio | Muhammad Hilal Darul Fauzan",
   description:
-    "Explore Muhammad Hilal Darul Fauzan's work as a small playable 3D world: an AI research lab, an engineering workshop, a project gallery, skills, honors, and contact.",
+    "Explore Muhammad Hilal Darul Fauzan's work as a playable space theme park: internships at GDP Labs and bitcorp., Universitas Indonesia, a project hangar, a tech stack, an article library, honors, and contact.",
   openGraph: {
     type: "website",
     locale: "en_US",
     url: "https://hilaldfzn.vercel.app/3d",
-    title: "Inference Island · Playable 3D Portfolio",
+    title: "Orbit Park · Playable 3D Portfolio",
     description: "A playable 3D portfolio by Muhammad Hilal Darul Fauzan, AI Engineer and backend-focused software engineer.",
     siteName: "Portfolio | Muhammad Hilal Darul Fauzan",
   },

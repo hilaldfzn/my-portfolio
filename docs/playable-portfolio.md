@@ -1,4 +1,4 @@
-# Inference Island: the playable 3D portfolio
+# Orbit Park: the playable 3D portfolio
 
 `/3d` is an optional, playable version of the portfolio. The conventional site at `/` stays the primary,
 professional experience; the 3D route complements it and never replaces it.
@@ -19,7 +19,7 @@ professional experience; the 3D route complements it and never replaces it.
 | TypeScript | VS Code bundles TypeScript 6.0, which rejected the old `tsconfig.json` (`target: ES5` and `baseUrl` are deprecated). The config now uses `target: ES2017`, `esnext` libs, no `baseUrl`, and `@/*` → `src/*` (matching `components.json`). `src/types/css.d.ts` covers the global CSS import that TS 6 checks. Both TS 5.8 (project) and TS 6.0.3 report 0 errors. |
 | Build | `next build` passes; type and lint errors are ignored during builds by config. |
 | Lint | `next lint` does not pick up the flat `eslint.config.mjs`, and the config extends `next/typescript`, which does not exist in the installed `eslint-config-next@14.0.0`. Linting was not runnable before this work. |
-| Content | Hard-coded arrays inside section components. Experience, awards and skills now live in `src/content/` (see §3). |
+| Content | Hard-coded arrays inside section components. Profile, experience, projects, awards, skills and articles now live in `src/content/` (see §2). |
 | Hero CTA placement | Hero (`src/components/sections/hero.tsx`), below the existing "Get in touch" / "Resume" buttons. |
 
 ### Reference: glorioussatria.my.id ("Satria's Kingdom")
@@ -47,10 +47,10 @@ plus REA captures. **Verified observations:**
 - In this headless session, pressing Escape did not close the map modal. This may be focus-dependent; the close button was not tested.
 
 **What was adapted:** content-first panels over a live world, Go/Read fast travel, a non-game reading mode,
-collectible skills, brief onboarding, and touch controls. **What is original:** the world concept
-(a floating diorama in the site's ink-dark "editor void"), the hub-and-spoke layout, the circuit-trace paths,
-the robot "guest agent", the Terminal Folio UI (VS Code-style status bar, `//` labels), all copy, and all
-code. No reference code, branding, content or assets were copied.
+collectible skills, brief onboarding, and touch controls. **What is original:** the world concept (a space
+theme park floating in the site's ink-dark void), the hub-and-spoke layout with themed lands, the rides and
+Main Street, the robot "guest agent", the Terminal Folio UI (VS Code-style status bar, `//` labels), all copy,
+and all code. No reference code, branding, content or assets were copied.
 
 ### REA (Reverse Engineer Anything)
 
@@ -79,12 +79,13 @@ was then updated to match it. Both experiences read that content, so they show t
 | Education | Aug 2022 - Aug 2026, CGPA 3.65/4.00, the CV's coursework list | CV |
 | Skills | The CV's 28 skills in its six groups: languages, AI/ML, backend, frontend & mobile, databases, cloud & tools | CV |
 | LinkedIn | `linkedin.com/in/hilaldfzn` everywhere (hero, contact, footer, 3D), from `src/content/profile.ts` | CV, confirmed by the owner |
+| Experience entries | Bullet points only; the one-line summary above each entry's bullets was removed (main site and 3D) | Owner's request |
 
 Kept as they were, because the CV omits them without contradicting them: the third IYIS #15 award ("3rd Best
 Presentation"), OKK UI 2024 and COMPFEST 15, HoomGroom and Marmut Music, and the About stats. KSN 2020 (on the CV)
 is still not shown, matching the site's three curated awards. Certifications are no longer on the CV and are not
 shown. The Facial Recognition Attendance System is part of the bitcorp. internship, so it appears in the
-Engineering Workshop rather than as a standalone project.
+bitcorp. district rather than as a standalone project.
 
 ---
 
@@ -97,10 +98,11 @@ Engineering Workshop rather than as a standalone project.
   already at its width limit, so the hero CTA is the entry point there.
 - **Command bar**: `goto 3d` and `play` open `/3d`; `goto 3d` joins the rotating placeholder hints.
 - **Shared content** (`src/content/`): profile/links/bio/stats/education, experience, projects, achievements,
-  skills. Sections import from it (the hero, contact section and footer take their links from `profile.ts`), so
-  the main site and the 3D world cannot drift apart. Apart from the CV updates in §1, the rendered output matches
-  the original build except two normalized labels: "Back End" → "Back End Development" (two home cards, to match
-  the `/projects` filters) and "Fast API" → "FastAPI".
+  skills, articles. Sections import from it (the hero, contact section and footer take their links from
+  `profile.ts`; the home and `/articles` pages take their posts from `articles.ts`), so the main site and the 3D
+  world cannot drift apart. Apart from the CV updates and the removed experience summaries in §1, the rendered
+  output matches the original build except two normalized labels: "Back End" → "Back End Development" (two home
+  cards, to match the `/projects` filters) and "Fast API" → "FastAPI". `/articles` renders the same text as before.
 - **Skills section**: logos come from Devicon; the new AI/ML brands Devicon lacks (LangChain, LangGraph, NVIDIA
   NeMo, n8n, Ultralytics YOLO, Hugging Face) use Simple Icons pinned to v16.30.0, inverted in dark mode.
 - **Bundle impact on `/`**: +3.5 kB gzip of JavaScript (167.7 → 171.2 kB), mostly from chunk-boundary changes
@@ -114,22 +116,34 @@ Engineering Workshop rather than as a standalone project.
 
 ### World
 
-**Inference Island** floats in the same `#0D1117` void as the main site, over a faint dot grid. The center plaza
-(`~/home`) connects to six lobes by circuit-trace paths, like services around a gateway.
+**Orbit Park** is a space theme park floating in the same `#0D1117` void as the main site, under stars, a ringed
+planet and drifting asteroids. Visitors arrive outside the park gate, walk up Main Street to the Mission Control
+plaza, and take a path out to each themed land. The island is about 3.1× the area of the first version (radius
+39 between lands, up to 61 at a land's lobe; about 1.75× the diameter).
 
-| District | Content | Landmarks |
+| Land | Content | Landmarks |
 | --- | --- | --- |
-| `~/home` (Home Base) | About, career direction, education, coursework, TA / OKK / COMPFEST background, writing | Monolith with the real portrait, desk setup, bookcase (articles) |
-| `lab/` (AI Research Lab) | GDP Labs: GLChat guardrail migration (16 categories, ~30% fewer false positives), SDK extensions, pipeline config service, 175-case evaluation set | Glass dome, satellite dishes, crystals, a "guardrail" shield you walk through, classifier console |
-| `workshop/` (Engineering Workshop) | bitcorp. / TogetherApps: face recognition attendance, approvals, metrics | Conveyor line, robot arms, face-scan gate, approvals dashboard |
-| `projects/` (Project Gallery) | 8 kiosks with real screenshots plus an index of all 11 projects (overview, CV highlights, stack, links) | Kiosk arc, hologram index table |
-| `skills/` (Token Well) | All 28 skills by category, with collection status | Well, orbiting tokens, `ls skills/` terminal |
+| `~/home` (Mission Control) | About, career direction, links | Monolith with the real portrait, planet fountain, park benches and lamp posts |
+| `gdp-labs/` (GDP Labs) | GLChat guardrail migration (16 categories, ~30% fewer false positives), SDK extensions, pipeline config service, 175-case evaluation set | Glass dome, satellite dishes, crystals, a "guardrail" shield you walk through, classifier console |
+| `bitcorp/` (PT Bringin Inti Teknologi (bitcorp.)) | bitcorp. / TogetherApps: face recognition attendance, approvals, metrics | Conveyor line, robot arms, face-scan gate, approvals dashboard |
+| `campus/` (Universitas Indonesia) | Education (degree, CGPA, coursework), Teaching Assistant, OKK UI 2024 and COMPFEST 15 | Rectorate-style tower with the UI emblem, TA classroom with a chalkboard, two organization booths, graduation-cap monument |
+| `projects/` (Project Hangar) | 8 kiosks with real screenshots plus an index of all 11 projects | Kiosk arc, hologram index table, two spacecraft on turntables in the open front |
+| `skills/` (Tech Stack) | All 28 skills by category with their logos and collection status | A drop tower with one colored layer per skill category |
+| `articles/` (Article Library) | All 11 articles; 6 exhibits with cover, excerpt, tags and newsletter mentions | Bookcases filled with books, lecterns with covers, one prop per topic (deployment rocket, astronaut and alien "mock", growing database, test traffic light, S-O-L-I-D blocks, shield and lock), reading table, writing desks |
 | `awards/` (Hall of Achievements) | Scholarship and competition awards | Obelisk, trophies with plaques |
-| `contact/` (Signal Tower) | Resume, email, GitHub, LinkedIn, Medium, contact form link | Lattice tower, terminal, portal back to `/` |
+| `contact/` (Contact Hub) | Resume, email, GitHub, LinkedIn, Medium, contact form link | Lattice tower, terminal, portal back to `/` |
 
-Gameplay: visit 7 districts and collect 28 skill tokens (one per skill on the main site). Progress persists in
-`localStorage` (`inference-island:v1`); reset it from the map or the menu. Two one-time flavor toasts (the
-face-scan gate and the guardrail ring) illustrate the systems; they are labelled as illustrations, not
+Park attractions between the lands (decorative): a rocket on its launch pad with a gantry at the north end of
+the avenue, the Orbital Wheel, the Astro Orbiter, and the Orbit Express, a five-car monorail (cars coupled end to
+end) circling the park on a ring outside the island, so it never comes between the camera and the visitor. The
+park gate has staffed ticket and info booths. Main Street has six staffed stalls, each with its goods on the
+counter, a menu on the counter front, and a giant roof sign: Space Donuts, Orbit Burgers, Cosmic Cones, Rocket
+Fuel, Moon Bakery and Souvenirs. Park benches sit between the stalls and around the plaza; astronaut and alien
+guests queue at the counters.
+
+Gameplay: visit 9 lands and collect 28 skill tokens (one per skill on the main site). Progress persists in
+`localStorage` (`orbit-park:v1`); reset it from the map or the menu. One-time flavor toasts (the welcome at the
+gate, the face-scan gate and the guardrail ring) illustrate the systems; they are labelled as illustrations, not
 measurements.
 
 ### Controls
@@ -168,7 +182,7 @@ text field. Space does not jump while a button or link has focus.
 ```
 src/app/3d/page.tsx                      Route + metadata; renders <PlayablePortfolio/>
 src/content/                             Shared content (main site + 3D)
-  profile.ts experience.ts projects.ts achievements.ts skills.ts
+  profile.ts experience.ts projects.ts achievements.ts skills.ts articles.ts
   project-details.ts experience-details.ts   Long-form / 3D-only detail (kept out of the home bundle)
 src/components/world/
   playable-portfolio.tsx                 Client root: environment detection, keyboard input, overlays, error boundary
@@ -178,45 +192,56 @@ src/components/world/
   systems/collision.ts                   Circle/box/edge collision for the player
   systems/webgl.ts                       WebGL support check
   scene/world-canvas.tsx                 <Canvas> (lazy chunk: three, R3F, drei), lights, perf monitor, loader
-  scene/world.tsx                        Composes island, districts, scatter, tokens, player
+  scene/world.tsx                        Composes island, attractions, districts, scatter, tokens, player
   scene/island.tsx                       Procedural island, cliffs, plaza texture, path ribbons, click-to-walk
+  scene/park.tsx                         Rides, monorail, gate and booths, Main Street stalls, benches, lamps, guests
   scene/player.tsx                       Robot avatar, movement, jump, animation, proximity/district/trigger detection
   scene/camera-rig.tsx                   Attract orbit, fly-in, follow camera, drag/wheel/pinch
-  scene/models.tsx                       GLB pack loading, material setup, cloning, instancing
+  scene/models.tsx                       GLB pack loading, material setup, cloning, instancing, StaticBatch
+  scene/materials.ts                     Shared materials for repeated procedural parts (so batches merge)
   scene/scatter.ts                       Seeded vegetation layout and its colliders
   scene/tokens.tsx                       Skill tokens, interaction markers, click hitboxes
   scene/canvas-art.tsx                   Canvas-texture signboards and screens (uses the site's fonts)
-  scene/environment.tsx                  Lights, dot-grid void, islets, dust
-  scene/districts/*.tsx                  One component per district
+  scene/environment.tsx                  Lights (shadow frustum follows the player), void, stars, planets, nebula, asteroids
+  scene/districts/*.tsx                  One component per land (home, gdp-labs, bitcorp, campus, hangar, library, landmarks)
   ui/                                    Entry screen, HUD, map/minimap, dialogs, panels, menus, touch controls
 ```
 
 - **Code splitting**: `world-canvas.tsx` is the only module importing three.js; it loads through `next/dynamic`
-  with `ssr: false`. The `/3d` route's first load is the UI shell (~132 kB); the engine chunk and models load
+  with `ssr: false`. The `/3d` route's first load is the UI shell (~137 kB); the engine chunk and models load
   after it, with progress shown on the Enter button.
 - **State**: React state (zustand) holds only UI-level data. Player/camera/input live in `runtime` and are
   read in `useFrame`, so movement never re-renders React. The minimap writes its player marker straight to the
   DOM.
 - **Collision**: a lightweight 2D solver (player circle vs. circles, oriented boxes, and the island's polar
   edge) instead of a physics engine; the island is flat, so this is sufficient and cheaper than Rapier.
-- **Content**: panels render from `src/content`, so updating the main portfolio updates the island.
+- **Content**: panels render from `src/content`, so updating the main portfolio updates the park.
+- **Draw calls**: `StaticBatch` merges the static meshes of each land (and of the gate and Main Street) that share a
+  material into one mesh per material; repeated props (benches, lamp posts, bookcases, books, guests, scatter)
+  are instanced.
 
 ---
 
 ### Layout conventions
 
-- Districts sit at radius 22 on six lobes; each has a `padRadius`, and its visit zone and decoration clearance
-  derive from it (`zoneRadius`, `clearRadius` in `world-config.ts`).
-- District props are placed in the district's local frame (+z faces the plaza) and kept mirror-symmetric where
-  there are pairs (dishes, generators, crystals, machines, terminal/portal).
-- Every entrance sign uses `signPlacement()`: left of the path, just inside the pad, angled toward arriving
-  visitors, with a collider.
-- Home plaza furniture occupies the six slots between path mouths and faces the center (`HOME_LAYOUT`).
-- Skill tokens are evenly spaced along the open stretch of each path (plaza edge to pad edge); languages ring the
-  plaza.
-- Vegetation (`scatter.ts`, seeded): a pine treeline behind each district, single-species groves in the largest open
-  areas with flower/bush fringes, a rock/shrub border along the cliff, and grass edging along paths (never on pads).
-- `/3d?debug&view=top` renders the island straight from above on the entry screen for checking placement.
+- Lands sit on a ring of radius 44, 40° apart; the gap in the south is the entrance. Each has a `padRadius`, and
+  its visit zone and decoration clearance derive from it (`zoneRadius`, `clearRadius` in `world-config.ts`).
+- Paths: a spoke from the plaza to each land, the avenue (Main Street) from the gate to the plaza, and promenades
+  between neighbouring lands (none across the entrance).
+- Props are placed in the land's local frame (+z faces the park center) and kept mirror-symmetric where there are
+  pairs (dishes, generators, crystals, machines, banners).
+- Every land sign uses `signPlacement()`: the same low monument sign, inside the pad and clear of its rim, left of
+  the entrance path, turned slightly toward visitors walking in, with a collider.
+- Main Street: stalls at x = ±8.2 facing the avenue, benches in the gaps between them, lamp posts at x = ±3.5. The
+  plaza's benches and lamps sit between the path mouths (`BENCHES`, `LAMPS`).
+- Kenney's astronaut and alien models face -z: turn them by π when they must face +z (stall crew, figures).
+- Batching: anything that moves must sit under an object with `userData={{ dynamic: true }}`, or `StaticBatch`
+  will freeze it. Repeated procedural parts should use the shared materials in `scene/materials.ts` so they merge.
+- Skill tokens are evenly spaced along the open stretch of each spoke (plaza edge to pad edge); languages line the
+  avenue.
+- Vegetation (`scatter.ts`, seeded): a treeline behind each land, single-species groves and craters in the largest
+  open areas, a rock/shrub border along the cliff, and grass edging along spokes (never on pads).
+- `/3d?debug&view=top` renders the park straight from above on the entry screen for checking placement.
 
 ## 5. Assets and licenses
 
@@ -225,16 +250,18 @@ source, size, license, intended use) and `public/3d/textures/manifest.json` (tex
 
 | Pack | Source | License | Size |
 | --- | --- | --- | --- |
-| `nature.glb` (32 models) | Kenney Nature Kit 2.0 | CC0 | 113 KiB |
-| `tech.glb` (22) | Kenney Space Kit 2.0 | CC0 | 146 KiB |
-| `factory.glb` (19) | Kenney Factory Kit 3.0 | CC0 | 110 KiB |
-| `furniture.glb` (18) | Kenney Furniture Kit 1.0 | CC0 | 78 KiB |
+| `nature.glb` (22 models) | Kenney Nature Kit 2.0 | CC0 | 76 KiB |
+| `tech.glb` (22) | Kenney Space Kit 2.0 | CC0 | 142 KiB |
+| `factory.glb` (13) | Kenney Factory Kit 3.0 | CC0 | 81 KiB |
+| `furniture.glb` (7) | Kenney Furniture Kit 1.0 | CC0 | 33 KiB |
+| `food.glb` (20) | Kenney Food Kit 2.0 | CC0 | 109 KiB |
 | `robot.glb` (8 animations) | RobotExpressive by Tomás Laulhé (Quaternius), modified by Don McCurdy (three.js r170 examples) | CC0 | 209 KiB |
-| `textures/projects/*.jpg`, `portrait.jpg` | Downsized copies of this repo's `public/assets` images | Owner's images | 448 KiB |
+| `textures/projects/*.jpg`, `portrait.jpg`, `ui-logo.png` | Downsized copies of this repo's `public/assets` images (the UI emblem is the one the main site's education section already shows) | Owner's images | 504 KiB |
 
 The packs are built by `scripts/build-world-assets.mjs` (instructions in its header): each model is re-pivoted
 to its base center, unlit materials become lit PBR materials, and each kit is merged, deduplicated, welded and
-meshopt-compressed. The meshopt decoder ships with three-stdlib (no CDN). Draco is not used.
+meshopt-compressed. The meshopt decoder ships with three-stdlib (no CDN). Draco is not used. Packs list only the
+models the park uses; add a name to the script before using a new one.
 
 ---
 
@@ -242,24 +269,29 @@ meshopt-compressed. The meshopt decoder ships with three-stdlib (no CDN). Draco 
 
 Production build (`next build && next start`), headless Chrome 155 (ANGLE / Metal, Apple M2):
 
-- **Functional suite: 66/66 checks pass.** It covers the CTA and nav entry, command bar route, back/forward
-  navigation, LinkedIn links (all `/in/hilaldfzn`), the entry screen, onboarding, WASD / strafe / run, monolith
-  collision, proximity prompt, E to open, focus management, input lock while panels are open, Esc, the map
-  (7 districts, Go/Read, fast travel), the GDP Labs (16 categories, ~30%, 175 cases) and bitcorp. metrics, the
-  project index (11) and details, live-demo and screenshot loading, Previous/Next, contact links, resume PDF
-  served, skills (28), awards, collecting tokens by walking a path, the pause menu and credits, click-to-walk,
-  drag orbit, progress persistence across reload, the HUD back link, browse mode, the no-WebGL fallback (and no
-  model downloads), reduced motion, mobile joystick movement, the bottom sheet, no horizontal overflow, and zero
-  console or network errors across all runs.
+- **Functional suite: 74/74 checks pass.** It covers the CTA and nav entry, command bar route, back/forward
+  navigation, LinkedIn links (all `/in/hilaldfzn`), the entry screen, onboarding, spawning outside the gate and
+  the welcome toast, WASD / strafe / run, fountain and dome collision, proximity prompts and E to open, focus
+  management, input lock while panels are open, Esc, the map (9 lands, Go/Read, fast travel), the GDP Labs
+  (16 categories, ~30%, 175 cases) and bitcorp. metrics, the campus panel (education, TA, organizations, the OKK UI
+  live link), the article library (all 11 articles, details, Medium and newsletter links), the project index (11)
+  and details, contact links, resume PDF served, skills (28), awards, collecting tokens by walking a path, the
+  pause menu and credits, click-to-walk, drag orbit, progress persistence across reload, the HUD back link,
+  browse mode, the no-WebGL fallback (and no model downloads), reduced motion, mobile joystick movement, the bottom
+  sheet, no horizontal overflow, and zero console or network errors across all runs.
 - **Accessibility (axe-core 4.10, WCAG 2.1 A/AA + best practice): 0 violations** on the main hero, the 3D entry
   screen, the in-game HUD, the map, a panel, and the pause menu.
 - **TypeScript**: 0 errors with both the project's TypeScript 5.8.3 and TypeScript 6.0.3 (the version VS Code
-  bundles).
-- **Performance**: steady 60 fps while running around, ~130–145 draw calls, ~33K triangles, 27 MB JS heap.
-  Cold load of `/3d` transferred about 1.18 MB in total (JS ~457 KiB gzip, models ~287 KiB, images ~337 KiB); the
-  world was ready ~0.6 s after navigation on localhost. Use `/3d?debug` to read live stats from
+  bundles). **ESLint** (`next/core-web-vitals`, run with a scratch config because the repo's config is not
+  runnable, see §8): no findings in `src/components/world`, `src/content` and the changed sections.
+- **Performance**: steady 60 fps while running around, ~380–405 draw calls, ~116–119K triangles, 32 MB JS heap.
+  Cold load of `/3d` transferred about 1.45 MB in total (JS ~475 KiB, models ~290 KiB, images ~590 KiB); the
+  world was ready ~1 s after navigation on localhost. Use `/3d?debug` to read live stats from
   `window.__islandPerf`.
-- Main site: rendered text, links and images were diffed before and after (see §2). Zero console errors.
+- **Visual checks**: screenshots of the gate, Main Street (both sides), the plaza, every land's arrival view, and
+  the monorail were reviewed after each layout change.
+- **Main site**: rendered text, links and images of `/`, `/projects` and `/articles` were diffed against the
+  original build (see §1 and §2). Zero console errors.
 
 Not verified: real iOS/Android devices and Safari/Firefox (testing used Chrome with touch emulation); low-end
 GPUs; real network throttling; the deployed Vercel URL.
@@ -292,7 +324,10 @@ Common edits:
 
 - Lint is not runnable with the current ESLint setup (pre-existing; see §1). New code was linted separately with
   `next/core-web-vitals` and is clean.
-- The camera does not avoid obstacles; trees are kept away from paths to limit occlusion.
+- The camera does not avoid obstacles; trees are kept away from paths and the monorail runs outside the island to
+  limit occlusion. Lowering the camera and zooming out fully can still put it inside a large prop (for example the
+  gate sign, seen from the plaza).
+- Guests and stall crew are static models (Kenney's characters have no animations).
 - Keyboard users cannot rotate the camera (movement is camera-relative, so all directions remain reachable).
 - No audio by design (no autoplay). An opt-in ambient track would be a natural next step.
 - Panel content renders client-side (only the entry screen is server-rendered), so the main portfolio remains the SEO surface.

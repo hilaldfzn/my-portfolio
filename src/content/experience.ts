@@ -8,7 +8,6 @@ export interface Experience {
   period: string
   location: string
   type: string
-  description: string
   highlights: string[]
   liveDemo?: string
 }
@@ -21,8 +20,6 @@ export const experiences: Experience[] = [
     period: "Mar 2026 - Present",
     location: "Jakarta Selatan, Jakarta, Indonesia",
     type: "INTERNSHIP",
-    description:
-      "Contributing to GLChat's AI safety and guardrail systems on the in-house GenAI SDK, runtime configuration for chat pipeline services, and guardrail research and evaluation.",
     highlights: [
       "Led GLChat's guardrail migration to the in-house GenAI SDK, replacing rule-based phrase matching with LLM-based classification across 16 content-safety categories with configurable enforcement modes and topic controls, improving multilingual (Indonesian/English) accuracy and reducing false positives by ~30%",
       "Extended the SDK and its integration with conversation-history-aware decisions, additional safety categories, and admin-configurable controls including a provider-agnostic model and a conservative fail-safe mode, plus per-preset caching for lower latency",
@@ -37,8 +34,6 @@ export const experiences: Experience[] = [
     period: "Jul 2025 - Jan 2026",
     location: "Jakarta Pusat, Jakarta, Indonesia",
     type: "INTERNSHIP",
-    description:
-      "Contributing to the development of TogetherApps, an innovative workforce management solution that enhances employee productivity through advanced technology integration.",
     highlights: [
       "Designed and delivered end-to-end workforce management platform with mobile and web interfaces, enabling efficient employee tracking, and project management",
       "Developed a facial recognition attendance system with face embedding extraction, anti-spoofing detection, and GPS validation, impersonation in attendance and ensuring 95%+ identity verification accuracy to prevent fraudulent clock-ins",
@@ -52,8 +47,6 @@ export const experiences: Experience[] = [
     period: "Aug 2024 - Oct 2025",
     location: "Depok, Jawa Barat, Indonesia",
     type: "PART TIME",
-    description:
-      "Teaching Assistant for multiple undergraduate courses including Calculus 2, Statistics & Probability, and Computer Vision, providing comprehensive academic support to students.",
     highlights: [
       "Tutored 250+ undergraduate students in Computer Vision, Statistics & Probability and Calculus 2 courses",
       "Graded homework assignments, quizzes, and coding projects with clear feedback across all three subjects",
@@ -68,8 +61,6 @@ export const experiences: Experience[] = [
     period: "Jun - Aug 2024",
     location: "Depok, Jawa Barat, Indonesia",
     type: "ORGANIZATION",
-    description:
-      "Contributed to the development of the OKK UI 2024 website's frontend, leveraging React for dynamic user interfaces and Tailwind CSS for efficient and responsive styling.",
     highlights: [
       "Designed engaging and user-friendly interfaces to enhance user experience",
       "Developed responsive frontend components and pages using React and Tailwind CSS for the official OKK UI website",
@@ -84,8 +75,6 @@ export const experiences: Experience[] = [
     period: "Apr - Nov 2023",
     location: "Depok, Jawa Barat, Indonesia",
     type: "ORGANIZATION",
-    description:
-      "Contributed to editorial marketing activities for COMPFEST 15, focusing on content creation, media relations, and publication management to enhance event visibility and engagement.",
     highlights: [
       "Provided captioning, proofreading, translating, and copywriting services for COMPFEST publications, resulting in thousands of insights across various social media platforms",
       "Created and published press releases and conducted speaker interviews for the Grand Launching of COMPFEST 15",

@@ -65,7 +65,7 @@ export function PlayablePortfolio() {
     reduced.addEventListener("change", sync)
     coarse.addEventListener("change", sync)
     store.hydrate()
-    resetRuntime(SPAWN.position, SPAWN.yaw)
+    resetRuntime(SPAWN.position, SPAWN.yaw, SPAWN)
 
     const connection = (navigator as Navigator & { connection?: { saveData?: boolean } }).connection
     if (!supportsWebGL()) store.setEngine("unsupported")
@@ -154,7 +154,7 @@ export function PlayablePortfolio() {
 
   return (
     <main className="dark fixed inset-0 overflow-hidden bg-[#0D1117] font-body text-foreground">
-      <div ref={game} tabIndex={-1} role="application" className="absolute inset-0 outline-none" aria-label="Inference Island 3D view">
+      <div ref={game} tabIndex={-1} role="application" className="absolute inset-0 outline-none" aria-label="Orbit Park 3D view">
         {showCanvas && (
           <CanvasBoundary onError={() => useWorldStore.getState().setEngine("error")}>
             <WorldCanvas />

@@ -3,6 +3,7 @@
 import Link from "next/link"
 import { ArrowLeft, BookOpen, Download, Play, RefreshCw } from "lucide-react"
 import { profile } from "../../../content/profile"
+import { PARK_NAME } from "../world-config"
 import { useWorldStore } from "../store"
 import { ControlsLegend } from "./menus"
 import { buttonStyles } from "./primitives"
@@ -34,13 +35,14 @@ export function EntryScreen({ onEnter }: { onEnter: () => void }) {
       <div className="pointer-events-auto max-h-[92dvh] w-full overflow-y-auto border-t border-border bg-[#0D1117]/95 p-6 sm:m-8 sm:max-w-[34rem] sm:rounded-lg sm:border sm:p-8 lg:ml-14">
         <p className="section-label">{"// playable portfolio"}</p>
         <h1 id="entry-title" className="mt-2 font-display text-5xl leading-none text-foreground sm:text-6xl">
-          Inference Island
+          {PARK_NAME}
         </h1>
         <p className="mt-4 font-body text-base font-semibold text-foreground">{profile.name}</p>
         <p className="font-mono text-sm text-muted-foreground">{profile.headline}</p>
         <p className="mt-4 text-[15px] leading-relaxed text-muted-foreground">
-          A small floating island built from my work. Walk into the AI research lab, the engineering workshop and the
-          project gallery, collect a token for every skill, or skip straight to any section.
+          A space theme park built from my work. Ride past my internships at GDP Labs and bitcorp., my campus life at
+          Universitas Indonesia, the project hangar and the article library, collect a token for every skill, or skip
+          straight to any section.
         </p>
 
         {engine === "unsupported" && (

@@ -9,7 +9,7 @@ import { useWorldStore } from "../store"
 const MIN_PITCH = 0.2
 const MAX_PITCH = 1.22
 const MIN_DISTANCE = 5.5
-const MAX_DISTANCE = 22
+const MAX_DISTANCE = 30
 
 const easeInOut = (t: number) => (t < 0.5 ? 4 * t * t * t : 1 - Math.pow(-2 * t + 2, 3) / 2)
 
@@ -26,7 +26,7 @@ export function CameraRig() {
 
   // Portrait screens see less of the world horizontally; start a bit further out.
   useEffect(() => {
-    if (size.width < size.height) runtime.camera.distance = Math.max(runtime.camera.distance, 15)
+    if (size.width < size.height) runtime.camera.distance = Math.max(runtime.camera.distance, 17)
   }, [size.width, size.height])
 
   // Drag to orbit, wheel / pinch to zoom.
@@ -105,13 +105,13 @@ export function CameraRig() {
     if (phase === "entry") {
       lastPhase.current = phase
       if (topView.current) {
-        camera.position.set(0, 92, 0.001)
+        camera.position.set(0, 175, 0.001)
         camera.lookAt(0, 0, 0)
         return
       }
       const angle = reducedMotion ? 0.7 : 0.7 + clock.elapsedTime * 0.045
-      camera.position.set(Math.sin(angle) * 54, 40, Math.cos(angle) * 54)
-      target.current.set(0, -3, 0)
+      camera.position.set(Math.sin(angle) * 104, 80, Math.cos(angle) * 104)
+      target.current.set(0, -6, 0)
       camera.lookAt(target.current)
       return
     }

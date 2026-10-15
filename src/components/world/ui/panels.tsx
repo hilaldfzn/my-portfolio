@@ -1,16 +1,17 @@
 "use client"
 
-import { Fragment, type ReactNode } from "react"
+import { Fragment, useEffect, useRef, type ReactNode } from "react"
 import Link from "next/link"
-import { ArrowLeft, ArrowRight, Award, Check, Download, ExternalLink, Github, Linkedin, Mail, MapPin, PenTool } from "lucide-react"
+import { ArrowLeft, ArrowRight, Award, Check, Clock, Download, ExternalLink, Github, Linkedin, Mail, MapPin, PenTool } from "lucide-react"
 import { bio, education, profile, stats } from "../../../content/profile"
 import { experiences, getExperience } from "../../../content/experience"
 import { experienceDetails } from "../../../content/experience-details"
 import { projects } from "../../../content/projects"
 import { projectDetails } from "../../../content/project-details"
 import { awards } from "../../../content/achievements"
-import { skillCategories } from "../../../content/skills"
-import { DISTRICT_BY_ID, GALLERY_SLUGS, TOKENS, TOKEN_COLORS, type PanelRef } from "../world-config"
+import { allSkills, skillCategories } from "../../../content/skills"
+import { articles, formatArticleDate } from "../../../content/articles"
+import { ARTICLE_EXHIBITS, DISTRICT_BY_ID, GALLERY_SLUGS, TOKENS, TOKEN_COLORS, type CampusSection, type PanelRef } from "../world-config"
 import { useWorldStore } from "../store"
 import { Chip, ExternalAnchor, Label, buttonStyles } from "./primitives"
 
@@ -26,9 +27,10 @@ export function panelHeader(panel: PanelRef): PanelHeader {
       return { label: "~/home", title: "About me", subtitle: profile.headline }
     case "experience": {
       const experience = getExperience(panel.id)
-      const district = panel.id === "gdp-labs" ? DISTRICT_BY_ID.lab : DISTRICT_BY_ID.workshop
-      return { label: district.path, title: experience.company, subtitle: `${experience.title} · ${experience.type.toLowerCase()}` }
+      return { label: DISTRICT_BY_ID[panel.id].path, title: experience.company, subtitle: `${experience.title} · ${experience.type.toLowerCase()}` }
     }
+    case "campus":
+      return { label: "campus/", title: "Universitas Indonesia", subtitle: "Education · Teaching Assistant · Organizations" }
     case "project": {
       const project = projects.find((p) => p.slug === panel.slug)!
       return { label: "projects/", title: project.title, subtitle: project.categories.join(" / ") }
@@ -36,13 +38,17 @@ export function panelHeader(panel: PanelRef): PanelHeader {
     case "projects":
       return { label: "projects/", title: "Project index", subtitle: `${projects.length} projects` }
     case "skills":
-      return { label: "skills/", title: "Skills & technologies", subtitle: "languages · frameworks · databases · tools" }
+      return { label: "skills/", title: "Skills & technologies", subtitle: `${allSkills.length} skills · ${skillCategories.map((c) => c.label).join(" · ")}` }
     case "awards":
       return { label: "awards/", title: "Honors & awards", subtitle: `${awards.length} recognitions` }
     case "contact":
       return { label: "contact/", title: "Get in touch", subtitle: "Resume, email, and profiles" }
-    case "writing":
-      return { label: "~/home/notes", title: "Writing", subtitle: "Articles on Medium" }
+    case "articles":
+      return { label: "articles/", title: "Article library", subtitle: `${articles.length} articles on Medium` }
+    case "article": {
+      const article = articles.find((a) => a.slug === panel.slug)!
+      return { label: "articles/", title: article.title, subtitle: article.categories.join(" / ") }
+    }
     case "exit":
       return { label: "portal", title: "Back to the main portfolio?" }
   }
@@ -90,7 +96,6 @@ function ProfileLinks() {
 }
 
 function AboutPanel() {
-  const background = experiences.filter((e) => !["gdp-labs", "bitcorp"].includes(e.id))
   return (
     <div className="space-y-8">
       <div className="space-y-3">
@@ -119,46 +124,12 @@ function AboutPanel() {
           </div>
         ))}
       </div>
-      <Section title="education">
-        <div className="card-accent rounded-lg p-4">
-          <p className="font-display text-xl text-foreground">{education.degree}</p>
-          <p className="text-sm text-muted-foreground">{education.school}</p>
-          <p className="font-mono text-xs text-primary">
-            {education.period} · CGPA {education.gpa}
-          </p>
-          <div className="mt-3 flex flex-wrap gap-1.5">
-            {education.coursework.map((course) => (
-              <Chip key={course}>{course}</Chip>
-            ))}
-          </div>
-        </div>
-      </Section>
       <Section title="career direction">
         <p className="text-sm leading-relaxed text-muted-foreground">
           Focused on AI engineering with a backend foundation: LLM safety and guardrails at GDP Labs, and backend
-          systems, facial recognition and workflow automation at bitcorp. Visit the <span className="text-foreground">lab/</span> and{" "}
-          <span className="text-foreground">workshop/</span> districts for the details.
+          systems, facial recognition and workflow automation at bitcorp. Studies, teaching and organizations live in
+          the <span className="text-foreground">campus/</span> land.
         </p>
-      </Section>
-      <Section title="background">
-        <ol className="space-y-4 border-l border-border pl-4">
-          {background.map((item) => (
-            <li key={item.id} className="space-y-1">
-              <p className="font-mono text-[11px] text-muted-foreground">
-                {item.period} · {item.type.toLowerCase()}
-              </p>
-              <p className="text-sm font-semibold text-foreground">
-                {item.title}, {item.company}
-              </p>
-              <p className="text-sm leading-relaxed text-muted-foreground">{item.description}</p>
-              {item.liveDemo && (
-                <ExternalAnchor href={item.liveDemo} className="mt-1">
-                  <ExternalLink className="h-3.5 w-3.5" /> View project
-                </ExternalAnchor>
-              )}
-            </li>
-          ))}
-        </ol>
       </Section>
       <ProfileLinks />
     </div>
@@ -175,7 +146,6 @@ function ExperiencePanel({ id }: { id: "gdp-labs" | "bitcorp" }) {
           {experience.period} · {experience.location}
         </p>
         {details.product && <p className="font-mono text-xs text-primary">products: {details.product}</p>}
-        <p className="text-[15px] leading-relaxed text-muted-foreground">{experience.description}</p>
       </div>
       <div className="grid grid-cols-2 gap-3">
         {details.metrics.map((metric) => (
@@ -295,7 +265,7 @@ function SkillsPanel() {
   return (
     <div className="space-y-7">
       <p className="text-sm leading-relaxed text-muted-foreground">
-        Each skill is also a token hidden along the island&apos;s paths.{" "}
+        Each skill is also a token hidden along the park&apos;s paths.{" "}
         <span className="font-mono text-foreground">
           {collected.length}/{TOKENS.length}
         </span>{" "}
@@ -303,18 +273,38 @@ function SkillsPanel() {
       </p>
       {skillCategories.map((category) => (
         <Section key={category.label} title={category.label}>
-          <div className="flex flex-wrap gap-1.5">
+          <ul className="grid grid-cols-2 gap-2">
             {category.skills.map((skill) => {
               const has = collected.includes(skill.name)
               return (
-                <Chip key={skill.name} active={has}>
-                  <span className="h-1.5 w-1.5 rounded-full" style={{ background: TOKEN_COLORS[category.label] }} />
-                  {skill.name}
-                  {has && <Check className="h-3 w-3" aria-label="collected" />}
-                </Chip>
+                <li
+                  key={skill.name}
+                  className={`flex items-center gap-2.5 rounded-md border px-2.5 py-2 ${
+                    has ? "border-accent/60 bg-accent/10" : "border-border bg-background/40"
+                  }`}
+                >
+                  {/* eslint-disable-next-line @next/next/no-img-element */}
+                  <img
+                    src={skill.logo}
+                    alt=""
+                    width={20}
+                    height={20}
+                    className={`h-5 w-5 flex-shrink-0 ${skill.mono ? "invert" : ""}`}
+                  />
+                  <span className="min-w-0 flex-1 font-mono text-xs leading-snug text-foreground">{skill.name}</span>
+                  {has ? (
+                    <Check className="h-3.5 w-3.5 flex-shrink-0 text-accent" aria-label="token collected" />
+                  ) : (
+                    <span
+                      className="h-1.5 w-1.5 flex-shrink-0 rounded-full"
+                      style={{ background: TOKEN_COLORS[category.label] }}
+                      aria-hidden="true"
+                    />
+                  )}
+                </li>
               )
             })}
-          </div>
+          </ul>
         </Section>
       ))}
     </div>
@@ -387,21 +377,118 @@ function ContactPanel() {
   )
 }
 
-function WritingPanel() {
-  const articles = stats.find((s) => s.key === "articles")
+function CampusPanel({ section }: { section?: CampusSection }) {
+  const refs = useRef<Partial<Record<CampusSection, HTMLElement | null>>>({})
+  const ta = getExperience("ui-teaching-assistant")
+  const organizations = ["okk-ui-2024", "compfest-15"].map(getExperience)
+  useEffect(() => {
+    if (!section) return
+    // Wait for the dialog to reset its scroll position first.
+    const frame = requestAnimationFrame(() => refs.current[section]?.scrollIntoView({ block: "start" }))
+    return () => cancelAnimationFrame(frame)
+  }, [section])
   return (
-    <div className="space-y-6">
-      <div className="card-accent rounded-lg p-4">
-        <p className="font-display text-3xl text-foreground">{articles?.value}</p>
-        <p className="font-mono text-xs text-muted-foreground">{articles?.label}</p>
-      </div>
-      <p className="text-[15px] leading-relaxed text-muted-foreground">
-        I write about deployment, testing, databases, clean architecture, and secure programming. The full list with
-        summaries lives on the main portfolio.
-      </p>
-      <div className="flex flex-wrap gap-2">
+    <div className="space-y-8">
+      <section ref={(node) => void (refs.current.education = node)} className="scroll-mt-2 space-y-3">
+        <p className="font-mono text-xs text-muted-foreground">{"// education"}</p>
+        <div className="card-accent rounded-lg p-4">
+          <p className="font-display text-xl text-foreground">{education.degree}</p>
+          <p className="text-sm text-muted-foreground">{education.school}</p>
+          <p className="font-mono text-xs text-[hsl(var(--syntax-yellow))]">
+            {education.period} · CGPA {education.gpa}
+          </p>
+          <div className="mt-3 flex flex-wrap gap-1.5">
+            {education.coursework.map((course) => (
+              <Chip key={course}>{course}</Chip>
+            ))}
+          </div>
+        </div>
+      </section>
+      <section ref={(node) => void (refs.current.teaching = node)} className="scroll-mt-2 space-y-3">
+        <p className="font-mono text-xs text-muted-foreground">{"// teaching assistant"}</p>
+        <div className="space-y-1">
+          <p className="text-sm font-semibold text-foreground">
+            {ta.title}, {ta.company}
+          </p>
+          <p className="font-mono text-[11px] text-muted-foreground">
+            {ta.period} · {ta.location}
+          </p>
+        </div>
+        <Bullets items={ta.highlights} color="text-[hsl(var(--syntax-yellow))]" />
+      </section>
+      <section ref={(node) => void (refs.current.organizations = node)} className="scroll-mt-2 space-y-4">
+        <p className="font-mono text-xs text-muted-foreground">{"// organizations"}</p>
+        {organizations.map((item) => (
+          <article key={item.id} className="card-accent space-y-2 rounded-lg p-4">
+            <p className="font-mono text-[11px] text-muted-foreground">
+              {item.period} · {item.type.toLowerCase()}
+            </p>
+            <h3 className="font-display text-lg leading-snug text-foreground">{item.company}</h3>
+            <p className="font-mono text-xs text-muted-foreground">{item.title}</p>
+            <Bullets items={item.highlights} color="text-[hsl(var(--syntax-yellow))]" />
+            {item.liveDemo && (
+              <ExternalAnchor href={item.liveDemo}>
+                <ExternalLink className="h-3.5 w-3.5" /> View project
+              </ExternalAnchor>
+            )}
+          </article>
+        ))}
+      </section>
+      <Link href="/#experiences" className={buttonStyles.link}>
+        <ExternalLink className="h-3.5 w-3.5" /> Full timeline on the main portfolio
+      </Link>
+    </div>
+  )
+}
+
+function NewsletterBadge({ article }: { article: (typeof articles)[number] }) {
+  if (!article.newsletter || !article.newsletterUrl) return null
+  return (
+    <ExternalAnchor href={article.newsletterUrl} className="border-primary/50 text-primary">
+      <Award className="h-3.5 w-3.5" /> Featured in {article.newsletter}
+    </ExternalAnchor>
+  )
+}
+
+function ArticleMeta({ article }: { article: (typeof articles)[number] }) {
+  return (
+    <p className="flex flex-wrap items-center gap-x-3 gap-y-1 font-mono text-[11px] text-muted-foreground">
+      <span>{formatArticleDate(article.publishedAt)}</span>
+      <span className="flex items-center gap-1">
+        <Clock className="h-3 w-3" /> {article.readingTime} min read
+      </span>
+    </p>
+  )
+}
+
+function ArticlesPanel() {
+  const openPanel = useWorldStore((state) => state.openPanel)
+  const onDisplay = new Set(ARTICLE_EXHIBITS.map((exhibit) => exhibit.slug))
+  return (
+    <div className="space-y-3">
+      {articles.map((article) => (
+        <article key={article.slug} className="card-accent flex gap-3 rounded-lg p-3">
+          {/* eslint-disable-next-line @next/next/no-img-element */}
+          <img src={article.image} alt="" className="h-16 w-20 flex-shrink-0 rounded border border-border object-cover" />
+          <div className="min-w-0 flex-1 space-y-1.5">
+            <ArticleMeta article={article} />
+            <h3 className="font-display text-base leading-snug text-foreground">{article.title}</h3>
+            <div className="flex flex-wrap gap-2 pt-0.5">
+              {onDisplay.has(article.slug) && (
+                <button type="button" className={`${buttonStyles.link} text-foreground`} onClick={() => openPanel({ type: "article", slug: article.slug })}>
+                  Details <ArrowRight className="h-3.5 w-3.5" />
+                </button>
+              )}
+              <ExternalAnchor href={article.url}>
+                <PenTool className="h-3.5 w-3.5" /> Read on Medium
+              </ExternalAnchor>
+            </div>
+          </div>
+        </article>
+      ))}
+      <div className="flex flex-wrap gap-2 pt-2">
         <Link href="/articles" className={buttonStyles.link}>
-          <ArrowRight className="h-3.5 w-3.5" /> All articles
+          <ArrowRight className="h-3.5 w-3.5" /> Articles page on the main portfolio
         </Link>
         <ExternalAnchor href={profile.links.medium}>
           <PenTool className="h-3.5 w-3.5" /> Medium profile
@@ -411,11 +498,54 @@ function WritingPanel() {
   )
 }
 
+function ArticlePanel({ slug }: { slug: string }) {
+  const openPanel = useWorldStore((state) => state.openPanel)
+  const article = articles.find((a) => a.slug === slug)!
+  const order = ARTICLE_EXHIBITS.map((exhibit) => exhibit.slug)
+  const index = order.indexOf(slug)
+  const previous = order[(index - 1 + order.length) % order.length]
+  const next = order[(index + 1) % order.length]
+  return (
+    <div className="space-y-6">
+      {/* eslint-disable-next-line @next/next/no-img-element */}
+      <img src={article.image} alt={`${article.title} cover`} className="aspect-[16/9] w-full rounded-md border border-border object-cover" />
+      <ArticleMeta article={article} />
+      <p className="text-[15px] leading-relaxed text-muted-foreground">{article.excerpt}</p>
+      <Section title="tags">
+        <div className="flex flex-wrap gap-1.5">
+          {article.tags.map((tag) => (
+            <Chip key={tag}>{tag}</Chip>
+          ))}
+        </div>
+      </Section>
+      <div className="flex flex-wrap gap-2">
+        <a href={article.url} target="_blank" rel="noopener noreferrer" className={buttonStyles.primary}>
+          <PenTool className="h-4 w-4" /> Read on Medium
+        </a>
+        <NewsletterBadge article={article} />
+      </div>
+      {index >= 0 && (
+        <div className="flex items-center justify-between border-t border-border pt-4">
+          <button type="button" className={buttonStyles.link} onClick={() => openPanel({ type: "article", slug: previous })}>
+            <ArrowLeft className="h-3.5 w-3.5" /> Previous
+          </button>
+          <button type="button" className={buttonStyles.link} onClick={() => openPanel({ type: "articles" })}>
+            All articles
+          </button>
+          <button type="button" className={buttonStyles.link} onClick={() => openPanel({ type: "article", slug: next })}>
+            Next <ArrowRight className="h-3.5 w-3.5" />
+          </button>
+        </div>
+      )}
+    </div>
+  )
+}
+
 function ExitPanel({ onClose }: { onClose: () => void }) {
   return (
     <div className="space-y-5">
       <p className="text-[15px] leading-relaxed text-muted-foreground">
-        The main portfolio has the same content as a classic, scrollable page. Your island progress stays saved in this
+        The main portfolio has the same content as a classic, scrollable page. Your park progress stays saved in this
         browser.
       </p>
       <div className="flex flex-wrap gap-3">
@@ -423,7 +553,7 @@ function ExitPanel({ onClose }: { onClose: () => void }) {
           <ArrowLeft className="h-4 w-4" /> Back to main portfolio
         </Link>
         <button type="button" className={buttonStyles.outline} onClick={onClose}>
-          Stay on the island
+          Stay in the park
         </button>
       </div>
     </div>
@@ -446,8 +576,12 @@ export function PanelBody({ panel, onClose }: { panel: PanelRef; onClose: () => 
       return <AwardsPanel />
     case "contact":
       return <ContactPanel />
-    case "writing":
-      return <WritingPanel />
+    case "campus":
+      return <CampusPanel section={panel.section} />
+    case "articles":
+      return <ArticlesPanel />
+    case "article":
+      return <ArticlePanel slug={panel.slug} />
     case "exit":
       return <ExitPanel onClose={onClose} />
   }
