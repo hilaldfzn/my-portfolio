@@ -40,7 +40,7 @@ export const projects: Project[] = [
     image: "/assets/MAAMS.jpg",
     technologies: ["Python", "Django", "Next.js", "Tailwind CSS", "DeepSeek"],
     categories: ["Web Development", "AI/ML"],
-    liveDemo: "https://maams-ng.netlify.app",
+    liveDemo: "https://maams-ng.vercel.app",
     featured: true,
   },
   {
