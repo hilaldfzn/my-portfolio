@@ -250,7 +250,7 @@ function ProjectsIndexPanel() {
           <p className="text-sm leading-relaxed text-muted-foreground">{project.summary}</p>
           <div className="flex flex-wrap gap-2 pt-1">
             <button type="button" className={`${buttonStyles.link} text-foreground`} onClick={() => openPanel({ type: "project", slug: project.slug })}>
-              Details <ArrowRight className="h-3.5 w-3.5" />
+              Details
             </button>
             <ProjectLinks project={project} />
           </div>
@@ -462,10 +462,16 @@ function ArticleMeta({ article }: { article: (typeof articles)[number] }) {
 }
 
 function ArticlesPanel() {
-  const openPanel = useWorldStore((state) => state.openPanel)
-  const onDisplay = new Set(ARTICLE_EXHIBITS.map((exhibit) => exhibit.slug))
   return (
     <div className="space-y-3">
+      <div className="flex flex-wrap gap-2 pb-1">
+        <Link href="/articles" className={buttonStyles.link}>
+          <ArrowRight className="h-3.5 w-3.5" /> Articles page on the main portfolio
+        </Link>
+        <ExternalAnchor href={profile.links.medium}>
+          <PenTool className="h-3.5 w-3.5" /> Medium profile
+        </ExternalAnchor>
+      </div>
       {articles.map((article) => (
         <article key={article.slug} className="card-accent flex gap-3 rounded-lg p-3">
           {/* eslint-disable-next-line @next/next/no-img-element */}
@@ -474,11 +480,6 @@ function ArticlesPanel() {
             <ArticleMeta article={article} />
             <h3 className="font-display text-base leading-snug text-foreground">{article.title}</h3>
             <div className="flex flex-wrap gap-2 pt-0.5">
-              {onDisplay.has(article.slug) && (
-                <button type="button" className={`${buttonStyles.link} text-foreground`} onClick={() => openPanel({ type: "article", slug: article.slug })}>
-                  Details <ArrowRight className="h-3.5 w-3.5" />
-                </button>
-              )}
               <ExternalAnchor href={article.url}>
                 <PenTool className="h-3.5 w-3.5" /> Read on Medium
               </ExternalAnchor>
@@ -486,14 +487,6 @@ function ArticlesPanel() {
           </div>
         </article>
       ))}
-      <div className="flex flex-wrap gap-2 pt-2">
-        <Link href="/articles" className={buttonStyles.link}>
-          <ArrowRight className="h-3.5 w-3.5" /> Articles page on the main portfolio
-        </Link>
-        <ExternalAnchor href={profile.links.medium}>
-          <PenTool className="h-3.5 w-3.5" /> Medium profile
-        </ExternalAnchor>
-      </div>
     </div>
   )
 }

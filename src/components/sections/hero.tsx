@@ -195,13 +195,12 @@ export function HeroSection() {
           <Link
             href="/3d"
             prefetch={false}
-            className="group inline-flex items-center gap-3 h-12 pl-2 pr-5 rounded-md border border-accent/40 bg-accent/5 text-sm font-mono font-medium text-foreground transition-colors duration-300 hover:border-accent hover:bg-accent/10 focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-accent"
+            className="group inline-flex items-center gap-3 h-12 pl-2 pr-5 rounded-md border border-primary/40 bg-primary/5 text-sm font-mono font-medium text-foreground transition-colors duration-300 hover:border-primary hover:bg-primary/10 hover:text-primary focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-primary"
           >
-            <span className="flex h-8 w-8 items-center justify-center rounded border border-accent/30 bg-background/60 text-accent transition-transform duration-500 motion-safe:group-hover:rotate-90">
+            <span className="flex h-8 w-8 items-center justify-center rounded border border-primary/30 bg-background/60 text-primary transition-transform duration-500 motion-safe:group-hover:rotate-90">
               <Box className="h-4 w-4" />
             </span>
             Explore My 3D Portfolio
-            <ArrowRight className="h-4 w-4 text-accent transition-transform duration-200 motion-safe:group-hover:translate-x-0.5" />
           </Link>
           <p className="text-xs font-mono text-muted-foreground max-w-xl text-balance">
             Want to explore my work differently? Walk through it in a playable 3D world.

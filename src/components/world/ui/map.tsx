@@ -2,12 +2,17 @@
 
 import { useEffect, useMemo, useRef } from "react"
 import Link from "next/link"
-import { ArrowLeft, BookOpen, Check, Navigation, Play, RotateCcw } from "lucide-react"
+import { ArrowLeft, BookOpen, Check, Navigation, Play } from "lucide-react"
+import { cn } from "../../../lib/utils"
 import { DISTRICTS, FEATURES, ISLAND_MAX_RADIUS, PATHS, PLAZA_RADIUS, TOKENS, districtCenter, islandRadius, type DistrictId } from "../world-config"
 import { runtime } from "../systems/runtime"
 import { useWorldStore } from "../store"
 import { Dialog } from "./dialog"
+import { ResetProgressButton } from "./menus"
 import { buttonStyles } from "./primitives"
+
+// Map actions sit under the map, level with the last district row (Contact Hub).
+const ACTION_BUTTON = "h-[3.75rem] w-full gap-1.5 px-2 text-center text-xs leading-snug"
 
 const VIEW = ISLAND_MAX_RADIUS + 2
 
@@ -139,8 +144,9 @@ export function MapOverlay({ restoreFocus }: { restoreFocus: () => HTMLElement |
   const phase = useWorldStore((state) => state.phase)
   const discovered = useWorldStore((state) => state.discovered)
   const tokens = useWorldStore((state) => state.tokens)
-  const { setOverlay, openPanel, travelTo, stopBrowsing, enterWorld, resetProgress } = useWorldStore.getState()
+  const { setOverlay, openPanel, travelTo, stopBrowsing, enterWorld } = useWorldStore.getState()
   const playing = phase === "playing" && !browsing
+  const canEnter = browsing && engine === "ready"
 
   const close = () => (browsing ? stopBrowsing() : setOverlay(null))
 
@@ -159,19 +165,30 @@ export function MapOverlay({ restoreFocus }: { restoreFocus: () => HTMLElement |
       restoreFocus={restoreFocus}
     >
       <div className="grid gap-6 md:grid-cols-[minmax(0,0.9fr)_minmax(0,1.1fr)]">
-        <div className="space-y-2">
+        <div className="flex flex-col gap-3">
           <IslandMap
             className="w-full rounded-lg border border-border bg-[#0D1117]"
             onSelect={playing ? (id) => travelTo(id) : undefined}
             showPlayer={playing}
           />
           {playing && <p className="font-mono text-[11px] text-muted-foreground">Select a district on the map to fast-travel there.</p>}
+          <div className={cn("mt-auto grid gap-3", (canEnter || playing) && "sm:grid-cols-2")}>
+            {canEnter && (
+              <button type="button" className={cn(buttonStyles.primary, ACTION_BUTTON)} onClick={enterWorld}>
+                <Play className="h-4 w-4" /> Enter the 3D world
+              </button>
+            )}
+            <Link href="/" className={cn(buttonStyles.outline, ACTION_BUTTON)}>
+              <ArrowLeft className="h-4 w-4" /> Back to main portfolio
+            </Link>
+            {playing && <ResetProgressButton className={cn(buttonStyles.outline, ACTION_BUTTON)} />}
+          </div>
         </div>
         <ul className="space-y-2">
           {DISTRICTS.map((district) => {
             const known = discovered.includes(district.id)
             return (
-              <li key={district.id} className="card-accent flex items-center gap-3 rounded-lg px-3 py-2.5">
+              <li key={district.id} className="card-accent flex min-h-[3.75rem] items-center gap-3 rounded-lg px-3 py-2.5">
                 <span className="h-2.5 w-2.5 flex-shrink-0 rounded-full" style={{ background: district.color }} aria-hidden="true" />
                 <div className="min-w-0 flex-1">
                   <p className="flex items-center gap-1.5 text-sm font-semibold text-foreground">
@@ -199,21 +216,6 @@ export function MapOverlay({ restoreFocus }: { restoreFocus: () => HTMLElement |
             )
           })}
         </ul>
-      </div>
-      <div className="mt-6 flex flex-wrap items-center gap-3 border-t border-border pt-4">
-        {browsing && engine === "ready" && (
-          <button type="button" className={buttonStyles.primary} onClick={enterWorld}>
-            <Play className="h-4 w-4" /> Enter the 3D world
-          </button>
-        )}
-        <Link href="/" className={buttonStyles.outline}>
-          <ArrowLeft className="h-4 w-4" /> Back to main portfolio
-        </Link>
-        {playing && (
-          <button type="button" className="ml-auto inline-flex items-center gap-1.5 font-mono text-xs text-muted-foreground underline-offset-4 hover:text-primary hover:underline" onClick={resetProgress}>
-            <RotateCcw className="h-3.5 w-3.5" /> Reset progress
-          </button>
-        )}
       </div>
     </Dialog>
   )
