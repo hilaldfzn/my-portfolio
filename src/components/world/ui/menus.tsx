@@ -10,14 +10,14 @@ import { Dialog } from "./dialog"
 import { Kbd, buttonStyles } from "./primitives"
 
 export function ControlsLegend({ touch, compact = false }: { touch: boolean; compact?: boolean }) {
-  // [key, short label, full label]
+  // [keys, short label, full label]
   const rows: [ReactNode, string, string][] = touch
     ? [
-        ["Joystick", "move", "move (push further to run)"],
-        ["Drag", "look", "look around · pinch to zoom"],
-        ["Tap ground", "walk there", "walk to that spot"],
-        ["Open", "read", "read what's nearby"],
-        ["Jump", "jump", "jump"],
+        [<Kbd key="joystick">Joystick</Kbd>, "move", "move (push further to run)"],
+        [<Kbd key="drag">Drag</Kbd>, "look", "look around · pinch to zoom"],
+        [<Kbd key="tap">Tap ground</Kbd>, "walk there", "walk to that spot"],
+        [<Kbd key="open">Open</Kbd>, "read", "read what's nearby"],
+        [<Kbd key="jump">Jump</Kbd>, "jump", "jump"],
       ]
     : [
         [
@@ -35,19 +35,27 @@ export function ControlsLegend({ touch, compact = false }: { touch: boolean; com
         [<Kbd key="e">E</Kbd>, "open", "open what's nearby"],
         [<Kbd key="m">M</Kbd>, "map", "map & fast travel"],
         [<Kbd key="esc">Esc</Kbd>, "menu", "close · menu"],
-        ["Drag · scroll", "look · zoom", "look around · zoom"],
-        ["Click", "walk there", "walk to a spot or object"],
+        [
+          <span key="look" className="flex gap-1">
+            <Kbd>Drag</Kbd>
+            <Kbd>Scroll</Kbd>
+          </span>,
+          "look · zoom",
+          "look around · zoom",
+        ],
+        [<Kbd key="click">Click</Kbd>, "walk there", "walk to a spot or object"],
       ]
   if (compact) {
+    // Two aligned columns of key → action pairs.
     return (
-      <ul className="flex flex-wrap gap-x-5 gap-y-2.5">
+      <dl className="grid grid-cols-[auto_minmax(0,1fr)_auto_minmax(0,1fr)] items-center gap-x-3 gap-y-2.5">
         {rows.map(([key, short], index) => (
-          <li key={index} className="flex items-center gap-2 font-mono text-xs text-muted-foreground">
-            <span className="flex items-center text-foreground">{key}</span>
-            {short}
-          </li>
+          <div key={index} className="contents">
+            <dt className="flex items-center">{key}</dt>
+            <dd className="font-mono text-xs text-muted-foreground">{short}</dd>
+          </div>
         ))}
-      </ul>
+      </dl>
     )
   }
   return (
@@ -109,17 +117,38 @@ export function Onboarding() {
   )
 }
 
+export function ResetProgressButton({ className }: { className?: string }) {
+  const resetProgress = useWorldStore((state) => state.resetProgress)
+  return (
+    <button
+      type="button"
+      className={className ?? "inline-flex items-center gap-1.5 font-mono text-xs text-muted-foreground underline-offset-4 hover:text-primary hover:underline"}
+      onClick={resetProgress}
+    >
+      <RotateCcw className="h-3.5 w-3.5" /> Reset progress
+    </button>
+  )
+}
+
+const CREDITS = [
+  "3D models: Kenney Space, Factory, Furniture, Food and Nature kits (CC0)",
+  "Player robot: RobotExpressive by Tomás Laulhé / Quaternius (CC0)",
+  "Procedural: island, paths, signage, stalls, benches and bookcases",
+  "Built with three.js and React Three Fiber",
+]
+
 export function PauseMenu({ restoreFocus }: { restoreFocus: () => HTMLElement | null }) {
   const touch = useWorldStore((state) => state.touch)
   const discovered = useWorldStore((state) => state.discovered)
   const tokens = useWorldStore((state) => state.tokens)
-  const { setOverlay, resetProgress } = useWorldStore.getState()
+  const { setOverlay } = useWorldStore.getState()
   return (
     <Dialog
       variant="modal"
       label="menu"
       title="Paused"
       subtitle={`districts ${discovered.length}/${DISTRICTS.length} · tokens ${tokens.length}/${TOKENS.length}`}
+      headerAction={<ResetProgressButton />}
       onClose={() => setOverlay(null)}
       restoreFocus={restoreFocus}
     >
@@ -141,13 +170,11 @@ export function PauseMenu({ restoreFocus }: { restoreFocus: () => HTMLElement | 
         </section>
         <section className="space-y-2 border-t border-border pt-4">
           <p className="font-mono text-xs text-muted-foreground">{"// credits"}</p>
-          <p className="text-xs leading-relaxed text-muted-foreground">
-            3D models: Kenney Space, Factory, Furniture, Food and Nature kits (CC0) and RobotExpressive by Tomás Laulhé /
-            Quaternius (CC0). Island, paths, signage, stalls, benches and bookcases are procedural. Built with three.js and React Three Fiber.
-          </p>
-          <button type="button" className="inline-flex items-center gap-1.5 font-mono text-xs text-muted-foreground underline-offset-4 hover:text-primary hover:underline" onClick={resetProgress}>
-            <RotateCcw className="h-3.5 w-3.5" /> Reset progress
-          </button>
+          <ul className="list-disc space-y-1 pl-4 text-xs leading-relaxed text-muted-foreground marker:text-primary/70">
+            {CREDITS.map((line) => (
+              <li key={line}>{line}</li>
+            ))}
+          </ul>
         </section>
       </div>
     </Dialog>

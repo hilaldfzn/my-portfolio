@@ -33,7 +33,18 @@ export function EntryScreen({ onEnter }: { onEnter: () => void }) {
   return (
     <section className="pointer-events-none absolute inset-0 z-20 flex items-end sm:items-center" aria-labelledby="entry-title">
       <div className="pointer-events-auto max-h-[92dvh] w-full overflow-y-auto border-t border-border bg-[#0D1117]/95 p-6 sm:m-8 sm:max-w-[34rem] sm:rounded-lg sm:border sm:p-8 lg:ml-14">
-        <p className="section-label">{"// playable portfolio"}</p>
+        <div className="flex items-start justify-between gap-4">
+          <p className="section-label">{"// playable portfolio"}</p>
+          <Link
+            href="/"
+            className="-mt-0.5 inline-flex flex-shrink-0 items-center gap-1.5 rounded-md font-mono text-xs text-muted-foreground transition-colors hover:text-primary focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring"
+          >
+            <ArrowLeft className="h-3.5 w-3.5" />
+            {/* Shorter on phones so it stays on the label's line */}
+            <span className="sm:hidden">Main portfolio</span>
+            <span className="hidden sm:inline">Back to main portfolio</span>
+          </Link>
+        </div>
         <h1 id="entry-title" className="mt-2 font-display text-5xl leading-none text-foreground sm:text-6xl">
           {PARK_NAME}
         </h1>
@@ -90,13 +101,6 @@ export function EntryScreen({ onEnter }: { onEnter: () => void }) {
             <ProgressLine value={progress} label={progress < 1 ? "loading engine" : "loading models and screenshots"} />
           </div>
         )}
-
-        <Link
-          href="/"
-          className="mt-5 inline-flex items-center gap-1.5 font-mono text-sm text-muted-foreground transition-colors hover:text-primary"
-        >
-          <ArrowLeft className="h-3.5 w-3.5" /> Back to main portfolio
-        </Link>
 
         {!unavailable && (
           <div className="mt-6 border-t border-border pt-5">

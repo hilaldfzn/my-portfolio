@@ -42,7 +42,7 @@ export const bio: RichTextSegment[][] = [
 ]
 
 export const stats = [
-  { key: "interning", value: "7+", label: "Months Interning" },
+  { key: "interning", value: "1+", label: "Years Interning" },
   { key: "tutored", value: "250+", label: "Students Tutored" },
   { key: "projects", value: "10+", label: "Projects Built" },
   { key: "articles", value: "11+", label: "Articles Written" },

@@ -108,7 +108,7 @@ export function Navbar() {
               href="/3d"
               prefetch={false}
               title="Explore my playable 3D portfolio"
-              className="ml-2 hidden lg:inline-flex items-center gap-1.5 rounded-md border border-accent/40 px-2.5 py-1.5 text-xs font-mono text-accent transition-colors duration-200 hover:border-accent hover:bg-accent/10"
+              className="ml-2 hidden lg:inline-flex items-center gap-1.5 rounded-md border border-primary/40 px-2.5 py-1.5 text-xs font-mono text-primary transition-colors duration-200 hover:border-primary hover:bg-primary/10"
             >
               <Box className="h-3.5 w-3.5" />
               3D World
@@ -160,7 +160,7 @@ export function Navbar() {
                 href="/3d"
                 prefetch={false}
                 onClick={() => setIsOpen(false)}
-                className="flex items-center gap-2 px-3 py-2 text-sm font-mono text-accent rounded-md transition-colors duration-200 hover:bg-accent/10"
+                className="flex items-center gap-2 px-3 py-2 text-sm font-mono text-primary rounded-md transition-colors duration-200 hover:bg-primary/10"
               >
                 <Box className="h-4 w-4" />
                 Explore in 3D

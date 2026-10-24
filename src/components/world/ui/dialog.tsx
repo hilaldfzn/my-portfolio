@@ -50,9 +50,11 @@ interface DialogProps {
   wide?: boolean
   /** Changing this scrolls the body back to the top (e.g. Previous / Next project). */
   contentKey?: string
+  /** A small action on the subtitle row, right-aligned under the close button. */
+  headerAction?: ReactNode
 }
 
-export function Dialog({ label, title, subtitle, onClose, children, variant, restoreFocus, wide, contentKey }: DialogProps) {
+export function Dialog({ label, title, subtitle, onClose, children, variant, restoreFocus, wide, contentKey, headerAction }: DialogProps) {
   const ref = useRef<HTMLDivElement>(null)
   const body = useRef<HTMLDivElement>(null)
   const titleId = useId()
@@ -83,13 +85,12 @@ export function Dialog({ label, title, subtitle, onClose, children, variant, res
             : cn("max-h-[88dvh] rounded-t-lg border-t sm:max-h-[84dvh] sm:rounded-lg sm:border", wide ? "sm:max-w-5xl sm:mx-6" : "sm:max-w-lg sm:mx-6"),
         )}
       >
-        <header className="flex items-start gap-4 border-b border-border px-5 py-4 sm:px-6">
-          <div className="min-w-0 flex-1 space-y-1">
+        <header className="grid grid-cols-[minmax(0,1fr)_auto] items-start gap-x-4 gap-y-1 border-b border-border px-5 py-4 sm:px-6">
+          <div className="min-w-0 space-y-1">
             <p className="section-label">{`// ${label}`}</p>
             <h2 id={titleId} className="font-display text-2xl leading-tight text-foreground sm:text-3xl">
               {title}
             </h2>
-            {subtitle && <p className="font-mono text-xs text-muted-foreground">{subtitle}</p>}
           </div>
           <button
             type="button"
@@ -100,6 +101,12 @@ export function Dialog({ label, title, subtitle, onClose, children, variant, res
           >
             <X className="h-4 w-4" />
           </button>
+          {(subtitle || headerAction) && (
+            <div className="col-span-2 flex min-h-[1.25rem] items-center justify-between gap-3">
+              {subtitle && <p className="font-mono text-xs text-muted-foreground">{subtitle}</p>}
+              {headerAction && <div className="ml-auto flex-shrink-0">{headerAction}</div>}
+            </div>
+          )}
         </header>
         <div ref={body} className="flex-1 overflow-y-auto overscroll-contain px-5 py-5 sm:px-6">
           {children}

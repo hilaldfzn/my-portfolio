@@ -91,10 +91,10 @@ bitcorp. district rather than as a standalone project.
 
 ## 2. Changes to the main portfolio
 
-- **Hero CTA**: "Explore My 3D Portfolio" (lavender accent, cube icon) with the line "Want to explore my work
+- **Hero CTA**: "Explore My 3D Portfolio" (coral primary outline, matching the site's theme; cube icon) with the line "Want to explore my work
   differently? Walk through it in a playable 3D world." It is a plain `<Link prefetch={false}>`: no 3D code or
   assets load on `/`.
-- **Navbar**: "3D World" link (≥ 1024 px) and "Explore in 3D" in the mobile menu. At 768–1023 px the nav is
+- **Navbar**: "3D World" link (≥ 1024 px, coral) and "Explore in 3D" in the mobile menu. At 768–1023 px the nav is
   already at its width limit, so the hero CTA is the entry point there.
 - **Command bar**: `goto 3d` and `play` open `/3d`; `goto 3d` joins the rotating placeholder hints.
 - **Shared content** (`src/content/`): profile/links/bio/stats/education, experience, projects, achievements,
@@ -269,14 +269,16 @@ models the park uses; add a name to the script before using a new one.
 
 Production build (`next build && next start`), headless Chrome 155 (ANGLE / Metal, Apple M2):
 
-- **Functional suite: 74/74 checks pass.** It covers the CTA and nav entry, command bar route, back/forward
+- **Functional suite: 84/84 checks pass.** It covers the CTA and nav entry, command bar route, back/forward
   navigation, LinkedIn links (all `/in/hilaldfzn`), the entry screen, onboarding, spawning outside the gate and
   the welcome toast, WASD / strafe / run, fountain and dome collision, proximity prompts and E to open, focus
   management, input lock while panels are open, Esc, the map (9 lands, Go/Read, fast travel), the GDP Labs
   (16 categories, ~30%, 175 cases) and bitcorp. metrics, the campus panel (education, TA, organizations, the OKK UI
   live link), the article library (all 11 articles, details, Medium and newsletter links), the project index (11)
   and details, contact links, resume PDF served, skills (28), awards, collecting tokens by walking a path, the
-  pause menu and credits, click-to-walk, drag orbit, progress persistence across reload, the HUD back link,
+  pause menu (bulleted credits, Reset progress on the districts/tokens row), the map and directory layout
+  (actions under the map, level with the last row), the entry card's top-right back link, opening an article
+  exhibit by walking to its lectern, the coral 3D entry points, click-to-walk, drag orbit, progress persistence across reload, the HUD back link,
   browse mode, the no-WebGL fallback (and no model downloads), reduced motion, mobile joystick movement, the bottom
   sheet, no horizontal overflow, and zero console or network errors across all runs.
 - **Accessibility (axe-core 4.10, WCAG 2.1 A/AA + best practice): 0 violations** on the main hero, the 3D entry
